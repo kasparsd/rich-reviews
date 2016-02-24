@@ -58,9 +58,13 @@ class RROptions {
           'form-name-label' => 'Name',
           'form-name-display' => 'checked',
           'form-name-require' => 'checked',
-          // 'form-reviewer-image-label' => 'Reviewer Image',
+          'form-name-use-usernames' => 'checked',
+          'form-name-use-avatar' => 'checked',
+          'form-name-use-blank-avatar' => 'checked',
+          'unregistered-allow-avatar-upload' => FALSE,
+          'form-reviewer-image-label' => 'Reviewer Image',
           // 'form-reviewer-image-display' => 'checked',
-          // 'form-reviewer-image-require' => 'checked',
+          'form-reviewer-image-require' => FALSE,
           'form-email-label' => 'Email',
           'form-email-display' => 'checked',
           'form-email-require' => FALSE,
@@ -75,10 +79,16 @@ class RROptions {
           'form-content-display' => 'checked',
           'form-content-require' => 'checked',
           'form-submit-text' => 'Submit',
+          'integrate-user-info' => FALSE,
           'return-to-form' => FALSE,
           'send-email-notifications' => FALSE,
-          'admin-email' => ''
-
+          'admin-email' => '',
+          'login-url' => '',
+          'add-shopper-approved' => 'checked',
+          'require-login' => FALSE,
+          // 'rrShopAppAPIUrl' => NULL,
+          // 'rrShopAppMarkup' => '',
+          // 'rrShopAppLastUpdate' => ''
           );
         if ($this->get_option() == FALSE) {
             $this->set_to_defaults();
@@ -93,7 +103,14 @@ class RROptions {
         }
     }
 
-    public function update_options() {
+    public function update_options($init = null) {
+        if($init == true ) {
+            foreach($this->defaults as $key => $val) {
+                if(!$this->get_option($key)) {
+                  $this->update_option($key, $val);
+                }
+            }
+        }
         if (isset($_POST['update']) && $_POST['update'] === 'rr-update-options') {
              if (!isset($_POST['snippet_stars'])) { $_POST['snippet_stars'] = false; }
              if (!isset($_POST['show_date'])) { $_POST['show_date'] = false; }
@@ -105,6 +122,10 @@ class RROptions {
              if (!isset($_POST['form-name-label'])) { $_POST['form-name-label'] = false; }
              if (!isset($_POST['form-name-display'])) { $_POST['form-name-display'] = false; }
              if (!isset($_POST['form-name-require'])) { $_POST['form-name-require'] = false; }
+             if (!isset($_POST['form-name-use-usernames'])) { $_POST['form-name-use-usernames'] = false; }
+             if (!isset($_POST['form-name-use-avatar'])) { $_POST['form-name-use-avatar'] = false; }
+             if (!isset($_POST['form-name-use-blank-avatar'])) { $_POST['form-name-use-blank-avatar'] = false; }
+             if (!isset($_POST['unregistered-allow-avatar-upload'])) { $_POST['unregistered-allow-avatar-upload'] = false; }
              if (!isset($_POST['form-email-display'])) { $_POST['form-email-display'] = false; }
              if (!isset($_POST['form-email-require'])) { $_POST['form-email-require'] = false; }
              if (!isset($_POST['form-title-display'])) { $_POST['form-title-display'] = false; }
@@ -114,10 +135,25 @@ class RROptions {
              // if (!isset($_POST['form-reviewed-image-display'])) { $_POST['form-reviewed-image-display'] = false; }
              // if (!isset($_POST['form-reviewed-image-require'])) { $_POST['form-reviewed-image-require'] = false; }
              // if (!isset($_POST['form-reviewer-image-display'])) { $_POST['form-reviewer-image-display'] = false; }
-             // if (!isset($_POST['form-reviewer-image-require'])) { $_POST['form-reviewer-image-require'] = false; }
+             if (!isset($_POST['form-reviewer-image-require'])) { $_POST['form-reviewer-image-require'] = false; }
+             if (!isset($_POST['integrate-user-info'])) { $_POST['integrate-user-info'] = false; }
+             if (!isset($_POST['require-login'])) { $_POST['require-login'] = false; }
              if (!isset($_POST['return-to-form'])) { $_POST['return-to-form'] = false; }
              if (!isset($_POST['send-email-notifications'])) { $_POST['send-email-notifications'] = false; }
+             if (!isset($_POST['add-shopper-approved'])) { $_POST['add-shopper-approved'] = false; }
 
+            if(!$_POST['integrate-user-info']) {
+                $_POST['form-name-use-usernames'] = false;
+                $_POST['require-login'] = false;
+                $_POST['form-name-use-avatar'] = false;
+                $_POST['unregistered-allow-avatar-upload'] = false;
+            } else if($_POST['require-login'] == 'checked') {
+                $_POST['unregistered-allow-avatar-upload'] = false;
+            }
+
+            if($_POST['form-name-use-avatar'] == false ) {
+                $_POST['form-name-use-blank-avatar'] = false;
+            }
 
             $current_settings = $this->get_option();
             $clean_current_settings = array();

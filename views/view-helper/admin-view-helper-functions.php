@@ -93,13 +93,26 @@ class NMRichReviewsAdminHelper {
 		 * where admin_page_slug is from
 		 * the add_menu_page or add_submenu_page
 		 */
-		$tabs = array(
-			'rich_reviews_settings_main' => 'Dashboard',
-            'fp_admin_pending_reviews_page' => 'Pending Reviews',
-            'fp_admin_approved_reviews_page' => 'Approved Reviews',
-			'fp_admin_options_page' => 'Options',
-			'fp_admin_add_edit' => 'Add Review',
-		);
+		global $richReviews;
+		if($richReviews->rr_options['add-shopper-approved']) {
+			$tabs = array(
+				'rich_reviews_settings_main' => __('Dashboard', 'rich-reviews'),
+	            'fp_admin_pending_reviews_page' => __('Pending Reviews', 'rich-reviews'),
+	            'fp_admin_approved_reviews_page' => __('Approved Reviews', 'rich-reviews'),
+				'fp_admin_options_page' => __('Options', 'rich-reviews'),
+				'fp_admin_shopper_approved_page' => __('PPC & Organic Stars', 'rich-reviews'),
+				'fp_admin_add_edit' => __('Add Review', 'rich-reviews'),
+			);
+		} else {
+
+			$tabs = array(
+				'rich_reviews_settings_main' => __('Dashboard', 'rich-reviews'),
+	            'fp_admin_pending_reviews_page' => __('Pending Reviews', 'rich-reviews'),
+	            'fp_admin_approved_reviews_page' => __('Approved Reviews', 'rich-reviews'),
+				'fp_admin_options_page' => __('Options', 'rich-reviews'),
+				'fp_admin_add_edit' => __('Add Review', 'rich-reviews'),
+			);
+		}
 
 		// what page did we request?
 		$current_slug = '';

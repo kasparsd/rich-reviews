@@ -4,6 +4,10 @@ class NMRichReviewsAdminHelper {
 
 	public static function render_header($title, $echo = TRUE) {
 		global $file;
+
+
+
+
 		$plugin_data = get_plugin_data( $file);
 		$output = '';
 		$output .= '<h1>' . $plugin_data['Name'] . '</h1>';
@@ -17,6 +21,12 @@ class NMRichReviewsAdminHelper {
 	public static function render_sidebar() {
 		?>
         <?php
+
+  //       $rr = new RichReviews();
+		// $options = $rr->options->get_option();
+
+
+
 
 		NMRichReviewsAdminHelper::render_postbox_open('Need Help');
 		NMRichReviewsAdminHelper::insert_website_link();
@@ -93,13 +103,28 @@ class NMRichReviewsAdminHelper {
 		 * where admin_page_slug is from
 		 * the add_menu_page or add_submenu_page
 		 */
-		$tabs = array(
-			'rich_reviews_settings_main' => 'Dashboard',
-            'fp_admin_pending_reviews_page' => 'Pending Reviews',
-            'fp_admin_approved_reviews_page' => 'Approved Reviews',
-			'fp_admin_options_page' => 'Options',
-			'fp_admin_add_edit' => 'Add Review',
-		);
+
+		global $richReviews;
+
+		if($richReviews->rr_options['add-shopper-approved']) {
+			$tabs = array(
+				'rich_reviews_settings_main' => 'Dashboard',
+	            'fp_admin_pending_reviews_page' => 'Pending Reviews',
+	            'fp_admin_approved_reviews_page' => 'Approved Reviews',
+				'fp_admin_options_page' => 'Options',
+				'fp_admin_shopper_approved_page' => 'PPC & Organic Stars',
+				'fp_admin_add_edit' => 'Add Review',
+			);
+		} else {
+			$tabs = array(
+				'rich_reviews_settings_main' => 'Dashboard',
+	            'fp_admin_pending_reviews_page' => 'Pending Reviews',
+	            'fp_admin_approved_reviews_page' => 'Approved Reviews',
+				'fp_admin_options_page' => 'Options',
+				'fp_admin_add_edit' => 'Add Review',
+			);
+		}
+
 
 		// what page did we request?
 		$current_slug = '';

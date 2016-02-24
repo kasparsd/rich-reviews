@@ -33,7 +33,7 @@ class RichReviewsAdmin {
 			$required_role,
 			'rich_reviews_settings_main',
 			array(&$this, 'render_settings_main_page'),
-			$this->parent->logo_small_url,
+			'dashicons-star-half',
 			'25.11'
 		);
 		add_submenu_page(
@@ -69,6 +69,16 @@ class RichReviewsAdmin {
 			'fp_admin_options_page',
 			array(&$this, 'render_options_page')
 		);
+		if($this->parent->rr_options['add-shopper-approved']) {
+			add_submenu_page(
+				'rich_reviews_settings_main',
+				'Rich Reviews - '. __('PPC & Organic Stars', 'rich-reviews'),
+				__('PPC & Organic Stars', 'rich-reviews'),
+				$required_role,
+				'fp_admin_shopper_approved_page',
+				array(&$this, 'render_shopper_approved_page')
+			);
+		}
 		add_submenu_page(
 			'rich_reviews_settings_main',
 			'Rich Reviews - ' . __('Add/Edit','rich-reviews'),
@@ -91,7 +101,7 @@ class RichReviewsAdmin {
 	}
 
     function wrap_admin_page($page = null) {
-        echo '<div class="nm-admin-page wrap"><h2><img src="' . $this->parent->logo_url . '" /> Pending Reviews</h2></div>';
+        echo '<div class="nm-admin-page wrap" style="margin-bottom:13px;"><div style="display:inline;font-size:42px;display:flex;align-items:center;"><img src="' . $this->parent->logo_url . '" height="64" width="64"/><span style="margin-left:5px;">Rich Reviews</span></div></div>';
         NMRichReviewsAdminHelper::render_tabs();
         NMRichReviewsAdminHelper::render_container_open('content-container');
         if ($page == 'main') {
@@ -120,6 +130,11 @@ class RichReviewsAdmin {
 			echo $this->render_options_page(TRUE);
 			NMRichReviewsAdminHelper::render_postbox_close();
 		}
+		if ($page == 'shopper_approved') {
+			NMRichReviewsAdminHelper::render_postbox_open('PPC & Organic Stars');
+			echo $this->render_shopper_approved_page(TRUE);
+			NMRichReviewsAdminHelper::render_postbox_close();
+		}
 		if ($page == 'add/edit') {
 			NMRichReviewsAdminHelper::render_postbox_open('Add/Edit');
 			echo $this->render_add_edit_page(TRUE);
@@ -127,7 +142,7 @@ class RichReviewsAdmin {
 		}
         NMRichReviewsAdminHelper::render_container_close();
         NMRichReviewsAdminHelper::render_container_open('sidebar-container');
-        $permission = $this->get_option('permission');
+        $permission = $this->parent->rr_options['credit_permission'];
         $this->update_credit_permission();
         if (!$permission == 'checked') {
             NMRichReviewsAdminHelper::render_postbox_open("Support the Staff");
@@ -231,6 +246,22 @@ class RichReviewsAdmin {
 		return ob_get_clean();
 	}
 
+	function render_shopper_approved_page($wrapped) {
+		$this->parent->shopApp->options->update_options();
+		if (!$wrapped) {
+			$this->wrap_admin_page('shopper_approved');
+			return;
+		}
+		if (!current_user_can('manage_options')) {
+			wp_die( __('You do not have sufficient permissions to access this page.') );
+		}
+
+		$path = $this->parent->path;
+		ob_start();
+			include $path . 'views/admin/shopper-approved.php';
+		return ob_get_clean();
+	}
+
 	function render_add_edit_page($wrapped) {
 		$options = $this->parent->options->get_option();
 		if (!$wrapped) {
@@ -246,30 +277,31 @@ class RichReviewsAdmin {
 	function insert_credit_permission_checkbox() {
 
 		$this->update_credit_permission();
-		$permission = $this->get_option('permission');
+		$permission = $this->parent->options->get_option('credit_permission');
+
 		$permission_val = '';
 		if ($permission == 'checked') {
 			$permission_val = ' checked';
 		}
 
+
 		ob_start();
         	include $this->parent->path . 'views/admin/credit-permission.php';
         $output = ob_get_clean();
         return $output;
-
 	}
 
 	function update_credit_permission() {
 
 		if (isset($_POST['update_permission']) && $_POST['update_permission'] == 'permissionupdate') {
-			$current_permission = $this->get_option('permission');
+			$current_permission = $this->parent->options->get_option('credit_permission');
 			if (!isset($_POST['credit_permission_option'])) {
 				$permission = '';
 			}
 			else {
 				$permission = 'checked';
 			}
-			$this->update_option('permission', $permission);
+			$this->parent->options->update_option('credit_permission', $permission);
 			$_POST['update_permission'] = NULL;
 		}
 	}

@@ -10,8 +10,6 @@
 		$output = '';
 
 		// Set up the SQL query
-
-
 		// Show the reviews
 		if (count($reviews)) {
 			$total_count = count($reviews);
@@ -78,6 +76,15 @@
 			'rich_url'  => $options['rich_url_value']
 
 		);
+
+		if(isset($review->reviewer_id) && $review->reviewer_id != '') {
+			$data['rReviewerId'] = $review->reviewer_id;
+		}
+
+		if(isset($review->reviewer_image) && $review->reviewer_image != '') {
+			$data['rAuthorImage'] = $review->reviewer_image;
+		}
+
 		$using_subject_fallback = false;
 		$title = $data['rCategory'];
 		if(!isset($data['rCategory']) || $data['rCategory'] == '' || strtolower($data['rCategory']) == 'none' || $data['rCategory'] == null ) {
@@ -107,8 +114,9 @@
 			}
 		}
 
-
-		//$rAuthorImage = $review->reviewer_image_id;
+		// if($options['integrate-user-info'] && $options['form-name-use-avatar']) {
+		// 	$rAuthorImage = $review->reviewer_image_id;
+		// }
 
 
 		for ($i=1; $i<=$data['rRatingVal']; $i++) {
@@ -127,24 +135,56 @@
 
 		do_action('rr_do_review_wrapper', $data);
 
+		$data['options'] = $options;
+
 		do_action('rr_do_review_content', $data);
 	}
 
 function full_width_wrapper($data) {
 	#TODO: Rework output for rich data, image, and up/down vote
+	global $richReviews;
+	$options = $richReviews->options->get_option();
+	$user = wp_get_current_user();
 	#?>
 	<div class="full-testimonial" itemscope itemtype="http://schema.org/Review">
 		<div class="review-head">
-		<?php //if($data['rAuthorImage']) {
-			?>
-				<!-- <div class="user-image"> -->
-					<?php //wp_get_attachment_image( $data['rAuthorImage'], [70, 70]); ?>
-				<!-- </div> -->
-			<?php //} ?>
+
+		<?php
+		// Handling this elsewhere for now
+		//if($options['integrate-user-info'] && $options['form-name-use-avatar']) {
+				// dump($data['rAuthorImage']);
+				// dump($data['rReviewerId']);
+				//if(isset($data['rAuthorImage']) && $data['rAuthorImage'] != '') {
+					?> <!-- <div class="user-image"> --> <?php
+					//These are also handled on the front end however we check here to insure that if options are changed after the fact of review submission, than the changes will be refelcted in the display of the review.
+					//This all has to be handled differently
+
+					// if(isset($data['rReviewerId']) && $data['rReviewerId'] != '') {
+					// 	if($options['form-reviewer-image-display'] && $options['form-name-use-avatar']) {
+					// 		echo build_avatar_display($data['rAuthorImage']);
+					// 	}
+					// } else if($options['unregistered-allow-avatar-upload']) {
+					// 	if($options['form-reviewer-image-display'] && $options['form-name-use-avatar']) {
+					// 		echo build_avatar_display($data['rAuthorImage']);
+					// 	}
+					// }
+					?> <!-- </div> --> <?php
+				//}
+
+		//} ?>
+
 		<div class="review-info">
 		<h3 class="rr_title"><?php echo $data['rTitle']; ?></h3>
 		<div class="clear"></div>
 	<?php
+}
+
+function build_avatar_display($image_url) {
+	if(!isset($image_url) || $image_url == '') {
+		return '';
+	}
+	$markup = '<img alt="" src="' . $image_url . '" srcset="' . $image_url . '" class="rr-avatar avatar avatar-96 photo" height="44" width="44" />';
+	return $markup;
 }
 
 function column_wrapper ($data) {
@@ -157,7 +197,9 @@ function column_wrapper ($data) {
 
 function do_post_title ($data) {
 	// ob_start();
-	if($data['using_subject_fallback'] == true) {
+	if($data['rCategory'] == 'shopperApproved') {
+		do_hidden_post_title($data);
+	} else if($data['using_subject_fallback'] == true) {
 		do_hidden_post_title($data);
 	} else {
 	?>
@@ -174,11 +216,10 @@ function do_post_title ($data) {
 }
 
 function do_hidden_post_title ($data) {
-
 	?>
 	<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Product">
 		<div class="rr_review_post_id" itemprop="name" style="display:none;">
-			<a href="<?php echo get_permalink($data['rPostId']); ?>">
+			<a href="<?php if($data['rCategory'] != 'shopperApproved') { echo get_permalink($data['rPostId']); }?>">
 				<?php echo $data['rCategory']; ?>
 			</a>
 		</div>
@@ -266,14 +307,50 @@ function do_review_body ($data) {
 		<div class="clear"></div>
 
 		<div class="rr_review_text"  ><span class="drop_cap">“</span><span itemprop="reviewBody"><?php echo $data['rText']; ?></span>”</div>
-			<div class="rr_review_name" itemprop="author" itemscope itemtype="http://schema.org/Person"> - <span itemprop="name">
+			<div class="rr_review_name" itemprop="author" itemscope itemtype="http://schema.org/Person">
+			<span itemprop="name">
 			<?php
-				echo $data['rName'];
+
+				$avatar = '';
+				if($data['rCategory'] == 'shopperApproved') {
+					//probably set an optino for this.
+					$avatar =  '  ' . build_shopper_approved_avatar();
+				} else if($data['options']['integrate-user-info'] && $data['options']['form-name-use-avatar']) {
+					// dump($data['rAuthorImage']);
+					// dump($data['rReviewerId']);
+					if(isset($data['rAuthorImage']) && $data['rAuthorImage'] != '') {
+						//These are also handled on the front end however we check here to insure that if data['options'] are changed after the fact of review submission, than the changes will be refelcted in the display of the review.
+						//This all has to be handled differently
+						if(isset($data['rReviewerId']) && $data['rReviewerId'] != '') {
+							if($data['options']['form-name-use-avatar']) {
+								$avatar = '  ' . build_avatar_display($data['rAuthorImage']);
+							}
+						} else if($data['options']['unregistered-allow-avatar-upload']) {
+							if($data['options']['form-name-use-avatar']) {
+								$avatar = '  ' . build_avatar_display($data['rAuthorImage']);
+							}
+						}
+					} else if($data['options']['form-name-use-blank-avatar']){
+						$avatar = '  ' . get_avatar(0);
+					}
+				}
+				if($avatar != '') {
+					echo $data['rName'] . $avatar;
+				} else {
+					echo '- ' . $data['rName'];
+				}
 			?>
 			</span></div>
 			<div class="clear"></div>
 		</div>
 	<?php
+}
+
+function build_shopper_approved_avatar() {
+
+	$markup = '<img alt="" src="' . plugins_url("/RichReviewsGit/images/SA-logo.jpg") . '" srcset="' . plugins_url("/RichReviewsGit/images/SA-logo.jpg") . '" class="rr-avatar sa-avatar" width="44" height="44" style="margin-bottom:8px;"/>';
+
+	return $markup;
 }
 
 function print_credit() {

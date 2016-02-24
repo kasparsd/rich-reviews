@@ -6,17 +6,21 @@ function handle_form($atts, $options, $sqltable, $path) {
 	extract(shortcode_atts(
 		array(
 			'category' => 'none',
+			'unique_key' => 'default'
 		)
 	,$atts));
 
-
+	$options['unique_key'] = $unique_key;
 
 	//initialize all data vars
 	$rName  = '';
 	$rEmail = '';
 	$rTitle = '';
 	$rText  = '';
+	$rAuthorImage = '';
+	$rAuthorId = '';
 	$output = '';
+	$user = wp_get_current_user();
 	$displayForm = true;
 	$posted = false;
 	$errors = array(
@@ -24,13 +28,14 @@ function handle_form($atts, $options, $sqltable, $path) {
 		'email'	=>	'',
 		'title'	=>	'',
 		'rating'	=>	'',
-		'content'=>	''
+		'content'=>	'',
+		'reviewer-image' => ''
 	);
 
 
 	$newData = array(
 		'reviewer_name'   => $rName,
-		// 'reviewer_image_id' => $rAuthorImage,
+		'reviewer_image' => $rAuthorImage,
 		'reviewer_email'  => $rEmail,
 		'review_title'    => $rTitle,
 		// 'review_rating'   => intval($rRating),
@@ -40,7 +45,9 @@ function handle_form($atts, $options, $sqltable, $path) {
 	);
 
 	if (isset($_POST['submitted'])) {
-		if ($_POST['submitted'] == 'Y') {
+		if ($_POST['submitted'] == $unique_key) {
+
+
 
 			$posted = true;
 
@@ -48,13 +55,42 @@ function handle_form($atts, $options, $sqltable, $path) {
 			$incomingData = apply_filters('rr_process_form_data', $incomingData);
 
 			if ($options['form-name-display']) {
-				$rName     = fp_sanitize($_POST['rName']);
+				if (!isset($_POST['rName'])) {
+					if ($options['integrate-user-info'] && $options['form-name-use-usernames']) {
+						$rName = $user->data->display_name;
+					}
+				} else {
+					$rName = fp_sanitize($_POST['rName']);
+				}
 			}
-			// if ($options['form-reviewer-image-display']) {
-			// 	$imageId = media_handle_upload('rAuthorImage',0);
-			// 	$rAuthorImage = $imageId;
-			// 	dump($rAuthorImage);
-			// }
+			if ($options['form-name-use-avatar']) {
+				if ($user->ID) {
+					$rAuthorImage = get_avatar_url($user->ID);
+				} else if ($options['unregistered-allow-avatar-upload']) {
+					if (isset($_FILES) && count($_FILES) == 1 && isset($_FILES['rrInsertReviewerImageFile'])) {
+						if (isset($_POST['rrInsertReviewerImageDisplay']) && $_POST['rrInsertReviewerImageDisplay'] != '') {
+							$imgUrl = $_POST['rrInsertReviewerImageDisplay'];
+							$fileEnding = strrchr($imgUrl, '.');
+							if ($fileEnding) {
+								$fileEnding = substr($fileEnding, 1);
+								$allowed_file_types = array ('jpg', 'png', 'gif'); //probably make an option for this eventually.
+								if (!in_array($fileEnding, $allowed_file_types)) {
+									$rAuthorImage = 'Invalid Type';
+								} else {
+									$imageId = media_handle_upload('rrInsertReviewerImageFile',0);
+									if (is_int($imageId)) {
+										$rAuthorImage = wp_get_attachment_url($imageId);
+									} else {
+										$rAuthorImage = 'Invalid Type';
+									}
+
+								}
+							}
+						}
+					}
+				}
+			}
+
 			if ($options['form-email-display']) {
 				$rEmail    = fp_sanitize($_POST['rEmail']);
 			}
@@ -65,10 +101,16 @@ function handle_form($atts, $options, $sqltable, $path) {
 			// if ($options['form-reviewed-image-display']) {
 			// 	$imageId = media_handle_upload('rImage',0);
 			// 	$rImage = $imageId;
-			// 	dump($rImage);
+
 			// }
 			if ($options['form-content-display']) {
 				$rText     = fp_sanitize($_POST['rText']);
+			}
+
+			if ($options['integrate-user-info']) {
+				if ($user->ID) {
+					$rAuthorId = $user->ID;
+				}
 			}
 
 			$rDateTime = date('Y-m-d H:i:s');
@@ -82,13 +124,14 @@ function handle_form($atts, $options, $sqltable, $path) {
 
 					'date_time'       => $rDateTime,
 					'reviewer_name'   => $rName,
-					// 'reviewer_image_id' => $rAuthorImage,
+					'reviewer_image' => $rAuthorImage,
 					'reviewer_email'  => $rEmail,
 					'review_title'    => $rTitle,
 					'review_rating'   => intval($rRating),
 					// 'review_image_id' => $rImage,
 					'review_text'     => $rText,
 					'review_status'   => $rStatus,
+					'reviewer_id'	  => $rAuthorId,
 					'reviewer_ip'     => $rIP,
 					'post_id'		  => $rPostID,
 					'review_category' => $rCategory,
@@ -101,25 +144,28 @@ function handle_form($atts, $options, $sqltable, $path) {
 			$newData = apply_filters('rr_check_required', $newData);
 			if ($newData['isValid']) {
 				$newData = apply_filters('rr_misc_validation', $newData);
-				// dump($newData);
+
 			}
 			if ($newData['isValid']) {
 
 				$displayForm = false;
+
 				$newSubmission = array(
 					'date_time'       => $newData['date_time'],
 					'reviewer_name'   => $newData['reviewer_name'],
-					// 'reviewer_image_id' => $newData['reviewer_image_id'],
+					'reviewer_image' => $newData['reviewer_image'],
 					'reviewer_email'  => $newData['reviewer_email'],
+					'reviewer_id'	  => $newData['reviewer_id'],
 					'review_title'    => $newData['review_title'],
-					'review_rating'   => intval($newData['review_rating']),
-					// 'review_image_id' => $newData['review_image_id'],
+					'review_rating'   => $newData['review_rating'],
+				// 	// 'review_image_id' => $newData['review_image_id'],
 					'review_text'     => $newData['review_text'],
 					'review_status'   => $newData['review_status'],
 					'reviewer_ip'     => $newData['reviewer_ip'],
 					'post_id'		  => $newData['post_id'],
 					'review_category' => $newData['review_category'],
 				);
+
 
 				do_action('rr_on_valid_data', $newSubmission, $options, $sqltable);
 			}
@@ -128,42 +174,82 @@ function handle_form($atts, $options, $sqltable, $path) {
 		?> <span id="state"></span> <?php
 	}
 	if ($displayForm) {
+		if ($options['require-login'] && !$user->ID) {
+			?> <div class="rr_review_form">	<?php
+				do_action('rr_display_form_gate', $options);
+			?>	</div>  <?php
+		} else {
 
 			$errors = $newData['errors'];
-			$errors = generate_error_text($errors);
-			// dump($errors);
+			$errors = generate_error_text($errors, $options);
 
 		?>
-		<form action="" method="post" enctype="multipart/form-data" class="rr_review_form" id="fprr_review_form">
-			<input type="hidden" name="submitted" value="Y" />
+		<form action="" method="post" enctype="multipart/form-data" class="rr_review_form" id="<? echo $unique_key; ?>">
+			<input type="hidden" name="submitted" value="<?php echo $unique_key; ?>" />
 			<input type="hidden" name="rRating" id="rRating" value="0" />
 			<table class="form_table">
 			<?php do_action('rr_do_form_fields', $options, $path, $newData, $errors); ?>
 
 				<tr class="rr_form_row">
 					<td></td>
-					<td class="rr_form_input"><input id="submitReview" name="submitButton" type="submit" value="<?php echo $options['form-submit-text']; ?>"/></td>
+					<td class="rr_form_input"><input id="submitReview" form="<?php echo $unique_key; ?>" type="submit" value="<?php echo $options['form-submit-text']; ?>"/></td>
 				</tr>
 			</table>
 		</form>
-	<?php
+		<?php
 
-
-
+		}
 	}
 	do_action('rr_set_local_scripts');
 }
-function generate_error_text($errors) {
+function rr_do_form_gate($options) {
 
-	// dump($errors);
+	if (isset($options['login-url']) && $options['login-url'] != '' ) {
+		$loginUrl = $options['login-url'];
+	} else {
+		$loginUrl = wp_login_url();
+	}
+	?>
+	<div class="upload-gate">
+		<p class="rr-headline">You must be logged in to Submit a Review</p>
+		<a href="<?php echo $loginUrl; ?>" class="button button-primary">
+			Login/Create Account
+		</a>
+	</div>
+	<style>
+		.upload-gate {
+			padding-top:0;
+			border: solid 3px;
+			border-radius: 8px;
+			text-align: center;
+			margin: 13px 5px;
+			padding: 21px;
+		}
+		.rr-headline {
+			font-size: 21px;
+			margin: 21px 13px;
+		}
+		.button {
+			padding: 0.4em 1.2em;
+			border: solid 3px;
+			border-radius: 3px;
+		}
+	</style>
+	<?php
+}
+function generate_error_text($errors, $options) {
+
+
 	$processed = array();
 	foreach($errors as $key => $val) {
-		if($val == 'absent required') {
-			$processed[$key] = 'The ' . $key . ' field is required.';
+		$option_key = 'form-' . $key . '-label';
+		$label = $options[$option_key];
+		if ($val == 'absent required') {
+			$processed[$key] = 'The ' . $label . ' field is required.';
 		} else if ($val == 'invalid input') {
-			$processed[$key] = 'Please enter a valid ' . $key;
+			$processed[$key] = 'Please enter a valid ' . $label;
 		} else if ($val == 'length violation') {
-			$processed[$key] = 'The ' . $key . ' that you entered is too long.';
+			$processed[$key] = 'The ' . $label . ' that you entered is too long.';
 		} else {
 			$processed[$key] = '';
 		}
@@ -183,6 +269,7 @@ function sanitize_incoming_data($incomingData) {
 
 function rr_do_rating_field($options, $path, $rData = null, $errors = null) {
 	$error = $errors['rating'];
+	$label = $options['form-rating-label'];
 
 	@include $path . 'views/frontend/form/rr-star-input.php';
 
@@ -204,15 +291,45 @@ function rr_do_name_field($options, $path, $rData = null, $errors = null) {
 	$rFieldValue = '';
 	$error = $errors['name'];
 	$label = $options['form-name-label'];
-	if($options['form-name-require']) {
+	$user = wp_get_current_user();
+	$disable = false;
+	if ($options['form-name-require']) {
 		$require = true;
 	}
-	if($rData['reviewer_name']) {
+	if ($rData['reviewer_name']) {
 		$rFieldValue = $rData['reviewer_name'];
+	} else {
+		if ($options['integrate-user-info'] && $options['form-name-use-usernames']) {
+			if ($user->ID) {
+				$rFieldValue = $user->data->display_name;
+				$disable = true;
+			}
+		}
 	}
 
 	@include $path . 'views/frontend/form/rr-text-input.php';
 }
+
+function rr_do_reviewer_img_field($options, $path, $rData = null, $errors = null) {
+	$user = wp_get_current_user();
+	if ($user->ID) {
+		//do nothing, because we will be using the user avatar.
+	} else {
+		$require = false;
+		$rFieldValue = '';
+		$label = $options['form-reviewer-image-label'];
+		$error = $errors['reviewer-image'];
+		if ($options['form-reviewer-image-require']) {
+			$require = true;
+		}
+		if (isset($rData['reviewer_image']) && $rData['reviewer_image'] != '' ) {
+			$rFieldValue = $rData['reviewer_image'];
+		}
+		//feed needed info.
+		@include $path . 'views/frontend/form/rr-img-input.php';
+	}
+}
+
 
 function rr_do_email_field($options, $path, $rData = null, $errors = null) {
 	$inputId = 'Email';
@@ -220,10 +337,10 @@ function rr_do_email_field($options, $path, $rData = null, $errors = null) {
 	$rFieldValue = '';
 	$error = $errors['email'];
 	$label = $options['form-email-label'];
-	if($options['form-email-require']) {
+	if ($options['form-email-require']) {
 		$require = true;
 	}
-	if($rData['reviewer_email']) {
+	if ($rData['reviewer_email']) {
 		$rFieldValue = $rData['reviewer_email'];
 	}
 
@@ -236,10 +353,10 @@ function rr_do_title_field($options, $path, $rData = null, $errors = null) {
 	$rFieldValue = '';
 	$error = $errors['title'];
 	$label = $options['form-title-label'];
-	if($options['form-title-require']) {
+	if ($options['form-title-require']) {
 		$require = true;
 	}
-	if($rData['review_title']) {
+	if ($rData['review_title']) {
 		$rFieldValue = $rData['review_title'];
 	}
 
@@ -252,10 +369,10 @@ function rr_do_content_field($options, $path, $rData = null, $errors = null) {
 	$rFieldValue = '';
 	$error = $errors['content'];
 	$label = $options['form-content-label'];
-	if($options['form-content-require']) {
+	if ($options['form-content-require']) {
 		$require = true;
 	}
-	if($rData['review_text']) {
+	if ($rData['review_text']) {
 
 		$rFieldValue = $rData['review_text'];
 	}
@@ -277,13 +394,13 @@ function rr_output_response_message($data, $options) {
 		<center>
 			<strong>
 				<?php
-					// dump($options);
-					if($options['form-name-display'] && $options['form-name-require']) {
+
+					if ($options['form-name-display'] && $options['form-name-require']) {
 						echo $data['reviewer_name'] . ', your review has been recorded';
 					} else {
 						echo 'Your review has been recorded';
 					}
-					if($options['require_approval']) {
+					if ($options['require_approval']) {
 						echo ' and submitted for approval';
 					}
 					echo '. Thanks!';
@@ -300,25 +417,24 @@ function rr_output_scroll_script() {
 	?>
 		<script>
 			jQuery(function(){
-				if(jQuery(".successful").is(":visible")) {
-					console.log('success visible');
-					offset = jQuery(".successful").offset();
+				if (jQuery(".successful").is(":visible")) {
+
+					offsetOne = jQuery(".successful").offset();
 					jQuery("html, body").animate({
-						scrollTop: (offset.top - 400)
+						scrollTop: (offsetOne.top - 400)
 					});
 				} else {
 					errorPresent = false;
 					jQuery(".form-err").each(function () {
-						if(this.innerHTML != ''){
-							console.log("errororororor");
+						if (this.innerHTML != ''){
 							errorPresent = true;
 						}
 					});
-					if(errorPresent) {
-						console.log('error visible');
-						offset = jQuery(".form-err").offset();
+					if (errorPresent) {
+
+						offsetTwo = jQuery(".form-err.shown").offset();
 						jQuery("html, body").animate({
-							scrollTop: (offset.top + 200)
+							scrollTop: (offsetTwo.top + 200)
 						});
 					}
 				}
@@ -337,7 +453,7 @@ function rr_send_admin_email($data, $options) {
 	$message .= __("You have received a new review which is now pending your approval. The information from the review is listed below.", 'rich-reviews') . "\r\n";
 	$message .= "\r\n";
 	$message .= __("Review Date: ", 'rich-reviews') .$date_time."\r\n";
-	if( $reviewer_name != "" ) {
+	if ( $reviewer_name != "" ) {
 		$message .= $options["form-name-label"].": ".$reviewer_name."\r\n";
 	}
 	if ( $reviewer_email != "" ) {
@@ -353,7 +469,7 @@ function rr_send_admin_email($data, $options) {
 	$message .= __("Review Category: ", 'rich-reviews') . $review_category ."\r\n\r\n";
 
 	$message .= __("Click the link below to review and approve your new review.", 'rich-reviews'). "\r\n";
-	$message .= admin_url()."admin.php?page=fp_admin_pending_reviews_page\r\n\r\n";
+	$message .= admin_url() . "/admin.php?page=fp_admin_pending_reviews_page\r\n\r\n";
 	$message .= __("Thanks for choosing Rich Reviews,", 'rich-reviews'). "\r\n";
 	$message .= __("The Nuanced Media Team", 'rich-reviews');
 
@@ -407,6 +523,19 @@ function rr_require_rating_field($incomingData) {
 	return $incomingData;
 }
 
+function rr_require_reviewer_image_field($incomingData) {
+	$user = wp_get_current_user();
+	if ($user->ID){
+		return $incomingData;
+	} else {
+		if (!isset($incomingData['reviewer_image']) || $incomingData['reviewer_image'] == '') {
+			$incomingData['isValid'] = false;
+			$incomingData['errors']['reviewer-image'] = 'absent required';
+		}
+	}
+	return $incomingData;
+}
+
 // Field Specific Validation ('rr_misc_validation')
 
 function rr_validate_name_length($incomingData) {
@@ -433,6 +562,33 @@ function rr_validate_email($incomingData) {
 			}
 		}
 	}
+	return $incomingData;
+}
+
+function rr_validate_reviewer_image_input($incomingData) {
+	$user = wp_get_current_user();
+	if ($user->ID){
+		return $incomingData;
+	} else {
+		if (isset($incomingData['reviewer_image']) && $incomingData['reviewer_image'] != '') {
+			$fileEnding = strrchr($incomingData['reviewer_image'], '.');
+			if ($fileEnding) {
+				$fileEnding = substr($fileEnding, 1);
+				$allowed_file_types = array ('jpg', 'png', 'gif'); //probably make an option for this eventually.
+				if (!in_array($fileEnding, $allowed_file_types)) {
+					$incomingData['isValid'] = false;
+					$incomingData['errors']['reviewer-image'] = 'invalid input';
+				}
+			} else {
+				$incomingData['isValid'] = false;
+				$incomingData['errors']['reviewer-image'] = 'invalid input';
+			}
+		} else {
+			$incomingData['isValid'] = false;
+			//we shouldn't have gotten this far without
+		}
+	}
+
 	return $incomingData;
 }
 
