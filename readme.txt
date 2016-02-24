@@ -1,5 +1,5 @@
 === Rich Reviews ===
-Contributors: foxytechnology, Nuanced Media
+Contributors: Nuanced Media
 Donate link: http://nuancedmedia.com/
 Tags: reviews, review, testimonials, testimonial, hreview, rating, ratings, google, rich snippets, review widget, seo, shortcode, plugin, snippet, snippets, google rating, product review, star rating, wp rating
 Requires at least: 3.4
