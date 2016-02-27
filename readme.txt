@@ -76,8 +76,13 @@ If you’re feeling good about this plugin (or just want to say hello), let us k
 
 == Changelog ==
 
+
+
 = 1.7.1 =
 * HOTFIX: db update for new field
+* Updates .pot file
+* HOTFIX: Custom Style Output
+* HOTFIX: Media Disruption from js script
 
 = 1.7.0 =
 * Further Refactor of i18n formatting for translation
