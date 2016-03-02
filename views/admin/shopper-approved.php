@@ -20,7 +20,31 @@
 		$info_active = 'active';
 	}
 
-?>
+
+		if (isset($options['site_id']) && isset($options['site_token']) && $options['site_id'] != '' && $options['site_token'] != '') {
+			if(  isset($options['dismissed_help_notice']) && !$options['dismissed_help_notice']) {
+				?>
+					<div class="notice notice-info is-dismissible internal-notice"><p><?php echo __('Need help configuring Shopper Approved? Read our tutorial', 'rich-reviews') . ' <a href="http://hubs.ly/H02f5kp0" targe=_blank>' . __('here', 'rich-reviews') . '</a>, '. __('or get', 'rich-reviews') . ' <a href="http://plugins.nuancedmedia.com/buy-support/" target=_blank>' . __('Installation Assistance', 'rich-reviews'); ?></a>.</p></div>
+					<script>
+						jQuery(function() {
+							setTimeout(function() {
+								jQuery('.internal-notice .notice-dismiss').click(function() {
+									jQuery.ajax({
+										type: 'POST',
+										dataType: 'text',
+										url: '/wp-admin/admin-ajax.php',
+								        data: {
+								        	action: 'rr_dismissed_help_notice'
+								    	}
+								    });
+								});
+							}, 300);
+						});
+					</script>
+				<?php
+			}
+		}
+		?>
 		<div class="rr_shortcode_container shop-app-tab">
 			<?php
 			if( !(isset($options['site_id']) && isset($options['site_token']) && $options['site_id'] != '' && $options['site_token'] != '')) {
@@ -28,7 +52,7 @@
 				<div class="sa-short-info">
 					<h2><?php _e('Are you interested in Increased CTR? Decreased bounce rates? Star ratings in both PPC and Organic search results?', 'rich-reviews'); ?></h2>
 					<p>
-						 <?php echo __('If you’re mumbling a “yes please!” to yourself, it may be the right time to become a ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H029MF00">Shopper Approved member</a>. ' . __('Having access to your Shopper Approved account through the Rich Reviews plugin will create ease in managing both accounts and also accelerate fulfilling your marketing and revenue goals.', 'rich-reviews'); ?>
+						 <?php echo __('If you’re mumbling a “yes please!” to yourself, it may be the right time to become a ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H02f4C40">Shopper Approved member</a>. ' . __('Having access to your Shopper Approved account through the Rich Reviews plugin will create ease in managing both accounts and also accelerate fulfilling your marketing and revenue goals.', 'rich-reviews'); ?>
 					</p>
 					<p>
 						 <?php _e('By being a Shopper Approved member, you’ll be able to', 'rich-reviews'); ?>:
@@ -42,18 +66,18 @@
 				</div>
 				<h2><?php _e('Why do I need Shopper Approved?', 'rich-reviews'); ?></h2>
 				<p>
-					<?php echo __('Shopper Approved is a ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H029MpJ0">' . __('Google approved review website for Seller Ratings', 'rich-reviews') . '</a>.' . __(' Basically, Google wants to make sure you are collecting reviews ethically and Shopper Approved, a Google Authorized 3rd Party Product Review Aggregator, facilitates this. Reviews collected via Shopper Approved will show up in your organic and PPC search results in Google, Yahoo & Bing.', 'rich-reviews'); ?>
+					<?php echo __('Shopper Approved is a ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H02f5480">' . __('Google approved review website for Seller Ratings', 'rich-reviews') . '</a>.' . __(' Basically, Google wants to make sure you are collecting reviews ethically and Shopper Approved, a Google Authorized 3rd Party Product Review Aggregator, facilitates this. Reviews collected via Shopper Approved will show up in your organic and PPC search results in Google, Yahoo & Bing.', 'rich-reviews'); ?>
 				</p>
-				<a target=_blank href="http://hubs.ly/H029LSh0">
+				<a target=_blank href="http://hubs.ly/H02f56Q0">
 					<img src="<?php echo $this->parent->plugin_url; ?>images/RR-sa-cta.jpg" class="sa-cta" />
 				</a>
 				<div class="one-half right">
 					<h3><?php _e('Quick Links', 'rich-reviews'); ?></h3>
 					<div style="padding:0 5%;">
 						<ul>
-							<li><a target=_blank href="http://hubs.ly/H029Mp-0"><?php _e('Seller Rating What are they?', 'rich-reviews'); ?></a></li>
-							<li><a target=_blank href="http://hubs.ly/H029Mql0"><?php _e('Shopper Approved Setup Tutorial', 'rich-reviews'); ?></a></li>
-							<li><a target=_blank href="http://hubs.ly/H029MqQ0"><?php _e('Which Seller Rating company should I use?', 'rich-reviews'); ?></a></li>
+							<li><a target=_blank href="http://hubs.ly/H02f54K0"><?php _e('Seller Rating What are they?', 'rich-reviews'); ?></a></li>
+							<li><a target=_blank href="http://hubs.ly/H02f5kp0"><?php _e('Shopper Approved Setup Tutorial', 'rich-reviews'); ?></a></li>
+							<li><a target=_blank href="http://hubs.ly/H02f5ln0"><?php _e('Which Seller Rating company should I use?', 'rich-reviews'); ?></a></li>
 						</ul>
 					</div>
 				</div>
@@ -80,7 +104,7 @@
 
 				<div class="sa-long-info">
 					<p>
-						<?php _e('Shopper Approved is a seller rating extension that allows you to collect, manage and promote your customer reviews online for your business. Showcasing reviews creates an overall positive image for companies to current and potential customers. Since Shopper Approved is a certified Google partner, your reviews will get maximum exposure in the online world. Read more about the importance of Shopper Approved', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H029LS40"><?php _e('here', 'rich-reviews'); ?></a>.
+						<?php _e('Shopper Approved is a seller rating extension that allows you to collect, manage and promote your customer reviews online for your business. Showcasing reviews creates an overall positive image for companies to current and potential customers. Since Shopper Approved is a certified Google partner, your reviews will get maximum exposure in the online world. Read more about the importance of Shopper Approved', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H02f5m00"><?php _e('here', 'rich-reviews'); ?></a>.
 					</p>
 
 					<h3><?php _e('Why choose Shopper Approved?', 'rich-reviews'); ?></h3>
@@ -107,15 +131,15 @@
 					<p>
 						<?php _e('It’s human nature to research and test things out before committing, especially when it’s dealing with important information such as customer opinions about your company and/or products. Doing a trial run takes a few easy steps', 'rich-reviews'); ?>:
 						<ol>
-							<li><?php _e('Sign up - Take advantage of the free 30-day trial by signing up under our Nuanced Media', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H029LSh0"><?php _e('discount code', 'rich-reviews'); ?></a>, <?php _e('which will give you an extra 20% off a membership if you choose to continue.', 'rich-reviews'); ?></li>
-							<li><?php echo __('Learn how to easily set up your account through our ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H029Mql0" >' . __('tutorial.', 'rich-reviews') . '</a>'; ?></li>
+							<li><?php _e('Sign up - Take advantage of the free 30-day trial by signing up under our Nuanced Media', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H02f56Q0"><?php _e('discount code', 'rich-reviews'); ?></a>, <?php _e('which will give you an extra 20% off a membership if you choose to continue.', 'rich-reviews'); ?></li>
+							<li><?php echo __('Learn how to easily set up your account through our ', 'rich-reviews') . '<a target=_blank href="http://hubs.ly/H02f5kp0" >' . __('tutorial.', 'rich-reviews') . '</a>'; ?></li>
 							<li><?php _e('Explore and test Shopper Approved for 30 days.', 'rich-reviews'); ?></li>
 						</ol>
 					</p>
 
 					<h3><?php _e('More Information', 'rich-reviews'); ?></h3>
 					<p>
-						<?php _e('For more information or help with Shopper Approved, read our company’s ', 'rich-reviews'); ?><a target=_blank href="http://hubs.ly/H029MrL0"><?php _e('thoughts and experiences', 'rich-reviews'); ?></a> <?php _e('with Shopper Approved or visit the', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H029MF00"><?php _e('Shopper Approved website', 'rich-reviews'); ?></a>.
+						<?php _e('For more information or help with Shopper Approved, read our company’s ', 'rich-reviews'); ?><a target=_blank href="http://hubs.ly/H02f57m0"><?php _e('thoughts and experiences', 'rich-reviews'); ?></a> <?php _e('with Shopper Approved or visit the', 'rich-reviews'); ?> <a target=_blank href="http://hubs.ly/H02f4C40"><?php _e('Shopper Approved website', 'rich-reviews'); ?></a>.
 					</p>
 				</div>
 				<br/>
@@ -131,6 +155,13 @@
 					<?php _e('Configure Shopper Approved Extension', 'rich-reviews'); ?>
 				</button>
 			</div>
+			<script type="text/javascript">
+				jQuery('.toggle-shop-app-config').click(function(){
+					jQuery('.shop-app-init').toggleClass('active');
+					jQuery('.shop-app-info').toggleClass('active');
+
+				});
+			</script>
 			<div class="shop-app-init <?php echo $init_active; ?> options-section">
 				<form id="shopAppAdmin"method="post" action="">
 					<input type="hidden" name="dinner" value="served" />
@@ -468,7 +499,7 @@
 								<div class="clear"></div>
 							</div>
 							<p>
-								<?php _e('Update and Download your Shopper Approved product record. Pleas double check that the file is output and formatted to the requirements described by Shopper Approved in the Product Reviews "Integration Options" tab. For more information on this process, refer to you Shopper Approved Dashboard ', 'rich-reviews'); ?> <a href="http://shopperapproved.com/" target=_blank><?php _e('here', 'rich-reviews'); ?></a>.
+								<?php _e('Update and Download your Shopper Approved product record. Pleas double check that the file is output and formatted to the requirements described by Shopper Approved in the Product Reviews "Integration Options" tab. For more information on this process, refer to you Shopper Approved Dashboard ', 'rich-reviews'); ?> <a href="http://hubs.ly/H02f4C40" target=_blank><?php _e('here', 'rich-reviews'); ?></a>.
 							</p>
 							<input type="submit" class="button" value="<?php _e('Update Product Index', 'rich-reviews'); ?>" form="productReviewsIntegration" />
 							<?php if (isset($options['product_feed_url']) && $options['product_feed_url'] != '') {

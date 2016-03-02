@@ -5,12 +5,9 @@ function handle_form($atts, $options, $sqltable, $path) {
 	global $post;
 	extract(shortcode_atts(
 		array(
-			'category' => 'none',
-			'unique_key' => 'default'
+			'category' => 'none'
 		)
 	,$atts));
-
-	$options['unique_key'] = $unique_key;
 
 	//initialize all data vars
 	$rName  = '';
@@ -45,7 +42,7 @@ function handle_form($atts, $options, $sqltable, $path) {
 	);
 
 	if (isset($_POST['submitted'])) {
-		if ($_POST['submitted'] == $unique_key) {
+		if ($_POST['submitted'] == 'Y') {
 
 
 
@@ -184,15 +181,15 @@ function handle_form($atts, $options, $sqltable, $path) {
 			$errors = generate_error_text($errors, $options);
 
 		?>
-		<form action="" method="post" enctype="multipart/form-data" class="rr_review_form" id="<? echo $unique_key; ?>">
-			<input type="hidden" name="submitted" value="<?php echo $unique_key; ?>" />
+		<form action="" method="post" enctype="multipart/form-data" class="rr_review_form">
+			<input type="hidden" name="submitted" value="Y" />
 			<input type="hidden" name="rRating" id="rRating" value="0" />
 			<table class="form_table">
 			<?php do_action('rr_do_form_fields', $options, $path, $newData, $errors); ?>
 
 				<tr class="rr_form_row">
 					<td></td>
-					<td class="rr_form_input"><input id="submitReview" form="<?php echo $unique_key; ?>" type="submit" value="<?php echo $options['form-submit-text']; ?>"/></td>
+					<td class="rr_form_input"><input id="submitReview" type="submit" value="<?php echo $options['form-submit-text']; ?>"/></td>
 				</tr>
 			</table>
 		</form>

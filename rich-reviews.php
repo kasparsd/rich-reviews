@@ -3,7 +3,7 @@
 Plugin Name: Rich Reviews
 Plugin URI: http://nuancedmedia.com/wordpress-rich-reviews-plugin/
 Description: Rich Reviews empowers you to easily capture user reviews and display them on your wordpress page or post and in Google Search Results as a Google Rich Snippet.
-Version: 1.7.1
+Version: 1.7.2
 Author: Nuanced Media
 Author URI: http://nuancedmedia.com/
 Text Domain: rich-reviews

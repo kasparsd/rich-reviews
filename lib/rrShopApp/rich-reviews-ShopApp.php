@@ -29,6 +29,8 @@ class RRShopApp {
         add_action('admin_menu', array(&$this, 'maybe_set_alert_cycle'));
 		add_shortcode('clear_shop', array($this, 'dump_shop_app_reviews')); //Remove this, or build it into an admin action.
         add_shortcode('RR_SHOPPER_APPROVED', array(&$this, 'shortcode_shopper_approved_control'));
+        add_action( 'wp_ajax_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
+        add_action( 'wp_ajax_nopriv_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
 		date_default_timezone_set('MST');
 	}
 
@@ -45,35 +47,81 @@ class RRShopApp {
 	}
 
     function maybe_set_alert_cycle() {
-        if(!isset($this->parent->rr_options['add-shopper-approved']) || $this->parent->rr_options['add-shopper-approved'] == false) {
+
+        $this->shopAppOptions = $this->options->get_option();
+        if (!isset($this->parent->rr_options['add-shopper-approved']) || $this->parent->rr_options['add-shopper-approved'] == false) {
             return;
         }
-        if(isset($this->shopAppOptions['api_url']) && isset($this->shopAppOptions['site_token']) && $this->shopAppOptions['api_url'] != '' && $this->shopAppOptions['site_token'] != '' ) {
+        if (isset($this->shopAppOptions['api_url']) && isset($this->shopAppOptions['site_token']) && $this->shopAppOptions['api_url'] != '' && $this->shopAppOptions['site_token'] != '' ) {
             return;
         }
         $curTime = time();
-        if(!isset($this->shopAppOptions['alert_queue_init'])) {
-            $this->options->update_option('alert_queue_init', $curTime);
+        if (!isset($this->shopAppOptions['alert_queue_init'])) {
+            $this->options->update_option('alert_queue_init', 10);
             add_action('admin_notices', array(&$this, 'trigger_sa_alert'));
         } else {
-            if($curTime - $this->shopAppOptions['alert_queue_init'] > 604800) {
-                add_action('admin_notices', array(&$this, 'trigger_sa_alert'));
+            if ($curTime - $this->shopAppOptions['alert_queue_init'] > 604800) {
+                if (isset($this->shopAppOptions['dismissed_extension_notice']) && !$this->shopAppOptions['dismissed_extension_notice']) {
+                    add_action('admin_notices', array(&$this, 'trigger_sa_alert'));
+                } else {
+                     $this->options->update_option('alert_queue_init', $curTime);
+                     $this->options->update_option('dismissed_extension_notice', FALSE);
+                }
             }
         }
     }
 
-    function trigger_sa_alert() {
+    function trigger_sa_alert($hook) {
+
+
+        $cur_screen = get_current_screen();
+
+        if (isset($cur_screen->base) && preg_match('/page_fp_admin_shopper_approved_page/', $cur_screen->base) ) {
+            return;
+        }
         ?>
-            <div class="update-nag notice is-dismissible">
+
+            <div class="notice-info notice is-dismissible rr-extension-notice">
                 <p>
-                    <span style="font-size:15px;">Rich Reviews Update</span>: <?php echo __('Introducing ', 'rich-reviews') . '<strong>' . __('Organic & PPC Stars', 'rich-reviews') . '</strong> ' . __('via a Google Authorized 3rd Party Product Review Aggregator', 'rich-reviews'); ?>.
-                <a href="<?php echo admin_url() . 'admin.php?page=fp_admin_shopper_approved_page'; ?>" style="margin-left:8px;">
-                    <?php _e('Read more', 'rich-reviews'); ?>
-                </a>
+                    <span style="font-size:15px;">Rich Reviews</span>: <?php echo __('Introducing ', 'rich-reviews') . '<strong>' . __('Organic & PPC Stars', 'rich-reviews') . '</strong> ' . __('via a Google Authorized 3rd Party Merchant & Product Review Aggregator', 'rich-reviews'); ?>.
+                    <a href="<?php echo admin_url() . 'admin.php?page=fp_admin_shopper_approved_page'; ?>" style="margin-left:8px;">
+                        <?php _e('Read more', 'rich-reviews'); ?>
+                    </a>
                 </p>
             </div>
+
+            <style>
+                .rr-extension-notice {
+                    box-shadow: 5px 5px 8px #888888;
+                    border-top: silver solid 1px;
+                    border-right: silver solid 1px;
+                    border-bottom: silver solid 1px;
+                }
+            </style>
+
+            <script>
+                jQuery(function() {
+                    setTimeout(function() {
+                        jQuery('.rr-extension-notice .notice-dismiss').click(function() {
+                            jQuery.ajax({
+                                type: 'POST',
+                                dataType: 'text',
+                                url: '/wp-admin/admin-ajax.php',
+                                data: {
+                                    action: 'rr_dismissed_extension_notice'
+                                }
+                            });
+                        });
+                    }, 300);
+                });
+            </script>
         <?php
+
         remove_action('admin_notices', array(&$this, 'trigger_sa_alert'));
+    }
+
+    function ajax_rr_dismissed_extension_notice() {
+         $this->options->update_option('dismissed_extension_notice', TRUE);
     }
 
     function shortcode_shopper_approved_control($atts) {
@@ -101,7 +149,6 @@ class RRShopApp {
 
         if($setupTime == '') {
             $this->options->update_option('init_time', time()*1000);
-            dump('updated');
         }
     }
 

@@ -1,142 +1,132 @@
-# Copyright (C) 2016 Rich Reviews
-# This file is distributed under the same license as the Rich Reviews package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rich Reviews 1.7.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rich-reviews\n"
-"POT-Creation-Date: 2016-02-24 23:53:09+00:00\n"
+"Project-Id-Version: rich-reviews\n"
+"POT-Creation-Date: 2015-07-30 14:12+0100\n"
+"PO-Revision-Date: 2015-07-30 14:25+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.7.5\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"X-Poedit-SearchPath-0: ..\n"
 
-#: lib/rich-reviews-admin-tables.php:28 lib/rich-reviews-admin-tables.php:70
-#: lib/rich-reviews-admin-tables.php:87 views/admin/shopper-approved.php:505
+#: ../lib/rich-reviews-admin-tables.php:28
+#: ../lib/rich-reviews-admin-tables.php:70
+#: ../lib/rich-reviews-admin-tables.php:87
 msgid "Edit"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:29 lib/rich-reviews-admin-tables.php:115
+#: ../lib/rich-reviews-admin-tables.php:29
+#: ../lib/rich-reviews-admin-tables.php:115
 msgid "Delete"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:77
+#: ../lib/rich-reviews-admin-tables.php:77
 msgid "Date"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:78
-#: lib/rrShopApp/views/edit_single_index.php:49
-#: lib/rrShopApp/views/edit_single_index.php:178
-#: views/admin/shopper-approved.php:511
+#: ../lib/rich-reviews-admin-tables.php:78
 msgid "Name"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:79
+#: ../lib/rich-reviews-admin-tables.php:79
 msgid "Email"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:80
+#: ../lib/rich-reviews-admin-tables.php:80
 msgid "Title"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:81
+#: ../lib/rich-reviews-admin-tables.php:81
 msgid "Rating"
-msgstr ""
+msgstr "Évaluation"
 
-#: lib/rich-reviews-admin-tables.php:82
+#: ../lib/rich-reviews-admin-tables.php:82
 msgid "Text"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:85
+#: ../lib/rich-reviews-admin-tables.php:85
 msgid "Page ID"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:86
+#: ../lib/rich-reviews-admin-tables.php:86
 msgid "Category"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:110
+#: ../lib/rich-reviews-admin-tables.php:110
 msgid "Set to Pending"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:113
+#: ../lib/rich-reviews-admin-tables.php:113
 msgid "Approve"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:127
+#: ../lib/rich-reviews-admin-tables.php:127
 msgid "approved"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:130
+#: ../lib/rich-reviews-admin-tables.php:130
 msgid "set to pending"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:133
+#: ../lib/rich-reviews-admin-tables.php:133
 msgid "deleted"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:136
+#: ../lib/rich-reviews-admin-tables.php:136
 msgid "false"
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:154
+#: ../lib/rich-reviews-admin-tables.php:154
 msgid "review has been successfully "
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:156
+#: ../lib/rich-reviews-admin-tables.php:156
 msgid " reviews have been successfully "
 msgstr ""
 
-#: lib/rich-reviews-admin-tables.php:159
+#: ../lib/rich-reviews-admin-tables.php:159
 msgid "You must select an action."
 msgstr ""
 
-#: lib/rich-reviews-admin.php:31 lib/rich-reviews-admin.php:158
+#: ../lib/rich-reviews-admin.php:31 ../lib/rich-reviews-admin.php:143
 msgid "Settings"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:41 lib/rich-reviews-admin.php:42
+#: ../lib/rich-reviews-admin.php:41 ../lib/rich-reviews-admin.php:42
 msgid "Instructions"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:49 lib/rich-reviews-admin.php:50
-#: views/view-helper/admin-view-helper-functions.php:100
-#: views/view-helper/admin-view-helper-functions.php:110
+#: ../lib/rich-reviews-admin.php:49 ../lib/rich-reviews-admin.php:50
 msgid "Pending Reviews"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:58 lib/rich-reviews-admin.php:59
-#: views/view-helper/admin-view-helper-functions.php:101
-#: views/view-helper/admin-view-helper-functions.php:111
+#: ../lib/rich-reviews-admin.php:58 ../lib/rich-reviews-admin.php:59
 msgid "Approved Reviews"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:66 lib/rich-reviews-admin.php:67
-#: views/view-helper/admin-view-helper-functions.php:102
-#: views/view-helper/admin-view-helper-functions.php:112
+#: ../lib/rich-reviews-admin.php:66 ../lib/rich-reviews-admin.php:67
 msgid "Options"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:75 lib/rich-reviews-admin.php:76
-#: views/view-helper/admin-view-helper-functions.php:103
-msgid "PPC & Organic Stars"
-msgstr ""
-
-#: lib/rich-reviews-admin.php:84
+#: ../lib/rich-reviews-admin.php:74
 msgid "Add/Edit"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:85
+#: ../lib/rich-reviews-admin.php:75
 msgid "Add New Review"
 msgstr ""
 
-#: lib/rich-reviews-admin.php:240 lib/rich-reviews-admin.php:256
-#: lib/rich-reviews-admin.php:272
+#: ../lib/rich-reviews-admin.php:225 ../lib/rich-reviews-admin.php:241
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: lib/rich-reviews-admin.php:354
+#: ../lib/rich-reviews-admin.php:322
 msgid ""
 "Recently, we have been dealing with an increase in interest in our plugin "
 "development. Our email inboxes have been flooded. We decided that we needed "
@@ -145,150 +135,116 @@ msgid ""
 "plugins website, where we can satisfy all of your plugin needs."
 msgstr ""
 
-#: lib/rich-reviews-admin.php:356
+#: ../lib/rich-reviews-admin.php:324
 msgid "View Plugins Website"
 msgstr ""
 
-#: lib/rich-reviews-widget.php:20
+#: ../lib/rich-reviews-widget.php:20
 msgid "At least one of the four widget variables was not set."
 msgstr ""
 
-#: lib/rich-reviews-widget.php:66
+#: ../lib/rich-reviews-widget.php:66
 msgid "Title:"
 msgstr ""
 
-#: lib/rrShopApp/rich-reviews-ShopApp.php:69
-msgid "Introducing "
-msgstr ""
-
-#: lib/rrShopApp/rich-reviews-ShopApp.php:69
-msgid "Organic & PPC Stars"
-msgstr ""
-
-#: lib/rrShopApp/rich-reviews-ShopApp.php:69
-msgid "via a Google Authorized 3rd Party Product Review Aggregator"
-msgstr ""
-
-#: lib/rrShopApp/rich-reviews-ShopApp.php:71
-msgid "Read more"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:20
-#: lib/rrShopApp/views/edit_single_index.php:137
-#: lib/rrShopApp/views/edit_single_index.php:149
-msgid "Back to Options"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:39
-#: lib/rrShopApp/views/edit_single_index.php:168
-#: views/admin/shopper-approved.php:508
-msgid "ID"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:59
-#: lib/rrShopApp/views/edit_single_index.php:188
-#: views/admin/shopper-approved.php:512
-msgid "Description"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:69
-#: lib/rrShopApp/views/edit_single_index.php:198
-#: views/admin/shopper-approved.php:513
-msgid "Manufacturer"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:79
-#: lib/rrShopApp/views/edit_single_index.php:208
-#: views/admin/shopper-approved.php:514
-msgid "Product Url"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:89
-#: lib/rrShopApp/views/edit_single_index.php:218
-#: views/admin/shopper-approved.php:515
-msgid "Image Url"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:99
-#: lib/rrShopApp/views/edit_single_index.php:228
-msgid "MPN (or alternate ID)"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:107
-msgid "Delete Product Listing"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:112
-msgid ""
-"Are you sure that you wish to delete the product listing for product with id "
-"\"%s\"?"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:115
-msgid "Confirm Delete"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:116
-msgid "Cancel Delete"
-msgstr ""
-
-#: lib/rrShopApp/views/edit_single_index.php:151
-msgid "Add Single Product Catalog Listing"
-msgstr ""
-
-#: rich-reviews.php:264
+#: ../rich-reviews.php:237
 msgid "Something went wrong! Please report this error."
 msgstr ""
 
-#: rich-reviews.php:490 shortcodes/rr-show.php:359
+#: ../rich-reviews.php:438 ../shortcodes/rr-show.php:285
 msgid "Supported By: "
 msgstr ""
 
-#: shortcodes/rr-form.php:453
+#: ../shortcodes/rr-form.php:159
+#, php-format
+msgid "The %s field is required."
+msgstr "le champ \"%s\" est obligatoire"
+
+#: ../shortcodes/rr-form.php:161
+#, php-format
+msgid "Please enter a valid %s"
+msgstr "Merci de rentrer une valeur valide pour \"%s\""
+
+#: ../shortcodes/rr-form.php:163
+#, php-format
+msgid "The %s that you entered is too long."
+msgstr "le champ \"%s\" est trop long"
+
+#: ../shortcodes/rr-form.php:203
+msgid "your name"
+msgstr "votre Nom"
+
+#: ../shortcodes/rr-form.php:219
+msgid "your Email<br>(it will not be visible)"
+msgstr "votre Email<br>(celui-ci ne sera pas visible)"
+
+#: ../shortcodes/rr-form.php:235
+msgid "title"
+msgstr "titre"
+
+#: ../shortcodes/rr-form.php:253
+msgid "content"
+msgstr "commentaire"
+
+#: ../shortcodes/rr-form.php:280 ../shortcodes/rr-form.php:282
+msgid "your review has been recorded"
+msgstr ""
+
+#: ../shortcodes/rr-form.php:285
+msgid "and submitted for approval"
+msgstr ""
+
+#: ../shortcodes/rr-form.php:287
+msgid "Thanks!"
+msgstr ""
+
+#: ../shortcodes/rr-form.php:333
+msgid "RichReviews User"
+msgstr ""
+
+#: ../shortcodes/rr-form.php:335
 msgid ""
 "You have received a new review which is now pending your approval. The "
 "information from the review is listed below."
 msgstr ""
 
-#: shortcodes/rr-form.php:455
+#: ../shortcodes/rr-form.php:337
 msgid "Review Date: "
 msgstr ""
 
-#: shortcodes/rr-form.php:465
+#: ../shortcodes/rr-form.php:347
 msgid "Review Rating: "
 msgstr ""
 
-#: shortcodes/rr-form.php:469
+#: ../shortcodes/rr-form.php:351
 msgid "Review Category: "
 msgstr ""
 
-#: shortcodes/rr-form.php:471
+#: ../shortcodes/rr-form.php:353
 msgid "Click the link below to review and approve your new review."
 msgstr ""
 
-#: shortcodes/rr-form.php:473
+#: ../shortcodes/rr-form.php:355
 msgid "Thanks for choosing Rich Reviews,"
 msgstr ""
 
-#: shortcodes/rr-form.php:474
+#: ../shortcodes/rr-form.php:356
 msgid "The Nuanced Media Team"
 msgstr ""
 
-#: shortcodes/rr-form.php:476
+#: ../shortcodes/rr-form.php:358
 msgid "New Pending Review"
 msgstr ""
 
-#: shortcodes/rr-show.php:257
+#: ../shortcodes/rr-show.php:219
 msgid "Date improperly formatted, correct in "
 msgstr ""
 
-#: shortcodes/rr-show.php:259
-#: views/view-helper/admin-view-helper-functions.php:99
-#: views/view-helper/admin-view-helper-functions.php:109
+#: ../shortcodes/rr-show.php:221
 msgid "Dashboard"
 msgstr ""
 
-#: views/admin/credit-permission.php:10
+#: ../views/admin/credit-permission.php:10
 msgid ""
 " We thank you for choosing to use our plugin! We would appreciate it if you "
 "allowed us to put our name on the plugin we work so hard to build. If you "
@@ -296,39 +252,50 @@ msgid ""
 "settings."
 msgstr ""
 
-#: views/admin/credit-permission.php:12
+#: ../views/admin/credit-permission.php:12
 msgid "Change Permission Setting"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:9
+#: ../views/admin/dashboard/instructions.php:9
 msgid "Shortcode Cheat Sheet"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:12
+#: ../views/admin/dashboard/instructions.php:12
 msgid ""
 "Make sure you read the detailed descriptions of how these work below, in "
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:12
+#: ../views/admin/dashboard/instructions.php:12
 msgid "Shortcode Usage"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:56
-msgid "Thank you for using Rich Reviews by %s and "
+#: ../views/admin/dashboard/instructions.php:52
+msgid "Support the developers!"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:59
+#: ../views/admin/dashboard/instructions.php:55
+msgid "Thank you for using Rich Reviews by Foxy Technology and "
+msgstr ""
+
+#: ../views/admin/dashboard/instructions.php:58
 msgid ""
-"This plugin, based around shortcodes, gives YOU the control on where you "
-"want to show your reviews and ratings - pages, posts, widgets... wherever! "
-"Don't be shy to showcase the results of all your hard work."
+"This plugin is based around shortcodes. We think that this is the best way "
+"to go, as then YOU control where reviews, forms, and snippets are shown - "
+"pages, posts, widgets... wherever!"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:62
+#: ../views/admin/dashboard/instructions.php:61
+msgid ""
+"Please take a moment to <a href=\"http://wordpress.org/extend/plugins/rich-"
+"reviews/\">rate and/or review</a> this plugin, and tell people about it - we "
+"love hearing feedback, and depend on you to spread the word!"
+msgstr ""
+
+#: ../views/admin/dashboard/instructions.php:64
 msgid "Some terminology so that we are all on the same page:"
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:64
+#: ../views/admin/dashboard/instructions.php:66
 msgid ""
 "A <b>global review</b> is a review which applies or belongs to the entire "
 "Wordpress site, regardless of the current page or post. You might use global "
@@ -336,7 +303,7 @@ msgid ""
 "website."
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:66
+#: ../views/admin/dashboard/instructions.php:68
 msgid ""
 "A <b>per-page review</b> is a review which applies to some specific page or "
 "post. You might use per-page reviews if, for example, your Wordpress site "
@@ -346,17 +313,7 @@ msgid ""
 "things, so that we don't have a bunch of different, confusing shortcodes."
 msgstr ""
 
-#: views/admin/dashboard/instructions.php:71
-msgid "When you get a chance, please take a moment to"
-msgstr ""
-
-#: views/admin/dashboard/instructions.php:71
-msgid ""
-"this plugin. We love hearing the feedback - whether you love it or how we "
-"can improve."
-msgstr ""
-
-#: views/admin/dashboard/rr_form.php:7
+#: ../views/admin/dashboard/rr_form.php:7
 msgid ""
 "This shortcode will insert the form which your users fill out to submit "
 "their reviews to you. Note that javascript must be enabled (on both your "
@@ -367,7 +324,7 @@ msgid ""
 "or post from which they were submitted."
 msgstr ""
 
-#: views/admin/dashboard/rr_form.php:12
+#: ../views/admin/dashboard/rr_form.php:12
 msgid ""
 "This will create a form for users to submit reviews under the category of "
 "\"foo\". Users will not notice a difference, and the form itself does not "
@@ -376,7 +333,7 @@ msgid ""
 "the review showing shortcode."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:8
+#: ../views/admin/dashboard/rr_show.php:8
 msgid ""
 "This is the main shortcode for this plugin. By default (if no options are "
 "given), it will show the first three global reviews which have been "
@@ -386,25 +343,25 @@ msgid ""
 "defaults: "
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:8
+#: ../views/admin/dashboard/rr_show.php:8
 msgid " We will now show some examples of using these options."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:13
+#: ../views/admin/dashboard/rr_show.php:13
 msgid ""
 "This will show the first eight approved global reviews. Any integer greater "
 "than or equal to one may be used, and note that (given enough room) reviews "
 "are displayed in blocks of three."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:19
+#: ../views/admin/dashboard/rr_show.php:19
 msgid ""
 "This will show EVERY approved global review which has been posted to your "
 "site. This is the only non-integer value which works as the value for the "
 "\"num\" option."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:25
+#: ../views/admin/dashboard/rr_show.php:25
 msgid ""
 "This will show the first three approved reviews for the page or post on "
 "which this shortcode appears. You can also use category=\"post\" and achieve "
@@ -412,7 +369,7 @@ msgid ""
 "supposed to say post or page! :-) )"
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:31
+#: ../views/admin/dashboard/rr_show.php:31
 msgid ""
 "This will show the first three approved reviews which have the category \"foo"
 "\" (you might also use categories of \"games\" or \"iPhone\" or \"bears"
@@ -421,7 +378,7 @@ msgid ""
 "the review form to your users."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:37
+#: ../views/admin/dashboard/rr_show.php:37
 msgid ""
 "This will show the first three approved reviews regardless of category. The "
 "\"all\" value submitted for the category parameter will remove the category "
@@ -430,7 +387,7 @@ msgid ""
 "effect modifiying the quantity of reviews displayed."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:43
+#: ../views/admin/dashboard/rr_show.php:43
 msgid ""
 "This will show the first six approved reviews which have the category \"bar"
 "\". Again, you may use any category, and if you specify that category=\"page"
@@ -438,21 +395,13 @@ msgid ""
 "displayed."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:49
+#: ../views/admin/dashboard/rr_show.php:49
 msgid ""
 "This will show all of the approved reviews from your website regardless of "
 "category. Any review that is approved will be retured by this shortcode."
 msgstr ""
 
-#: views/admin/dashboard/rr_show.php:55
-msgid ""
-"This will show 12 of the approved reviews from your website from category "
-"\"foo\" that was submitted from the page or post who's id is 213. The id "
-"parameter is a new addition that can be used alongside any of the other "
-"parameters."
-msgstr ""
-
-#: views/admin/dashboard/rr_snippet.php:7
+#: ../views/admin/dashboard/rr_snippet.php:7
 msgid ""
 "This shortcode will insert an aggregate (average) score based on all "
 "approved reviews. By default, this aggregate score is based on the global "
@@ -464,7 +413,7 @@ msgid ""
 "display stars next to that page when it shows up in search results."
 msgstr ""
 
-#: views/admin/dashboard/rr_snippet.php:8
+#: ../views/admin/dashboard/rr_snippet.php:8
 msgid ""
 "This is given as a seperate shortcode, rather than integrated into the \"show"
 "\" shortcode, so that you may place this in, say, your footer and be able to "
@@ -472,227 +421,219 @@ msgid ""
 "taking up space."
 msgstr ""
 
-#: views/admin/dashboard/rr_snippet.php:9
-msgid "You can test your page"
-msgstr ""
-
-#: views/admin/dashboard/rr_snippet.php:9
+#: ../views/admin/dashboard/rr_snippet.php:9
 msgid ""
-" Note that Google is vague with exactly how exactly they give search "
-"results. It might take some time for the stars to show up next to your page, "
-"and it might only show up with specific search terms. The best thing you can "
-"do is make sure that the Rich Snippets tool, above, recognizes the star "
-"rating on your page, and be patient. We are constantly working to make sure "
-"we keep up with Google to ensure these ratings are displayed."
+"You can test your page <a href=\"http://www.google.com/webmasters/tools/"
+"richsnippets\">here</a>. Note that Google is vague with exactly how exactly "
+"they give search results. It might take some time for the stars to show up "
+"next to your page, and it might only show up with specific search terms. The "
+"best thing you can do is make sure that the Rich Snippets tool, above, "
+"recognizes the star rating on your page, and be patient. We are constantly "
+"working to make sure we keep up with Google to ensure these ratings are "
+"displayed."
 msgstr ""
 
-#: views/admin/dashboard/rr_snippet.php:14
+#: ../views/admin/dashboard/rr_snippet.php:14
 msgid ""
 "This will display the aggregate (average) score, along with the Rich Snippet "
 "markup, for all approved reviews with the category \"foo\"."
 msgstr ""
 
-#: views/admin/dashboard/rr_snippet.php:20
+#: ../views/admin/dashboard/rr_snippet.php:20
 msgid ""
 "This will display the aggregate (average) score, along with the Rich Snippet "
 "markup, for all approved reviews for the current page/post (again, you may "
 "equivalently use category=\"post\")."
 msgstr ""
 
-#: views/admin/dashboard/rr_snippet.php:26
+#: ../views/admin/dashboard/rr_snippet.php:26
 msgid ""
 "This will display the aggregate (average) score, along with the Rich Snippet "
 "markup, for all approved reviews regardless of category. All categorized and "
 "uncategorized reviews will be factored into this aggregate rating."
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:5
+#: ../views/admin/options/option-sections/admin-options.php:5
 msgid "Admin Options"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:8
+#: ../views/admin/options/option-sections/admin-options.php:8
 msgid "Approval Options"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:12
+#: ../views/admin/options/option-sections/admin-options.php:12
 msgid ""
 "Require Approval - this sends all new reviews to the pending review page. "
 "Unchecking this will automatically publish all reviews as they are submitted."
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:18
+#: ../views/admin/options/option-sections/admin-options.php:18
 msgid "Admin"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:19
+#: ../views/admin/options/option-sections/admin-options.php:19
 msgid "Editor"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:20
+#: ../views/admin/options/option-sections/admin-options.php:20
 msgid "Author"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:21
+#: ../views/admin/options/option-sections/admin-options.php:21
 msgid "Contributor"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:22
+#: ../views/admin/options/option-sections/admin-options.php:22
 msgid "Subscriber"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:26
+#: ../views/admin/options/option-sections/admin-options.php:26
 msgid "Authority level required to Approve Pending Posts"
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:32
+#: ../views/admin/options/option-sections/admin-options.php:32
 msgid ""
 "Send Notification Emails - This will send an automatic email to the admin "
 "every time a new pending review is submitted."
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:38
+#: ../views/admin/options/option-sections/admin-options.php:38
 msgid "Admin Email - The email to which notifications are sent."
 msgstr ""
 
-#: views/admin/options/option-sections/admin-options.php:44
-msgid ""
-"Get Organic & PPC Stars via a Google Authorized 3rd Party Product Review "
-"Aggregator."
-msgstr ""
-
-#: views/admin/options/option-sections/display-options.php:5
+#: ../views/admin/options/option-sections/display-options.php:5
 msgid "Review Display Options"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:8
+#: ../views/admin/options/option-sections/display-options.php:8
 msgid "Title Options"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:11
+#: ../views/admin/options/option-sections/display-options.php:11
 msgid ""
 "Include Post Titles - this will include the title and a link to the form "
 "page for every review."
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:15
+#: ../views/admin/options/option-sections/display-options.php:15
 msgid "Rating Options"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:18
+#: ../views/admin/options/option-sections/display-options.php:18
 msgid ""
 "Star Snippets - this will change the averge rating displayed in the snippet "
 "shortcode to be stars instead of numerical values."
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:24
+#: ../views/admin/options/option-sections/display-options.php:24
 msgid "Star Color - the color of the stars on reviews"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:28
+#: ../views/admin/options/option-sections/display-options.php:28
 msgid "General Display Options"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:31
+#: ../views/admin/options/option-sections/display-options.php:31
 msgid ""
 "Display Full width - This option will display the reviews in full width "
 "block format. Default will dsplay the reviews in blocks of three."
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:37
+#: ../views/admin/options/option-sections/display-options.php:37
 msgid "Display the date that the review was submitted inside the review."
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:43
+#: ../views/admin/options/option-sections/display-options.php:43
 msgid ""
 "Give Credit to Nuanced Media - this option will add a small credit line and "
 "a link to Nuanced Media's website to the bottom of your reviews page"
 msgstr ""
 
-#: views/admin/options/option-sections/display-options.php:47
-msgid "Review Display Order: "
-msgstr ""
-
-#: views/admin/options/option-sections/display-options.php:50
-msgid "Oldest First"
-msgstr ""
-
-#: views/admin/options/option-sections/display-options.php:51
-msgid "Newest First"
-msgstr ""
-
-#: views/admin/options/option-sections/display-options.php:52
-msgid "Randomize"
-msgstr ""
-
-#: views/admin/options/option-sections/form-options.php:4
-msgid "Form Options"
-msgstr ""
-
-#: views/admin/options/option-sections/form-options.php:8
+#: ../views/admin/options/option-sections/display-options.php:49
 msgid ""
 "Upon submission of the review form, the page will automatically scroll back "
 "to the location of the form."
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:13
+#: ../views/admin/options/option-sections/display-options.php:53
+msgid "Review Display Order: "
+msgstr ""
+
+#: ../views/admin/options/option-sections/display-options.php:56
+msgid "Oldest First"
+msgstr ""
+
+#: ../views/admin/options/option-sections/display-options.php:57
+msgid "Newest First"
+msgstr ""
+
+#: ../views/admin/options/option-sections/display-options.php:58
+msgid "Randomize"
+msgstr ""
+
+#: ../views/admin/options/option-sections/form-options.php:4
+msgid "Form Options"
+msgstr ""
+
+#: ../views/admin/options/option-sections/form-options.php:7
 msgid "Name Field"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:16
-#: views/admin/options/option-sections/form-options.php:33
-#: views/admin/options/option-sections/form-options.php:49
-#: views/admin/options/option-sections/form-options.php:65
-#: views/admin/options/option-sections/form-options.php:71
+#: ../views/admin/options/option-sections/form-options.php:10
+#: ../views/admin/options/option-sections/form-options.php:27
+#: ../views/admin/options/option-sections/form-options.php:43
+#: ../views/admin/options/option-sections/form-options.php:59
+#: ../views/admin/options/option-sections/form-options.php:65
 msgid "Form Label: "
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:21
-#: views/admin/options/option-sections/form-options.php:38
-#: views/admin/options/option-sections/form-options.php:54
-#: views/admin/options/option-sections/form-options.php:76
+#: ../views/admin/options/option-sections/form-options.php:15
+#: ../views/admin/options/option-sections/form-options.php:32
+#: ../views/admin/options/option-sections/form-options.php:48
+#: ../views/admin/options/option-sections/form-options.php:70
 msgid "Display Field: "
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:25
-#: views/admin/options/option-sections/form-options.php:43
-#: views/admin/options/option-sections/form-options.php:59
-#: views/admin/options/option-sections/form-options.php:81
+#: ../views/admin/options/option-sections/form-options.php:19
+#: ../views/admin/options/option-sections/form-options.php:37
+#: ../views/admin/options/option-sections/form-options.php:53
+#: ../views/admin/options/option-sections/form-options.php:75
 msgid "Require Field: "
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:31
+#: ../views/admin/options/option-sections/form-options.php:25
 msgid "Email Field"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:47
+#: ../views/admin/options/option-sections/form-options.php:41
 msgid "Title Field"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:63
+#: ../views/admin/options/option-sections/form-options.php:57
 msgid "Rating Field"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:69
+#: ../views/admin/options/option-sections/form-options.php:63
 msgid "Content Field"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:86
+#: ../views/admin/options/option-sections/form-options.php:80
 msgid "Submit Button"
 msgstr ""
 
-#: views/admin/options/option-sections/form-options.php:88
+#: ../views/admin/options/option-sections/form-options.php:82
 msgid "Submit Text: "
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:5
+#: ../views/admin/options/option-sections/rich-options.php:5
 msgid "Rich Markup Options"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:8
+#: ../views/admin/options/option-sections/rich-options.php:8
 msgid "Subject Fallback Options"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:9
+#: ../views/admin/options/option-sections/rich-options.php:9
 msgid ""
 "In order to output complete markup for for recognizable \"Review\" rich "
 "schema, there must be a value set for the item reviewed itemprop. Rich "
@@ -704,36 +645,36 @@ msgid ""
 "and will use the page title if available, or the fallback if not)"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:12
-#: views/admin/options/option-sections/rich-options.php:31
+#: ../views/admin/options/option-sections/rich-options.php:12
+#: ../views/admin/options/option-sections/rich-options.php:31
 msgid "Fallback Value: "
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:17
+#: ../views/admin/options/option-sections/rich-options.php:17
 msgid "Use fallback:"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:21
+#: ../views/admin/options/option-sections/rich-options.php:21
 msgid "Always, regardless of category."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:22
+#: ../views/admin/options/option-sections/rich-options.php:22
 msgid "When no category is specified."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:23
+#: ../views/admin/options/option-sections/rich-options.php:23
 msgid "When no category is specified, and parent page has no title."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:23
+#: ../views/admin/options/option-sections/rich-options.php:23
 msgid "When category isnt't specified, and parent page has no title."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:26
+#: ../views/admin/options/option-sections/rich-options.php:26
 msgid "Author Fallback Options"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:27
+#: ../views/admin/options/option-sections/rich-options.php:27
 msgid ""
 "The Author field is an optional data value in rich formatting for a \"Review"
 "\", however the more information provided, the better one's reviews will "
@@ -742,572 +683,53 @@ msgid ""
 "that below."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:35
+#: ../views/admin/options/option-sections/rich-options.php:35
 msgid "Rich URL Options"
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:38
+#: ../views/admin/options/option-sections/rich-options.php:38
 msgid ""
 "Include URL rich data - This will add a block of markup to the reviews "
 "output to communicate a URL value for rich schema."
 msgstr ""
 
-#: views/admin/options/option-sections/rich-options.php:43
+#: ../views/admin/options/option-sections/rich-options.php:43
 msgid "The URL to use in your Rich Markup."
 msgstr ""
 
-#: views/admin/options/option-sections/user-options.php:1
-msgid "User Options"
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:5
-msgid "Integrate User Accounts"
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:11
-msgid "Require Users to be logged in to submit reviews."
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:15
-msgid "Login Url for link in Review Gate"
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:23
-msgid "Autofill name from User Accounts."
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:28
-msgid "Use user avatars."
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:34
-msgid "Use blank avatar for users without uploaded image/gravatar."
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:41
-msgid ""
-"Allow image upload for non-logged in reviewers, to be used in place of user "
-"avatar in review display."
-msgstr ""
-
-#: views/admin/options/option-sections/user-options.php:44
-msgid "Reviewer Image Field"
-msgstr ""
-
-#: views/admin/options/options-index.php:6
-#: views/admin/options/options-index.php:24
+#: ../views/admin/options/options-index.php:20
 msgid "Save Options"
 msgstr ""
 
-#: views/admin/shopper-approved.php:29
-msgid ""
-"Are you interested in Increased CTR? Decreased bounce rates? Star ratings in "
-"both PPC and Organic search results?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:31
-msgid ""
-"If you’re mumbling a “yes please!” to yourself, it may be the right time to "
-"become a "
-msgstr ""
-
-#: views/admin/shopper-approved.php:31
-msgid ""
-"Having access to your Shopper Approved account through the Rich Reviews "
-"plugin will create ease in managing both accounts and also accelerate "
-"fulfilling your marketing and revenue goals."
-msgstr ""
-
-#: views/admin/shopper-approved.php:34
-msgid "By being a Shopper Approved member, you’ll be able to"
-msgstr ""
-
-#: views/admin/shopper-approved.php:37
-msgid "Team Up"
-msgstr ""
-
-#: views/admin/shopper-approved.php:37
-msgid ""
-"with a  Google review site who has authority and will give your reviews "
-"maximum online exposure"
-msgstr ""
-
-#: views/admin/shopper-approved.php:38
-msgid "Rise"
-msgstr ""
-
-#: views/admin/shopper-approved.php:38
-msgid "to the top of SERPs and outrank your competitors"
-msgstr ""
-
-#: views/admin/shopper-approved.php:39
-msgid "Increase"
-msgstr ""
-
-#: views/admin/shopper-approved.php:39
-msgid "Click-Through-Rates"
-msgstr ""
-
-#: views/admin/shopper-approved.php:39
-msgid "Decrease"
-msgstr ""
-
-#: views/admin/shopper-approved.php:39
-msgid "Cost-Per-Clicks and Bounce rates"
-msgstr ""
-
-#: views/admin/shopper-approved.php:40
-msgid "Syndicate"
-msgstr ""
-
-#: views/admin/shopper-approved.php:40
-msgid ""
-"your reviews through Google, Yahoo & Bing as well as Google Shopping & "
-"Product Listing Ads"
-msgstr ""
-
-#: views/admin/shopper-approved.php:43
-msgid "Why do I need Shopper Approved?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:45
-msgid "Shopper Approved is a "
-msgstr ""
-
-#: views/admin/shopper-approved.php:45
-msgid "Google approved review website for Seller Ratings"
-msgstr ""
-
-#: views/admin/shopper-approved.php:45
-msgid ""
-" Basically, Google wants to make sure you are collecting reviews ethically "
-"and Shopper Approved, a Google Authorized 3rd Party Product Review "
-"Aggregator, facilitates this. Reviews collected via Shopper Approved will "
-"show up in your organic and PPC search results in Google, Yahoo & Bing."
-msgstr ""
-
-#: views/admin/shopper-approved.php:51
-msgid "Quick Links"
-msgstr ""
-
-#: views/admin/shopper-approved.php:54
-msgid "Seller Rating What are they?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:55
-msgid "Shopper Approved Setup Tutorial"
-msgstr ""
-
-#: views/admin/shopper-approved.php:56
-msgid "Which Seller Rating company should I use?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:61
-msgid "Read More"
-msgstr ""
-
-#: views/admin/shopper-approved.php:83
-msgid ""
-"Shopper Approved is a seller rating extension that allows you to collect, "
-"manage and promote your customer reviews online for your business. "
-"Showcasing reviews creates an overall positive image for companies to "
-"current and potential customers. Since Shopper Approved is a certified "
-"Google partner, your reviews will get maximum exposure in the online world. "
-"Read more about the importance of Shopper Approved"
-msgstr ""
-
-#: views/admin/shopper-approved.php:83 views/admin/shopper-approved.php:419
-#: views/admin/shopper-approved.php:471
-msgid "here"
-msgstr ""
-
-#: views/admin/shopper-approved.php:86
-msgid "Why choose Shopper Approved?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:88
-msgid "Below is a list of benefits and features of Shopper Approved."
-msgstr ""
-
-#: views/admin/shopper-approved.php:90
-msgid ""
-"Collects 70% more reviews and are visible on more search engines than their "
-"competitors."
-msgstr ""
-
-#: views/admin/shopper-approved.php:91
-msgid "Provides clients the ability to improve customer engagement."
-msgstr ""
-
-#: views/admin/shopper-approved.php:92
-msgid ""
-"Makes customer reviews visible to public on SERPs - 88% of consumers trust "
-"online reviews as much as personal recommendations."
-msgstr ""
-
-#: views/admin/shopper-approved.php:93
-msgid ""
-"Increased CTR - Google found that there was an average of a 17% rise in CTR "
-"for advertisers with seller rating extensions."
-msgstr ""
-
-#: views/admin/shopper-approved.php:94
-msgid ""
-"Companies can improve their brand image by displaying customer reviews on "
-"product, merchant and local listings."
-msgstr ""
-
-#: views/admin/shopper-approved.php:95
-msgid "Increased quality score of your PPC."
-msgstr ""
-
-#: views/admin/shopper-approved.php:96
-msgid "Reduction of CPC."
-msgstr ""
-
-#: views/admin/shopper-approved.php:97
-msgid "Increased conversion rates."
-msgstr ""
-
-#: views/admin/shopper-approved.php:98
-msgid "Shows company transparency, which gains trust from customers"
-msgstr ""
-
-#: views/admin/shopper-approved.php:99
-msgid ""
-"Easy to set up - learn how to set up your account here (link Gabe’s blog)."
-msgstr ""
-
-#: views/admin/shopper-approved.php:100
-msgid ""
-"There are tools to create surveys, special offers, and promotional emails."
-msgstr ""
-
-#: views/admin/shopper-approved.php:101
-msgid "Offers a full and free 30-day trial with no strings attached."
-msgstr ""
-
-#: views/admin/shopper-approved.php:102
-msgid "Has less expensive monthly subscription compared to some competitors."
-msgstr ""
-
-#: views/admin/shopper-approved.php:106
-msgid "Set it up and Try it out!"
-msgstr ""
-
-#: views/admin/shopper-approved.php:108
-msgid ""
-"It’s human nature to research and test things out before committing, "
-"especially when it’s dealing with important information such as customer "
-"opinions about your company and/or products. Doing a trial run takes a few "
-"easy steps"
-msgstr ""
-
-#: views/admin/shopper-approved.php:110
-msgid ""
-"Sign up - Take advantage of the free 30-day trial by signing up under our "
-"Nuanced Media"
-msgstr ""
-
-#: views/admin/shopper-approved.php:110
-msgid "discount code"
-msgstr ""
-
-#: views/admin/shopper-approved.php:110
-msgid ""
-"which will give you an extra 20% off a membership if you choose to continue."
-msgstr ""
-
-#: views/admin/shopper-approved.php:111
-msgid "Learn how to easily set up your account through our "
-msgstr ""
-
-#: views/admin/shopper-approved.php:111
-msgid "tutorial."
-msgstr ""
-
-#: views/admin/shopper-approved.php:112
-msgid "Explore and test Shopper Approved for 30 days."
-msgstr ""
-
-#: views/admin/shopper-approved.php:116
-msgid "More Information"
-msgstr ""
-
-#: views/admin/shopper-approved.php:118
-msgid "For more information or help with Shopper Approved, read our company’s "
-msgstr ""
-
-#: views/admin/shopper-approved.php:118
-msgid "thoughts and experiences"
-msgstr ""
-
-#: views/admin/shopper-approved.php:118
-msgid "with Shopper Approved or visit the"
-msgstr ""
-
-#: views/admin/shopper-approved.php:118
-msgid "Shopper Approved website"
-msgstr ""
-
-#: views/admin/shopper-approved.php:129
-msgid "Already registered with Shopper Approved?"
-msgstr ""
-
-#: views/admin/shopper-approved.php:131
-msgid "Configure Shopper Approved Extension"
-msgstr ""
-
-#: views/admin/shopper-approved.php:139
-msgid "Enter API Url (json):"
-msgstr ""
-
-#: views/admin/shopper-approved.php:144 views/admin/shopper-approved.php:161
-msgid "API URL"
-msgstr ""
-
-#: views/admin/shopper-approved.php:148
-msgid "Submit Url"
-msgstr ""
-
-#: views/admin/shopper-approved.php:157
-msgid "Extracted Site ID:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:167
-msgid "Extracted Site Token:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:177
-msgid "Total Shopper Approved Reviews:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:187
-msgid "Average Score:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:200
-msgid "Snippet Settings"
-msgstr ""
-
-#: views/admin/shopper-approved.php:204 views/admin/shopper-approved.php:220
-msgid "Shopper Approved Merchant Markup:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:205 views/admin/shopper-approved.php:221
-msgid "Use the shortcode"
-msgstr ""
-
-#: views/admin/shopper-approved.php:205
-msgid "to output this markup"
-msgstr ""
-
-#: views/admin/shopper-approved.php:221
-msgid ""
-"to output this markup. Note: Replace productId with the catalog id of the "
-"product for which you would like to output the schema for. To output "
-"multiple product's schema use comma separated ids."
-msgstr ""
-
-#: views/admin/shopper-approved.php:221
-msgid "(ex. ids=\"productId1,productId2,productId3\")"
-msgstr ""
-
-#: views/admin/shopper-approved.php:236
-msgid "Last Updated:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:245
-msgid "Manual Update"
-msgstr ""
-
-#: views/admin/shopper-approved.php:250
-msgid "Shopper Approved Shortcode Options"
-msgstr ""
-
-#: views/admin/shopper-approved.php:262 views/admin/shopper-approved.php:297
-msgid "Output Link to Full Review"
-msgstr ""
-
-#: views/admin/shopper-approved.php:274 views/admin/shopper-approved.php:309
-msgid "Link Text"
-msgstr ""
-
-#: views/admin/shopper-approved.php:285 views/admin/shopper-approved.php:320
-msgid "Link Element Class"
-msgstr ""
-
-#: views/admin/shopper-approved.php:331
-msgid ""
-"To Enable Link Shortcode Options, please copy the \"Link to Full Survey\" "
-"from the Merchant Reviews Survey Options tab of Shopper Approved and enter "
-"it below."
-msgstr ""
-
-#: views/admin/shopper-approved.php:335
-msgid "Submit Link"
-msgstr ""
-
-#: views/admin/shopper-approved.php:347
-msgid "Trigger Review Form"
-msgstr ""
-
-#: views/admin/shopper-approved.php:356
-msgid ""
-"This shortcode should be placed on the Thank You page of your checkout "
-"process. If you opt to collect product reviews, the product ids involved in "
-"the order will need to be populated, comma separated if more than one, to "
-"the ids parameter of the shortcode. This will require specific integration "
-"with your chosen e-commerce platform. E-commerce automation support will be "
-"added an update in the near future to simplifiy this process."
-msgstr ""
-
-#: views/admin/shopper-approved.php:356
-msgid ""
-"(ex. [RR_SHOPPER_APPROVED get=\"trigger\" ids=\"productId1,productId2,"
-"productId3\"])"
-msgstr ""
-
-#: views/admin/shopper-approved.php:362
-msgid "Display Review Inline"
-msgstr ""
-
-#: views/admin/shopper-approved.php:363
-msgid ""
-"default shows form in modal, note this option overrides the option set on "
-"Shopper Approved)"
-msgstr ""
-
-#: views/admin/shopper-approved.php:373
-msgid "Update Shortcode Options"
-msgstr ""
-
-#: views/admin/shopper-approved.php:377 views/admin/shopper-approved.php:409
-msgid "Pull Reviews"
-msgstr ""
-
-#: views/admin/shopper-approved.php:381
-msgid "Last Pulled:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:394
-msgid "New Unpulled Reviews:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:416
-msgid "Export Current Reviews"
-msgstr ""
-
-#: views/admin/shopper-approved.php:419
-msgid ""
-"Press the button below to download a csv file of all of the reviews "
-"currently in your Rich Reviews. This way you can send these reviews to "
-"Shopper Approved and have them imported to your Shopper Approved Merchant or "
-"Product rating. Further instruction on how to do this can be found"
-msgstr ""
-
-#: views/admin/shopper-approved.php:419
-msgid "(note: CSV file uses pipe, \" | \", as a delimeter.)"
-msgstr ""
-
-#: views/admin/shopper-approved.php:421
-msgid "Download Reviews"
-msgstr ""
-
-#: views/admin/shopper-approved.php:426
-msgid "Integrate Product Reviews"
-msgstr ""
-
-#: views/admin/shopper-approved.php:431
-msgid ""
-"Enter the slug for the post type under which your products are categorized, "
-"or select to use your Rich Reviews category structure (only one can be used "
-"for initialization). This will help to generate the needed xml file to "
-"communicate product listings and the associated review information to "
-"Shopper Approved (note: CSV file uses pipe, \" | \", as a delimeter). After "
-"initial configuration, you can force an update by pressing the button below."
-msgstr ""
-
-#: views/admin/shopper-approved.php:436
-msgid "Product post type slug:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:448
-msgid "Use Rich Reviews Categories:"
-msgstr ""
-
-#: views/admin/shopper-approved.php:471
-msgid ""
-"Update and Download your Shopper Approved product record. Pleas double check "
-"that the file is output and formatted to the requirements described by "
-"Shopper Approved in the Product Reviews \"Integration Options\" tab. For "
-"more information on this process, refer to you Shopper Approved Dashboard "
-msgstr ""
-
-#: views/admin/shopper-approved.php:473
-msgid "Update Product Index"
-msgstr ""
-
-#: views/admin/shopper-approved.php:476
-msgid "Download Product Index"
-msgstr ""
-
-#: views/admin/shopper-approved.php:485
-msgid "Product Feed URL"
-msgstr ""
-
-#: views/admin/shopper-approved.php:497
-msgid "Product Catalog Ids"
-msgstr ""
-
-#: views/admin/shopper-approved.php:511 views/admin/shopper-approved.php:512
-#: views/admin/shopper-approved.php:513 views/admin/shopper-approved.php:514
-#: views/admin/shopper-approved.php:515 views/admin/shopper-approved.php:516
-msgid "SET"
-msgstr ""
-
-#: views/admin/shopper-approved.php:511 views/admin/shopper-approved.php:512
-#: views/admin/shopper-approved.php:513 views/admin/shopper-approved.php:514
-#: views/admin/shopper-approved.php:515 views/admin/shopper-approved.php:516
-msgid "UNSET"
-msgstr ""
-
-#: views/admin/shopper-approved.php:516
-msgid "Manufacturer Part Number"
-msgstr ""
-
-#: views/admin/shopper-approved.php:528
-msgid "Add New Product Listing"
-msgstr ""
-
-#: views/frontend/snippets.php:9 views/frontend/snippets.php:35
+#: ../views/frontend/form/rr-star-input.php:5
+msgid "rating"
+msgstr "Évaluation"
+
+#: ../views/frontend/snippets.php:9 ../views/frontend/snippets.php:34
 msgid "Overall rating:"
+msgstr "Note :"
+
+#: ../views/frontend/snippets.php:16 ../views/frontend/snippets.php:39
+msgid "based on"
+msgstr "basée sur"
+
+#: ../views/frontend/snippets.php:19
+msgid "based on %s reviews"
+msgstr "basée sur %s avis"
+
+#: ../views/frontend/snippets.php:38
+msgid "out of"
 msgstr ""
 
-#: views/view-helper/admin-view-helper-functions.php:104
-#: views/view-helper/admin-view-helper-functions.php:113
-msgid "Add Review"
-msgstr ""
+#: ../views/frontend/snippets.php:42
+msgid "reviews"
+msgstr "avis"
 
-#. Plugin Name of the plugin/theme
-msgid "Rich Reviews"
-msgstr ""
+msgid "name"
+msgstr "nom"
 
-#. Plugin URI of the plugin/theme
-msgid "http://nuancedmedia.com/wordpress-rich-reviews-plugin/"
-msgstr ""
+msgid "email"
+msgstr "email"
 
-#. Description of the plugin/theme
-msgid ""
-"Rich Reviews empowers you to easily capture user reviews and display them on "
-"your wordpress page or post and in Google Search Results as a Google Rich "
-"Snippet."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Nuanced Media"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://nuancedmedia.com/"
-msgstr ""
+msgid "send"
+msgstr "envoyer"

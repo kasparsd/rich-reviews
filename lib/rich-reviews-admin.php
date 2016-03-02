@@ -16,6 +16,8 @@ class RichReviewsAdmin {
 		add_action('admin_menu', array(&$this, 'init_admin_menu'));
 		add_action( 'admin_enqueue_scripts', array(&$this, 'load_admin_scripts_styles'), 100);
 		add_filter('plugin_action_links_rich-reviews/rich-reviews.php', array(&$this, 'add_plugin_settings_link'));
+		add_action( 'wp_ajax_rr_dismissed_help_notice', array(&$this,'ajax_rr_dismissed_help_notice' ));
+		add_action( 'wp_ajax_nopriv_rr_dismissed_help_notice', array(&$this,'ajax_rr_dismissed_help_notice' ));
 	}
 
 	function init_admin_menu() {
@@ -96,7 +98,7 @@ class RichReviewsAdmin {
   		}
         wp_register_script('rich-reviews-dashboard', trailingslashit($this->parent->plugin_url) . 'views/view-helper/js/nm-dashboard-script.js', array('jquery'));
 		wp_enqueue_script('rich-reviews-dashboard');
-		wp_register_style('rich-reviews-dashboard-styles', trailingslashit($this->parent->plugin_url) . 'css/rich-reviews.css', false, '1.0.0');
+		wp_register_style('rich-reviews-dashboard-styles', trailingslashit($this->parent->plugin_url) . 'css/rich-reviews.css');
 		wp_enqueue_style('rich-reviews-dashboard-styles');
 	}
 
@@ -345,6 +347,11 @@ class RichReviewsAdmin {
 			$new_option = array($opt_name => $opt_val);
 			update_option($this->parent->fp_admin_options, array_merge($current_options, $new_option));
 		}
+	}
+
+	function ajax_rr_dismissed_help_notice() {
+		$this->parent->shopApp->options->update_option('dismissed_help_notice', TRUE);
+		die();
 	}
 
 	function render_new_site_banner() {

@@ -4,7 +4,7 @@ Donate link: http://nuancedmedia.com/
 Tags: reviews, review, testimonials, testimonial, hreview, rating, ratings, google, rich snippets, review widget, seo, shortcode, plugin, snippet, snippets, google rating, product review, star rating, wp rating
 Requires at least: 3.4
 Tested up to: 4.4.2
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,19 +76,20 @@ If you’re feeling good about this plugin (or just want to say hello), let us k
 
 == Changelog ==
 
-
+= 1.7.2 =
+* HOTFIX: Custom Style Output
+* HOTFIX: Media Disruption from js script
+* Rolled back solution for multiple form submition until media plugin conflicts could be resolved.
 
 = 1.7.1 =
 * HOTFIX: db update for new field
 * Updates .pot file
-* HOTFIX: Custom Style Output
-* HOTFIX: Media Disruption from js script
 
 = 1.7.0 =
 * Further Refactor of i18n formatting for translation
 * Added support for displaying reviews by parent page id
 * Added option to scroll automatically back to form
-* Fixed bug issues when multiple forms are displayed one the same page, by adding unique_key param to form shortcode
+* (solution under construction as of 1.7.2 due to js conflicts with other plugins, contact us for the patch) Fixed bug issues when multiple forms are displayed one the same page, by adding unique_key param to form shortcode
 * Added basic user integrations
 * Added avatar support, and alternatively user image upload to form
 * Added login gate option

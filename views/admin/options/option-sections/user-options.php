@@ -29,7 +29,7 @@
 	</label>
 	<br />
 	<div id="useAvatarSub">
-		<input type="checkbox" name="form-name-use-blank-avatars" value="checked" id="useBlankAvatarToggle" <?php echo $options['form-name-use-blank-avatar'] ?> />
+		<input type="checkbox" name="form-name-use-blank-avatar" value="checked" id="useBlankAvatarToggle" <?php echo $options['form-name-use-blank-avatar'] ?> />
 		<label for="form-name-use-blank-avatar">
 			<?php _e('Use blank avatar for users without uploaded image/gravatar.', 'rich-reviews'); ?>
 		</label>

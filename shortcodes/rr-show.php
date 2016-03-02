@@ -331,7 +331,7 @@ function do_review_body ($data) {
 							}
 						}
 					} else if($data['options']['form-name-use-blank-avatar']){
-						$avatar = '  ' . get_avatar(0);
+						$avatar = '  ' . build_avatar_display('http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?d=mm&r=g');
 					}
 				}
 				if($avatar != '') {
