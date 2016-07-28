@@ -44,12 +44,35 @@
 </label>
 <br />
 
+
+<label for="excerpt-length">
+	<?php _e('Set the character length of the review excerpt to be displayed on page load. The remainder will be displayed and/or hidden via "More/Less" javascript elements.', 'rich-reviews'); ?>
+</label>
+<br />
+<input type="number" name="excerpt-length" min="51" value="<?php if (isset($options['excerpt-length']) && $options['excerpt-length'] > 50 ) { echo $options['excerpt-length']; } else { echo 150; } ?>" />
+<br/>
+
+
+<label for="read-more-text">
+	<?php _e('Text for Read More action: ', 'rich-reviews'); ?>
+</label>
+<input type="text" name="read-more-text" value="<?php if (isset($options['read-more-text']) && $options['read-more-text'] != '') { echo $options['read-more-text']; } else { echo ''; } ?>" />
+<br />
+
+
+<label for="show-less-text">
+	<?php _e('Text for Show Less action: ', 'rich-reviews'); ?>
+</label>
+<input type="text" name="show-less-text" value="<?php if (isset($options['show-less-text']) && $options['show-less-text'] != '') { echo $options['show-less-text']; } else { echo ''; } ?>" />
+<br />
+
 <label for="reviews_order"><strong><?php _e('Review Display Order: ', 'rich-reviews'); ?></strong></label>
 <select name="reviews_order" value="<?php echo $options['reviews_order'] ?>">
 	<?php
 	if ($options['reviews_order']==="ASC"){ ?><option value="ASC" selected="selected"><?php _e('Oldest First', 'rich-reviews'); ?></option><?php }else {?><option value="ASC" ><?php _e('Oldest First', 'rich-reviews'); ?></option><?php }
 	if ($options['reviews_order']==="DESC"){ ?><option value="DESC" selected="selected"><?php _e('Newest First', 'rich-reviews'); ?></option><?php }else {?><option value="DESC" ><?php _e('Newest First', 'rich-reviews'); ?></option><?php }
 	if ($options['reviews_order']==="random"){ ?><option value="random" selected="selected"><?php _e('Randomize', 'rich-reviews'); ?></option><?php }else {?><option value="random" ><?php _e('Randomize', 'rich-reviews'); ?></option><?php }
+	if ($options['reviews_order']==="highest_rating"){ ?><option value="highest_rating" selected="selected"><?php _e('Highest Rating First', 'rich-reviews'); ?></option><?php }else {?><option value="highest_rating" ><?php _e('Highest Rating First', 'rich-reviews'); ?></option><?php }
 	?>
 </select>
 <br />

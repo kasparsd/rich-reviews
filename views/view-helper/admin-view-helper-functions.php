@@ -34,12 +34,12 @@ class NMRichReviewsAdminHelper {
 
     public static function render_nm_logos() {
         ?>
-            <div class="nm-logo one-fourth">
+            <div class="nm-logo rr-one-fourth">
                 <a href="http://nuancedmedia.com/" target="_blank">
                     <img src="http://nuancedmedia.com/wp-content/uploads/2014/04/nm-logo-black.png" />
                 </a>
             </div>
-            <div class="nm-social-media-links-container three-fourths">
+            <div class="nm-social-media-links-container rr-three-fourths">
                 <div class="nm-social-media-link nm-facebook-link">
 
                 </div>

@@ -8,6 +8,12 @@
 		<?php _e('Upon submission of the review form, the page will automatically scroll back to the location of the form.', 'rich-reviews'); ?>
 	</label>
 	<br />
+	<br />
+	<input type="checkbox" name="submit-form-redirect" value="checked" <?php echo $options['submit-form-redirect'] ?> />
+	<label for="submit-form-redirect">
+		<?php _e('Submit the form with an HTTP redirect. Keeps form displayed and will show instantly approved reviews immediately after form submission.', 'rich-reviews'); ?>
+	</label>
+	<br />
 	<h3>Field Options</h3>
 	<h4>
 		<?php _e('Name Field', 'rich-reviews'); ?>

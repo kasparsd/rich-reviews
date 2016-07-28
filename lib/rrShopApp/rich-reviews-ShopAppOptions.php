@@ -25,11 +25,13 @@ class RRShopAppOptions {
       'site_id' => '',
       'site_token' => '',
       'site_code' => '',
+      'site_name' => '',
       'reviews_last_pulled' => 'not yet pulled',
       'total_review_count' => NULL,
       'reviews_pulled_count' => NULL,
       'average_score' => NULL,
       'imported_review_ids' => array(),
+      'review_header_override' => '',
       'inline_review_form' => false,
       'merchant_link_text' => 'Review Us',
       'merchant_link_element_class' => '',
@@ -42,7 +44,21 @@ class RRShopAppOptions {
       'alert_queue_init' => null,
       'init_time' => '',
       'dismissed_help_notice' => FALSE,
-      'dismissed_extension_notice' => FALSE
+      'dismissed_extension_notice' => FALSE,
+      'sa_display_orientation' => 'sa_horizontal',
+      'sa_reviews_rotation' => 'sa_rotate',
+      'sa_rotation_rate' => '5',
+      'sa_review_count' => '1',
+      'sa_enable_links' => 'sa_hidelinks',
+      'sa_page_shade' => 'sa_parentLight',
+      'sa_rr_style_override' => '',
+      'sa_background_color' => 'sa_bgWhite',
+      'sa_text_color' => 'sa_colorBlack',
+      'sa_border_color' => 'sa_borderBlack',
+      'sa_border_style' => 'sa_noborder',
+      'sa_date_format' => 'sa_FjY',
+      'sa_vertical_display' => 'sa_fixed',
+      'sa_widget_size' => 'sa_large'
 		);
 
 		  if ($this->get_option() == FALSE) {
@@ -54,12 +70,16 @@ class RRShopAppOptions {
 
 
 	public function set_to_defaults() {
-        delete_option($this->options_name);
-        foreach ($this->defaults as $key=>$value) {
-            $this->update_option($key, $value);
-        }
-    }
+      delete_option($this->options_name);
+      foreach ($this->defaults as $key=>$value) {
+          $this->update_option($key, $value);
+      }
+  }
 
+  /**
+   * Function to check POST var for all existing update states, and perform updates as needed.
+   * @param Boolean|null $init Override for initialization
+   */
 	public function update_options($init = null) {
      if($init == true ) {
           foreach($this->defaults as $key => $val) {
@@ -88,13 +108,30 @@ class RRShopAppOptions {
                     $data[$key] = $value;
                 }
             }
-            // $data = $this->parent->update_site_keys($data);
+            $data = $this->parent->update_site_keys($data);
             // $data = $this->update_reviews_info($data);
 
             $this->update_option($data);
             $_POST['dinner'] = NULL;
             $this->updated = 'wpm-update-options';
             $this->parent->shopAppOptions = $this->get_option();
+        }
+    }
+    if (isset($_POST['widgetize-me']) && $_POST['widgetize-me'] == 'captain') {
+        unset($_POST['widgetize-me']);
+
+        // Check checkboxes
+        if (isset($_POST['sa_rr_style_override'])) {
+            $this->update_option('sa_rr_style_override', true);
+            unset($_POST['sa_rr_style_override']);
+        } else {
+            $this->update_option('sa_rr_style_override', false);
+        }
+
+        foreach($_POST as $incomingKey => $incomingVal) {
+            if( $this->get_option($incomingKey)) {
+                $this->update_option($incomingKey, $incomingVal);
+            }
         }
     }
 
@@ -129,9 +166,17 @@ class RRShopAppOptions {
       } else {
         $this->update_option('inline_review_form', false);
       }
+      if (isset($_POST['review_header_override']) && $_POST['review_header_override'] != '') {
+        $this->update_option('review_header_override', $_POST['review_header_override']);
+      }
     }
 }
 
+/**
+ * Function to isolate the site code from a hyperlink structure, seeing as this is the only place from which to collect the site code
+ * @param String $link Returned from API call
+ * @return String to be stored in option
+ */
 public function isolate_site_code($link) {
     $urlParts = explode('?', $link);
 

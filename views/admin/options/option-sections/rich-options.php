@@ -4,6 +4,19 @@
 
 <h3><strong><?php _e('Rich Markup Options', 'rich-reviews'); ?></strong></h3>
 	<div style="border: solid 2px black"></div>
+	<h4><strong><?php _e('Schema Type:', 'rich-reviews'); ?></strong></h4>
+	<div class="rr-one">
+		<div class="binary-radio">
+			<label>
+				Product
+				<input type="radio" name="schema_type" value="Product" <?php if($options['schema_type'] == 'Product') { echo 'checked'; } ?>/>
+			</label>
+			<label>
+				Service
+				<input type="radio" name="schema_type" value="Service" <?php if($options['schema_type'] == 'Service') { echo 'checked'; } ?>/>
+			</label>
+		</div>
+	</div>
 
 	<h4><strong><?php _e('Subject Fallback Options', 'rich-reviews'); ?></strong></h4>
 	<p><small><?php _e('In order to output complete markup for for recognizable "Review" rich schema, there must be a value set for the item reviewed itemprop. Rich Reviews does this by using the category for which reviews are set. If this is not set, Rich Reviews will use the Page Title of the page from which the review was submited. However, if neither of these items are set, there needs to be a fallback set. You can do this, and adjust it\'s use case below. (category="page" or category="post" is considered a category being set, and will use the page title if available, or the fallback if not)', 'rich-reviews'); ?>

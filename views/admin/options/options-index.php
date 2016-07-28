@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <form id="rr-admin-options-form" action="" method="post">

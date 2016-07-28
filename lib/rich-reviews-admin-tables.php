@@ -141,6 +141,7 @@ class Rich_Reviews_Table extends WP_List_Table {
 					switch ($this_action) {
 						case 'approve':
 							$wpdb->update($richReviews->sqltable, array('review_status' => '1'), array('id' => $id));
+							// $richReviews->shortcode_reviews_to_posts(array('id' => $id));
 							break;
 						case 'pending':
 							$wpdb->update($richReviews->sqltable, array('review_status' => '0'), array('id' => $id));

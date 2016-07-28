@@ -1,5 +1,6 @@
 @import "../views/view-helper/scss/nm-dashboard-style.scss";
 @import "admin";
+@import "shopper-approved";
 
 /*.testimonial {
 	width:31%;
@@ -217,7 +218,10 @@ $star_empty_color: black;
 	color: #049477;
 	border-left: solid #049477 3px;
 }
-.succcessful {
+.rr_successful {
+	padding: 21px 13px;
+	margin: 13px 0;
+	background-color: #eee;
 	font-size: 1.3em;
 	text-align: center;
 	&.form-err {
@@ -277,6 +281,11 @@ $star_empty_color: black;
 
 //Review display
 
+.post_container {
+	padding: 21px;
+}
+
+
 .testimonial_group {
 	overflow: hidden;
 	clear: both;
@@ -318,7 +327,12 @@ $star_empty_color: black;
 				zoom: 1;
 				filter: alpha(opacity=25);
 				opacity: 0.25;
+                z-index: 0;
 			}
+            .read_more, .show_less {
+                position: relative;
+                z-index: 10;
+            }
 		}
 		.rr_review_name {
 			text-align: right;
@@ -360,18 +374,28 @@ $star_empty_color: black;
 			.drop_cap {
 				position: absolute;
 				font-size: 100px;
-				top: -13px;
+				top: 23px;
 				left: -20px;
-				line-height: 100px;
+				line-height:0px;
 				zoom: 1;
 				filter: alpha(opacity=25);
 				opacity: 0.25;
+                z-index: 0;
 			}
+            .read_more, .show_less {
+                position: relative;
+                z-index: 11;
+            }
 		}
 		.rr_review_name {
 			text-align: right;
 			padding-right: 10%;
 			font-style: italic;
+		}
+	}
+	.post_container {
+		.full-testimonial {
+			float: none;
 		}
 	}
 }
@@ -383,7 +407,7 @@ $star_empty_color: black;
 }
 .read_more, .show_less {
 	font-size: 12px;
-	font-style: itlaic;
+	font-style: italic;
 }
 
 .review-head {

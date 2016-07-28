@@ -52,13 +52,13 @@
 
 		$date = strtotime($review->date_time);
 		$data = array(
-			'rID'       => $review->id,
+			// 'rID'       => $review->id,
 			'rDateTime' => $review->date_time,
 			'date' 		=> strtotime($review->date_time),
-			'rDay'		=> date("j", $date),
-			'rMonth'	=> date("F", $date),
-			'rWday'		=> date("l", $date),
-			'rYear'		=> date("Y", $date),
+			'rDay'		=> date_i18n("j", $date),
+			'rMonth'	=> date_i18n("F", $date),
+			'rWday'		=> date_i18n("l", $date),
+			'rYear'		=> date_i18n("Y", $date),
 			'rDate' 	=> '',
 			// 'rDate' 		=> $rMonth . ' ' . $rDay . $rSuffix . ', '  . $rYear,
 			'rName'     => $review->reviewer_name,
@@ -127,7 +127,7 @@
 		}
 
 
-		$data['rDate'] = $data['rWday'] . ', ' . $data['rMonth'] . ' ' . $data['rDay'] . ', ' . $data['rYear'];
+		$data['rDate'] = date_i18n(get_option('date_format'), $date);
 
 		if($options['display_full_width']) {
 			$data['rFull'] = true;
@@ -197,13 +197,15 @@ function column_wrapper ($data) {
 
 function do_post_title ($data) {
 	// ob_start();
+	global $richReviews;
+	$options = $richReviews->rr_options;
 	if($data['rCategory'] == 'shopperApproved') {
 		do_hidden_post_title($data);
 	} else if($data['using_subject_fallback'] == true) {
 		do_hidden_post_title($data);
 	} else {
 	?>
-		<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Product">
+		<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/<?php if(isset($options['schema_type']) && $options['schema_type'] != '' ) { echo $options['schema_type']; } else { echo 'Product'; } ?>">
 			<div class="rr_review_post_id" itemprop="name" >
 				<a href="<?php echo get_permalink($data['rPostId']); ?>">
 					<?php echo $data['rCategory']; ?>
@@ -216,8 +218,10 @@ function do_post_title ($data) {
 }
 
 function do_hidden_post_title ($data) {
+	global $richReviews;
+	$options = $richReviews->rr_options;
 	?>
-	<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Product">
+	<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/<?php if(isset($options['schema_type']) && $options['schema_type'] != '' ) { echo $options['schema_type']; } else { echo 'Product'; } ?>">
 		<div class="rr_review_post_id" itemprop="name" style="display:none;">
 			<a href="<?php if($data['rCategory'] != 'shopperApproved') { echo get_permalink($data['rPostId']); }?>">
 				<?php echo $data['rCategory']; ?>

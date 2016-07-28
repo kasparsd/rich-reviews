@@ -3,7 +3,7 @@
 Plugin Name: Rich Reviews
 Plugin URI: http://nuancedmedia.com/wordpress-rich-reviews-plugin/
 Description: Rich Reviews empowers you to easily capture user reviews and display them on your wordpress page or post and in Google Search Results as a Google Rich Snippet.
-Version: 1.7.2
+Version: 1.7.3
 Author: Nuanced Media
 Author URI: http://nuancedmedia.com/
 Text Domain: rich-reviews
@@ -89,13 +89,15 @@ class RichReviews {
 		add_shortcode('RICH_REVIEWS_SHOW', array(&$this, 'shortcode_reviews_show_control'));
 		add_shortcode('RICH_REVIEWS_SHOW_ALL', array(&$this, 'shortcode_reviews_show_all_control'));
 		add_shortcode('RICH_REVIEWS_SNIPPET', array(&$this, 'shortcode_reviews_snippets_control'));
+		// add_shortcode('REVIEWS_TO_POSTS', array(&$this, 'shortcode_reviews_to_posts'));
 
-		// add_shortcode('RICH_REVIEWS_DB', array(&$this, 'shortcode_db_update')); gotta run update or db change
-		add_shortcode('database_now', array(&$this, 'shortcode_db_update'));
+		add_shortcode('RICH_REVIEWS_DB', array(&$this, 'shortcode_db_update')); //gotta run update or db change
 
 		add_filter('widget_text', 'do_shortcode');
+		add_action ( 'wp_head', array(&$this, 'set_js_option_vars' ));
 
 		add_action( 'widgets_init', array(&$this, 'register_rr_widget') );
+
 	}
 
 	function init() {
@@ -109,7 +111,19 @@ class RichReviews {
 			require_once 'lib/rrShopApp/rich-reviews-ShopAppOptions.php';
 			$this->shopApp = new RRShopApp($this);
 		}
+		if ($this->rr_options['submit-form-redirect']) {
+			if(!session_id()) {
+		        session_start();
+		    }
+		    add_action('wp_logout', array(&$this,'myEndSession'));
+			add_action('wp_login', array(&$this,'myEndSession'));
+		}
 	}
+
+	function myEndSession() {
+	    session_destroy();
+	}
+
 
 
 	function shortcode_db_update() {
@@ -136,13 +150,13 @@ class RichReviews {
 			$this->db->create_update_database();
 		}
 
-		// New checks. perhaps inefficient but more future-proof
+		// New checks.
 		if ($current_version != $newest_version) {
 			//Update to initialize new options with default values
 			if(version_compare($newest_version, '1.6.0') == 1) {
 				$this->options->force_update();
 			}
-			if(version_compare($current_version, '1.7.1') == -1) {
+			if(version_compare($current_version, '1.7.3') == -1) {
 				$this->db->create_update_database();
 			}
 			$this->admin->update_option(array('version' => $newest_version));
@@ -152,7 +166,7 @@ class RichReviews {
 
 	function load_scripts_styles() {
 		$pluginDirectory = trailingslashit(plugins_url(basename(dirname(__FILE__))));
-		wp_register_script('rich-reviews', $pluginDirectory . 'js/rich-reviews.js', array('jquery'));
+		wp_register_script('rich-reviews', $pluginDirectory . 'js/rich-reviews.min.js', array('jquery'));
 		wp_enqueue_script('rich-reviews');
 		wp_register_style('rich-reviews', $pluginDirectory . 'css/rich-reviews.css');
 		wp_enqueue_style('rich-reviews');
@@ -197,7 +211,9 @@ class RichReviews {
 		if($this->rr_options['send-email-notifications']) {
 			add_action('rr_on_valid_data', 'rr_send_admin_email', 1, 3);
 		}
-		add_action('rr_on_valid_data', 'rr_output_response_message', 1, 3);
+		if (!isset($this->rr_options['submit-form-redirect']) || !$this->rr_options['submit-form-redirect']) {
+			add_action('rr_on_valid_data', 'rr_output_response_message', 1, 3);
+		}
 		if($this->rr_options['form-name-display']) {
 			add_action('rr_do_form_fields', 'rr_do_name_field', 1, 4);
 			add_filter('rr_misc_validation', 'rr_validate_name_length');
@@ -293,6 +309,7 @@ class RichReviews {
 
 	function shortcode_reviews_show_control($atts) {
 		global $post;
+
 		extract(shortcode_atts(
 			array(
 				'category' => 'none',
@@ -318,8 +335,73 @@ class RichReviews {
 		} else {
 			return;
 		}
+	}
+
+	function shortcode_reviews_to_posts($atts) {
+
+		if(is_array($atts) && array_key_exists('date_time', $atts) && array_key_exists('review_rating', $atts) && array_key_exists('review_status', $atts)) {
+			$atts = (object) $atts;
+			$reviews = array(0 => $atts);
+		} else if (is_array($atts) && count($atts) == 1 && isset($atts['id'])) {
+			$this->db->where('id', $atts['id']);
+			$reviews = $this->db->get();
+		} else {
+			$reviews = $this->db->get_reviews('all', 'all', '');
+		}
 
 
+		$options = $this->rr_options;
+		// $options['display_full_width'] = "checked";
+		global $post;
+		global $wpdb;
+
+		$cat_exists = get_category_by_slug('submitted-review');
+		if (!$cat_exists) {
+			$cat_defaults = array(
+				'description' => 'Category to tag all generated posts of Reviews',
+			 	'slug' => 'submitted-review'
+			);
+			$catID = wp_insert_term('Submitted Review', 'category', $cat_defaults);
+		} else {
+			$catID = $cat_exists->cat_ID;
+		}
+
+		$post_content = '';
+		foreach($reviews as $review) {
+			ob_start();
+			display_review($review, $options);
+			do_action('rr_close_testimonial_group', $options);
+			$post_content = ob_get_clean();
+			$post_content = '<div class="testimonial_group"><div class="post_container"><h4>Submitted Review:</h4>' . $post_content . '</div></div>';
+
+			$sql_content_val = esc_sql($post_content);
+			$existing = $wpdb->get_results( "SELECT * FROM wp_posts WHERE post_content = '$sql_content_val'" );
+			if(empty($existing)) {
+				$post_title = 'Untitled Review';
+				if ($review->review_title != NULL) {
+					$post_title = $review->review_title;
+				}
+
+				if($review->date_time != '0000-00-00 00:00:00') {
+					$post_date = $review->date_time;
+				} else {
+					$post_date = date('Y-m-d H:i:s');
+				}
+
+				$new_post =  array(
+					'post_date' => $post_date,
+					'post_content' => $post_content,
+					'post_title' => $post_title,
+					'post_status' => 'publish',
+					'post_category' => array($catID),
+
+				);
+
+				wp_insert_post($new_post);
+			}
+
+
+		}
 	}
 
 	function shortcode_reviews_show_all_control() {
@@ -334,7 +416,8 @@ class RichReviews {
 		extract(shortcode_atts(
 			array(
 				'category' => 'none',
-				'id' => ''
+				'id' => '',
+				'stars_only' => 'false'
 			)
 		,$atts));
 		if ($id != '') {
@@ -348,7 +431,11 @@ class RichReviews {
 
 		$data = $this->db->get_average_rating($category, $passedPost);
 		ob_start();
-			handle_snippet($data, $this->rr_options, $this->path);
+			if ($stars_only == 'true') {
+				handle_snippet($data, $this->rr_options, $this->path, true);
+			} else {
+				handle_snippet($data, $this->rr_options, $this->path);
+			}
 		return ob_get_clean();
 	}
 
@@ -410,6 +497,26 @@ class RichReviews {
 		return $output;
 	}
 
+	function set_js_option_vars(){
+
+		$moreText = '';
+		$lessText = '';
+		if ($this->rr_options['read-more-text'] != '') {
+			$moreText = $this->rr_options['read-more-text'];
+		}
+		if ($this->rr_options['show-less-text'] != '') {
+			$lessText = $this->rr_options['show-less-text'];
+		}
+		$excerptLength = $this->rr_options['excerpt-length'];
+
+		?>
+			<script type="text/javascript">
+			    var moreText = <?php echo '"' . $moreText . '"'; ?>;
+			    var lessText = <?php echo '"' . $lessText . '"'; ?>;
+			    var excerptLength = <?php echo $excerptLength; ?>;
+			</script>
+		<?php
+	}
 
 	function nice_output($input, $keep_breaks = TRUE) {
 		//echo '<pre>' . $input . '</pre>';

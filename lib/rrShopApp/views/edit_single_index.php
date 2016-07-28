@@ -1,8 +1,10 @@
 <?php
-
 if (isset($_GET['id']) && $_GET['id'] != '') {
 	if (isset($options['product_catalog_ids']) && !empty($options['product_catalog_ids'])) {
 		if (isset($options['product_catalog_ids'][$_GET['id']])) {
+			if(isset($_GET['message'])) {
+				$message_text = urldecode($_GET['message']);
+			}
 			$data = $options['product_catalog_ids'][$_GET['id']];
 
 			$name = '';
@@ -108,11 +110,11 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 						<div class="clear"></div>
 					</form>
 				</div>
-				<div class="confirm-deletion">
+				<div class="confirm-deletion" tabindex="0">
 					<h3><?php printf(__('Are you sure that you wish to delete the product listing for product with id "%s"?', 'rich-reviews'), $_GET['id']); ?></h3>
-					<form method="post" name="delete-listing-<?php echo $_GET['id'];?>">
+					<form method="post" name="delete-listing-<?php echo $_GET['id'];?>" id="deleteListingForm">
 						<input type="hidden" name="deleting-listing" value="confirmed" />
-						<input type="submit" class="button confirm-deletion-button" value="<?php _e('Confirm Delete', 'rich-reviews'); ?>" />
+						<button class="button confirm-deletion-button"><?php _e('Confirm Delete', 'rich-reviews'); ?></button>
 						<button class="button delete-listing-button" id="cancel-deletion"><?php _e('Cancel Delete'); ?></button>
 					</form>
 				</div>
@@ -121,11 +123,16 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 				jQuery(function() {
 					jQuery('#delete-listing').click(function(e) {
 						e.preventDefault();
-						jQuery('.confirm-deletion').toggleClass('active');
+						jQuery('.confirm-deletion').addClass('active');
+						jQuery('.confirm-deletion').focus();
 					});
 					jQuery('#cancel-deletion').click(function(e) {
 						e.preventDefault();
 						jQuery('.confirm-deletion').removeClass('active');
+					});
+					jQuery('.confirm-deletion-button').click(function(e) {
+						e.preventDefault();
+						jQuery('#deleteListingForm').submit();
 					});
 				});
 			</script>
@@ -238,7 +245,6 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 			</div>
 		</div>
 	<?php
-
 } else {
 	header('HTTP/1.0 404 Not Found');
 }

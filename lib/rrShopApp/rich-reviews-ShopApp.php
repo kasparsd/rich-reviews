@@ -5,9 +5,6 @@ require_once('rich-reviews-ShopAppShortcode.php');
 
 // require_once('views/edit_single_index.php');
 
-wp_cron();
-
-
 class RRShopApp {
 
 	var $admin;
@@ -24,22 +21,23 @@ class RRShopApp {
 		$this->options = new RRShopAppOptions($this);
 		$this->shopAppOptions = $this->options->get_option();
 
-		add_action('init', array(&$this, 'init'));
+
         add_action('admin_menu', array(&$this, 'add_edit_product_index'));
-        add_action('admin_menu', array(&$this, 'maybe_set_alert_cycle'));
+        // add_action('admin_menu', array(&$this, 'maybe_set_alert_cycle'));
 		add_shortcode('clear_shop', array($this, 'dump_shop_app_reviews')); //Remove this, or build it into an admin action.
         add_shortcode('RR_SHOPPER_APPROVED', array(&$this, 'shortcode_shopper_approved_control'));
         add_action( 'wp_ajax_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
         add_action( 'wp_ajax_nopriv_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
-		date_default_timezone_set('MST');
+        $this->init();
 	}
 
 	function init() {
 		$this->options->update_options();
 		add_action('update_cache', array(&$this, 'cron_update_cache'));
 		if ( ! wp_next_scheduled( 'update_cache' ) ) {
-		  wp_schedule_event( time(), 'daily', 'update_cache' );
+		  wp_schedule_event( time(), 'hourly', 'update_cache' );
 		}
+
 	}
 
 	function cron_update_cache() {
@@ -81,7 +79,7 @@ class RRShopApp {
         }
         ?>
 
-            <div class="notice-info notice is-dismissible rr-extension-notice">
+            <div class="notice-info notice rr-extension-notice is-dismissable">
                 <p>
                     <span style="font-size:15px;">Rich Reviews</span>: <?php echo __('Introducing ', 'rich-reviews') . '<strong>' . __('Organic & PPC Stars', 'rich-reviews') . '</strong> ' . __('via a Google Authorized 3rd Party Merchant & Product Review Aggregator', 'rich-reviews'); ?>.
                     <a href="<?php echo admin_url() . 'admin.php?page=fp_admin_shopper_approved_page'; ?>" style="margin-left:8px;">
@@ -207,20 +205,10 @@ class RRShopApp {
         $data = $this->update_aggregate_snippet_markup($data);
         $data = $this->update_product_snippet_markup($data);
 
-		// if(isset($markup) && $markup != null && $markup != '') {
+
 		$data['last_update'] = date("F j, Y, g:i a");
 
-			// $return = array(
-			// 	'api_url' 		=> 	$api_url,
-			// 	'merchant_markup'		=>	$markup,
-			// 	'last_update'	=>	$last_update
-			// );
-
 		return $data;
-		// } else {
-		// 	// did not properly return markup
-		// 	return;
-		// }
 	}
 
 	public function update_site_keys($data) {
@@ -321,6 +309,10 @@ class RRShopApp {
           $this->options->update_option('total_review_count', $response->review_count);
         }
 
+        if(isset($response->site)) {
+            $this->options->update_option('site_name', $response->site);
+        }
+
         $updated_options = $this->options->get_option();
 
     }
@@ -359,6 +351,7 @@ class RRShopApp {
     }
 
     function display_edit_single_product_index() {
+
         $options = $this->shopAppOptions;
         $message_class = 'updated';
 
@@ -417,8 +410,11 @@ class RRShopApp {
             $options = $this->options->get_option();
             $this->create_update_product_csv();
             $message_text = "Product listing created and feed rewritten succesfully";
-            $headerString = 'Location: ' . admin_url() . 'admin.php?page=edit_single_product_index&id=' . $product_id;
-            header($headerString);
+            $urlString = admin_url() . 'admin.php?page=edit_single_product_index&id=' . $product_id . '&message=' . urlencode($message_text);
+            unset($_GET['new']);
+            $_GET['id'] = $product_id;
+            echo '<script type="text/javascript"> window.location = "' . $urlString . '"; </script>';
+            @include 'views/edit_single_index.php';
             return;
         } else if (isset($_POST['deleting-listing']) && $_POST['deleting-listing'] == 'confirmed') {
             $currentProductIndex = $options['product_catalog_ids'];
@@ -428,8 +424,9 @@ class RRShopApp {
             }
             $this->options->update_option('product_catalog_ids', $updatedProductIndex);
             $this->create_update_product_csv();
-            $headerString = 'Location: ' . admin_url() . 'admin.php?page=fp_admin_shopper_approved_page';
-            header($headerString);
+            $urlString = admin_url() . 'admin.php?page=fp_admin_shopper_approved_page';
+              echo '<script type="text/javascript"> window.location = "' . $urlString . '"; </script>';
+            @include 'views/edit_single_index.php';
             return;
         }
         @include 'views/edit_single_index.php';

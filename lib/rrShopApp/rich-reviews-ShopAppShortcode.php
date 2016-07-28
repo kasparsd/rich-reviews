@@ -20,6 +20,10 @@ function handle_shopper_approved($switch, $ids, $options, $path) {
 			if ($ids != '') {
 				output_product_review_structured_snippet($options, $ids);
 			}
+		case 'merchant-widget':
+			output_merchant_review_widget($options);
+			break;
+		default:
 			break;
 	}
 
@@ -40,6 +44,20 @@ function output_trigger_script($options, $ids) {
 				#sa_header_img {
 					display: block;
 				}
+				<?php
+					if (isset($options['review_header_override']) && $options['review_header_override'] != '') {
+						?>
+							#sa_header_text {
+							    font-size: 0;
+							}
+
+							#sa_header_text:before {
+							    font-size: 24px;
+							    content: "<?php echo $options['review_header_override']; ?>";
+							}
+						<?php
+					}
+				?>
 			</style>
 		<?php
 	}
@@ -150,4 +168,92 @@ function output_product_review_structured_snippet($options, $ids = null) {
 		}
 	}
 	return;
+}
+
+/**
+ * Function to output the merchant review widget, contsructed from various bits of data that we have * collected from the User's shopper approved account.
+ * @param Array $options ShopAppOpptions->get()
+ * Outputs to buffer, returned by higher order function
+ */
+function output_merchant_review_widget($options) {
+	// Note: build this from reverse engineered options, but for now,...
+
+		if( !isset($options['site_name']) || !isset($options['site_id'])) {
+			// We have big problems
+			return;
+		}
+
+		$logoNames = array(
+			'dark' => array(
+				'large' => 'widgetfooter-darklogo.png',
+				'small' => 'widgetfooter-darknarrow.png'
+			),
+			'light' => array(
+				'large' => 'widgetfooter-whitelogo.png',
+				'small' => 'widgetfooter-whitenarrow.png'
+			),
+		);
+		if ($options['sa_page_shade'] == 'sa_parentLight') {
+			$logoFile = $logoNames['dark'];
+		} else {
+			$logoFile = $logoNames['light'];
+		}
+
+		if ($options['sa_widget_size'] == 'sa_large') {
+			$logoFile = $logoFile['large'];
+		} else {
+			$logoFile = $logoFile['small'];
+		}
+
+		$count_class = 'sa_count' . $options['sa_review_count'];
+		if ($options['sa_reviews_rotation'] == 'sa_static') {
+			$rotation_rate = 0;
+		} else {
+			$rotation_rate = $options['sa_rotation_rate'] * 1000;
+		}
+
+
+		$classes = array(
+			$options['sa_reviews_rotation'],
+			$options['sa_enable_links'],
+			$options['sa_background_color'],
+			$count_class,
+			$options['sa_text_color'],
+			$options['sa_border_color'],
+			$options['sa_border_style'],
+			$options['sa_date_format'],
+			$options['sa_vertical_display'],
+			$options['sa_widget_size'],
+			$options['sa_display_orientation']
+		);
+		$classes = implode(' ', $classes);
+
+
+	?>
+		<div style="min-height: 100px; overflow: hidden;" class="shopperapproved_widget <?php echo $classes; ?>">
+		</div>
+
+		<script type="text/javascript">
+			var sa_interval = <?php echo $rotation_rate; ?>;
+
+			var sID = <?php echo $options['site_id']; ?>;
+
+			function saLoadScript(src) {
+				var js = window.document.createElement('script');
+				 js.src = src;
+				 js.type = 'text/javascript';
+				 document.getElementsByTagName("head")[0].appendChild(js);
+			}
+
+			if (typeof(shopper_first) == 'undefined')
+				saLoadScript('//www.shopperapproved.com/widgets/testimonial/3.0/' + sID + '.js');
+			shopper_first = true;
+		</script>
+
+		<div style="text-align:right;">
+			<a href="http://www.shopperapproved.com/reviews/<?php echo $options['site_name']; ?>/" target="_blank" rel="nofollow" class="sa_footer">
+				<img class="sa_widget_footer" alt="" src="https://www.shopperapproved.com/widgets/<?php echo $logoFile; ?>" style="border: 0;">
+			</a>
+		</div>
+	<?php
 }

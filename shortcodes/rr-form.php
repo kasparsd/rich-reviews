@@ -1,11 +1,11 @@
 <?php
 
 function handle_form($atts, $options, $sqltable, $path) {
-	global $wpdb;
-	global $post;
+	global $wpdb, $post, $richReviews;
 	extract(shortcode_atts(
 		array(
-			'category' => 'none'
+			'category' => 'none',
+			'unique_key' => ''
 		)
 	,$atts));
 
@@ -20,6 +20,7 @@ function handle_form($atts, $options, $sqltable, $path) {
 	$user = wp_get_current_user();
 	$displayForm = true;
 	$posted = false;
+	$outputSubmissionMessage = false;
 	$errors = array(
 		'name'	=>	'',
 		'email'	=>	'',
@@ -28,7 +29,6 @@ function handle_form($atts, $options, $sqltable, $path) {
 		'content'=>	'',
 		'reviewer-image' => ''
 	);
-
 
 	$newData = array(
 		'reviewer_name'   => $rName,
@@ -41,8 +41,37 @@ function handle_form($atts, $options, $sqltable, $path) {
 		'errors'		  => $errors
 	);
 
+	if (isset($options['submit-form-redirect']) && $options['submit-form-redirect']) {
+		// Maybe get data from Session var
+		if (isset($_SESSION['form_return']) && is_array($_SESSION['form_return'])) {
+			$returned_data = $_SESSION['form_return'];
+			if (isset($returned_data['errors']) && is_array($returned_data['errors'])) {
+				$errors = $returned_data['errors'];
+			}
+			if (isset($returned_data['newData']) && is_array($returned_data['newData'])) {
+				$newData = $returned_data['newData'];
+			}
+			if(isset($returned_data['success_message']) && $returned_data['success_message'] == true && isset($returned_data['newSubmission']) && is_array($returned_data['newSubmission'])) {
+				$outputSubmissionMessage = true;
+				$newSubmission = $returned_data['newSubmission'];
+			}
+		}
+		// clear and reset form session
+		unset($_SESSION['form_return']);
+		unset($_SESSION['form_uri']);
+		$_SESSION['form_uri'] = $_SERVER['REQUEST_URI'];
+	}
+
+
+	if(isset($unique_key) && $unique_key != '') {
+		$key = $unique_key;
+	} else {
+		$key = 'Y';
+	}
+
+
 	if (isset($_POST['submitted'])) {
-		if ($_POST['submitted'] == 'Y') {
+		if ($_POST['submitted'] == $key) {
 
 
 
@@ -54,7 +83,9 @@ function handle_form($atts, $options, $sqltable, $path) {
 			if ($options['form-name-display']) {
 				if (!isset($_POST['rName'])) {
 					if ($options['integrate-user-info'] && $options['form-name-use-usernames']) {
-						$rName = $user->data->display_name;
+						if ($user->ID) {
+							$rName = $user->data->display_name;
+						}
 					}
 				} else {
 					$rName = fp_sanitize($_POST['rName']);
@@ -89,7 +120,15 @@ function handle_form($atts, $options, $sqltable, $path) {
 			}
 
 			if ($options['form-email-display']) {
-				$rEmail    = fp_sanitize($_POST['rEmail']);
+				if (!isset($_POST['rEmail'])) {
+					if ($options['integrate-user-info'] && $options['form-email-use-useremails']) {
+						if ($user->ID) {
+							$rEmail = $user->data->user_email;
+						}
+					}
+				} else {
+					$rEmail    = fp_sanitize($_POST['rEmail']);
+				}
 			}
 			if ($options['form-title-display']) {
 				$rTitle    = fp_sanitize($_POST['rTitle']);
@@ -180,16 +219,32 @@ function handle_form($atts, $options, $sqltable, $path) {
 			$errors = $newData['errors'];
 			$errors = generate_error_text($errors, $options);
 
+			if ($options['form-submit-text'] == '') {
+				$submitText = __('Submit', 'rich-reviews');
+			} else {
+				$submitText = $options['form-submit-text'];
+			}
+
+		if ($outputSubmissionMessage) {
+			rr_output_response_message($newSubmission, $options);
+		}
+
+		if(isset($options['submit-form-redirect']) && $options['submit-form-redirect']) {
+			$form_action = $richReviews->plugin_url . 'shortcodes/redirect-form-processing.php?key=' . $key . '&category=' . $category . '&postID=' . $post->ID;
+		} else {
+			$form_action = '';
+		}
+
 		?>
-		<form action="" method="post" enctype="multipart/form-data" class="rr_review_form">
-			<input type="hidden" name="submitted" value="Y" />
+		<form action="<?php echo $form_action; ?>" method="post" enctype="multipart/form-data" class="rr_review_form">
+			<input type="hidden" name="submitted" value="<?php echo $key; ?>" />
 			<input type="hidden" name="rRating" id="rRating" value="0" />
 			<table class="form_table">
 			<?php do_action('rr_do_form_fields', $options, $path, $newData, $errors); ?>
 
 				<tr class="rr_form_row">
 					<td></td>
-					<td class="rr_form_input"><input id="submitReview" type="submit" value="<?php echo $options['form-submit-text']; ?>"/></td>
+					<td class="rr_form_input"><input id="submitReview" type="submit" value="<?php echo $submitText; ?>"/></td>
 				</tr>
 			</table>
 		</form>
@@ -239,14 +294,42 @@ function generate_error_text($errors, $options) {
 
 	$processed = array();
 	foreach($errors as $key => $val) {
+
 		$option_key = 'form-' . $key . '-label';
-		$label = $options[$option_key];
+		$label = '';
+		if ($options[$option_key] == '') {
+			switch($key) {
+				case 'name':
+					$label = __('name', 'rich-reviews');
+					break;
+				case 'title':
+					$label = __('title', 'rich-reviews');
+					break;
+				case 'email':
+					$label = __('email', 'rich-reviews');
+					break;
+				case 'reviewer-image':
+					$label = __('reviewer image');
+					break;
+				case 'content':
+					$label = __('content', 'rich-reviews');
+					break;
+				case 'rating':
+					$label = __('rating', 'rich-reviews');
+					break;
+				default:
+					break;
+			}
+		} else {
+			$label = $options[$option_key];
+		}
+
 		if ($val == 'absent required') {
-			$processed[$key] = 'The ' . $label . ' field is required.';
+			$processed[$key] = __('The', 'rich-reviews') . ' ' . $label . ' ' . __('field is required.', 'rich-reviews');
 		} else if ($val == 'invalid input') {
-			$processed[$key] = 'Please enter a valid ' . $label;
+			$processed[$key] = __('Please enter a valid', 'rich-reviews') . ' ' . $label;
 		} else if ($val == 'length violation') {
-			$processed[$key] = 'The ' . $label . ' that you entered is too long.';
+			$processed[$key] = __('The', 'rich-reviews') . ' ' . $label . ' ' . __('that you entered is too long.', 'rich-reviews');
 		} else {
 			$processed[$key] = '';
 		}
@@ -266,7 +349,11 @@ function sanitize_incoming_data($incomingData) {
 
 function rr_do_rating_field($options, $path, $rData = null, $errors = null) {
 	$error = $errors['rating'];
-	$label = $options['form-rating-label'];
+	if ($options['form-rating-label'] == '') {
+		$label = __('Rating', 'rich-reviews');
+	} else {
+		$label = $options['form-rating-label'];
+	}
 
 	@include $path . 'views/frontend/form/rr-star-input.php';
 
@@ -287,7 +374,13 @@ function rr_do_name_field($options, $path, $rData = null, $errors = null) {
 	$require = false;
 	$rFieldValue = '';
 	$error = $errors['name'];
-	$label = $options['form-name-label'];
+
+	if ($options['form-name-label'] == '') {
+		$label = __('Name', 'rich-reviews');
+	} else {
+		$label = $options['form-name-label'];
+	}
+
 	$user = wp_get_current_user();
 	$disable = false;
 	if ($options['form-name-require']) {
@@ -314,7 +407,13 @@ function rr_do_reviewer_img_field($options, $path, $rData = null, $errors = null
 	} else {
 		$require = false;
 		$rFieldValue = '';
-		$label = $options['form-reviewer-image-label'];
+
+		if ($options['form-reviewer-image-label'] == '') {
+			$label = __('Reviewer Image', 'rich-reviews');
+		} else {
+			$label = $options['form-reviewer-image-label'];
+		}
+
 		$error = $errors['reviewer-image'];
 		if ($options['form-reviewer-image-require']) {
 			$require = true;
@@ -333,12 +432,28 @@ function rr_do_email_field($options, $path, $rData = null, $errors = null) {
 	$require = false;
 	$rFieldValue = '';
 	$error = $errors['email'];
-	$label = $options['form-email-label'];
+
+	if ($options['form-email-label'] == '') {
+		$label = __('Email', 'rich-reviews');
+	} else {
+		$label = $options['form-email-label'];
+	}
+
+	$user = wp_get_current_user();
+	$disable = false;
+
 	if ($options['form-email-require']) {
 		$require = true;
 	}
 	if ($rData['reviewer_email']) {
 		$rFieldValue = $rData['reviewer_email'];
+	} else {
+		if ($options['integrate-user-info'] && $options['form-email-use-useremails']) {
+			if ($user->ID) {
+				$rFieldValue = $user->data->user_email;
+				$disable = true;
+			}
+		}
 	}
 
 	@include $path . 'views/frontend/form/rr-text-input.php';
@@ -349,7 +464,13 @@ function rr_do_title_field($options, $path, $rData = null, $errors = null) {
 	$require = false;
 	$rFieldValue = '';
 	$error = $errors['title'];
-	$label = $options['form-title-label'];
+
+	if ($options['form-title-label'] == '') {
+		$label = __('Title', 'rich-reviews');
+	} else {
+		$label = $options['form-title-label'];
+	}
+
 	if ($options['form-title-require']) {
 		$require = true;
 	}
@@ -365,7 +486,13 @@ function rr_do_content_field($options, $path, $rData = null, $errors = null) {
 	$require = false;
 	$rFieldValue = '';
 	$error = $errors['content'];
-	$label = $options['form-content-label'];
+
+	if ($options['form-content-label'] == '') {
+		$label = __('Review Content', 'rich-reviews');
+	} else {
+		$label = $options['form-content-label'];
+	}
+
 	if ($options['form-content-require']) {
 		$require = true;
 	}
@@ -380,12 +507,18 @@ function rr_insert_new_review($data, $options, $sqltable) {
 
 	global $wpdb;
 	$wpdb->insert($sqltable, $data);
+
+	// if ($data['review_status'] == 1) {
+	// 	global $richReviews;
+	// 	$richReviews->shortcode_reviews_to_posts($data);
+	// }
+
 }
 
 function rr_output_response_message($data, $options) {
 
 	?>
-	<div class="successful">
+	<div class="rr_successful">
 		<span class="rr_star glyphicon glyphicon-star left" style="font-size: 34px;"></span>
 		<span class="rr_star glyphicon glyphicon-star big-star right" style="font-size: 34px;"></span>
 		<center>
@@ -393,14 +526,14 @@ function rr_output_response_message($data, $options) {
 				<?php
 
 					if ($options['form-name-display'] && $options['form-name-require']) {
-						echo $data['reviewer_name'] . ', your review has been recorded';
+						echo $data['reviewer_name'] . ', ' . __('your review has been recorded', 'rich-reviews');
 					} else {
-						echo 'Your review has been recorded';
+						_e('Your review has been recorded', 'rich-reviews');
 					}
 					if ($options['require_approval']) {
-						echo ' and submitted for approval';
+						_e(' and submitted for approval', 'rich-reviews');
 					}
-					echo '. Thanks!';
+					echo '. ' . __('Thanks!', 'rich-reviews');
 				?>
 			</strong>
 		</center>
@@ -414,9 +547,9 @@ function rr_output_scroll_script() {
 	?>
 		<script>
 			jQuery(function(){
-				if (jQuery(".successful").is(":visible")) {
+				if (jQuery(".rr_successful").is(":visible")) {
 
-					offsetOne = jQuery(".successful").offset();
+					offsetOne = jQuery(".rr_successful").offset();
 					jQuery("html, body").animate({
 						scrollTop: (offsetOne.top - 400)
 					});
@@ -451,17 +584,33 @@ function rr_send_admin_email($data, $options) {
 	$message .= "\r\n";
 	$message .= __("Review Date: ", 'rich-reviews') .$date_time."\r\n";
 	if ( $reviewer_name != "" ) {
-		$message .= $options["form-name-label"].": ".$reviewer_name."\r\n";
+		if ($options["form-name-label"] != '') {
+			$message .= $options["form-name-label"].": ".$reviewer_name."\r\n";
+		} else {
+			$message .= __('Name','rich-reviews') . ": ".$reviewer_name."\r\n";
+		}
 	}
 	if ( $reviewer_email != "" ) {
-		$message .= $options["form-email-label"].": ".$reviewer_email."\r\n";
+		if ($options["form-email-label"] != '') {
+			$message .= $options["form-email-label"].": ".$reviewer_email."\r\n";
+		} else {
+			$message .= __('Email','rich-reviews') . ": ".$reviewer_email."\r\n";
+		}
 	}
 	if ( $review_title != "" ) {
-		$message .= $options["form-title-label"].": ".$review_title."\r\n";
+		if ($options["form-title-label"] != '') {
+			$message .= $options["form-title-label"].": ".$review_title."\r\n";
+		} else {
+			$message .= __('Title','rich-reviews') . ": ".$review_title."\r\n";
+		}
 	}
 	$message .= __("Review Rating: ", 'rich-reviews'). $review_rating ."\r\n";
 	if ($review_text != "" ) {
-		$message .= $options["form-content-label"].": ".$review_text."\r\n";
+		if ($options["form-content-label"] != '') {
+			$message .= $options["form-content-label"].": ".$review_text."\r\n";
+		} else {
+			$message .= __('Review Content','rich-reviews') . ": ".$review_text."\r\n";
+		}
 	}
 	$message .= __("Review Category: ", 'rich-reviews') . $review_category ."\r\n\r\n";
 

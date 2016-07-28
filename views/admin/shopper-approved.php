@@ -1,4 +1,6 @@
 <?php
+	// THIS FILE NEEDS SOME WORK AT SOME POINT.... good god...
+
 	$options = $this->parent->shopApp->options->get_option();
 	if (isset($options['total_review_count']) && is_int($options['reviews_pulled_count'])) {
 		$unpulled_reviews = intval($options['total_review_count']) - intval($options['reviews_pulled_count']);
@@ -14,13 +16,12 @@
 	$init_active = '';
 	$info_active = '';
 
+
 	if (isset($options['api_url']) && $options['api_url'] != '') {
 		$init_active = 'active';
 	} else {
 		$info_active = 'active';
 	}
-
-
 		if (isset($options['site_id']) && isset($options['site_token']) && $options['site_id'] != '' && $options['site_token'] != '') {
 			if(  isset($options['dismissed_help_notice']) && !$options['dismissed_help_notice']) {
 				?>
@@ -71,7 +72,7 @@
 				<a target=_blank href="http://hubs.ly/H02f56Q0">
 					<img src="<?php echo $this->parent->plugin_url; ?>images/RR-sa-cta.jpg" class="sa-cta" />
 				</a>
-				<div class="one-half right">
+				<div class="rr-one-half rr-right">
 					<h3><?php _e('Quick Links', 'rich-reviews'); ?></h3>
 					<div style="padding:0 5%;">
 						<ul>
@@ -81,7 +82,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="one-half left middle-padded">
+				<div class="rr-one-half rr-left middle-padded">
 					<div class="button" id="sa-more"><?php _e('Read More', 'rich-reviews'); ?></div>
 					<div class="sa-more-replace">
 						<span class="stacked-header">Shopper</span>
@@ -165,7 +166,7 @@
 			<div class="shop-app-init <?php echo $init_active; ?> options-section">
 				<form id="shopAppAdmin"method="post" action="">
 					<input type="hidden" name="dinner" value="served" />
-					<div class="label-container one-fifth">
+					<div class="label-container rr-one-fifth">
 						<label for="api_url" style="font-size:21px;">
 							<?php _e('Enter API Url (json):', 'rich-reviews'); ?>
 						</label>
@@ -183,43 +184,43 @@
 				<?php
 					if((isset($options['site_id']) && isset($options['site_token'])) && ($options['site_id'] != '' && $options['site_token'] != '')) {
 						?>
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="api_url" style="float:right;">
 								<?php _e('Extracted Site ID:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
+						<div class="input-container" style="width:66%;float:right;">
 							<input type="text" name="site_id" style="width: 100%;float:left;" placeholder="<?php _e('API URL', 'rich-reviews'); ?>" style="vertical-align:bottom;" <?php echo 'value="' . $options['site_id'] . '"'; ?> disabled />
 						</div>
 						<div class="clear input-break"></div>
 						<br />
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="api_url" style="float:right;">
 								<?php _e('Extracted Site Token:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
+						<div class="input-container" style="width:66%;float:right;">
 							<input type="text" name="site_token" style="width: 100%;float:left;" placeholder="API URL" style="vertical-align:bottom;" <?php echo 'value="' . $options['site_token'] . '"';?> disabled />
 						</div>
 						<div class="clear input-break"></div>
 						<br />
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="total_review_count" style="float:right;">
 								<?php _e('Total Shopper Approved Reviews:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
-							<input type="text" name="total_review_count" disabled class="two-thirds" style="width:100%;float:left;" <?php if($options['total_review_count'] != null) { echo 'value="' . $options['total_review_count'] . '"';} ?> disabled />
+						<div class="input-container" style="width:66%;float:right;">
+							<input type="text" name="total_review_count" disabled class="" style="width:100%;float:left;" <?php if($options['total_review_count'] != null) { echo 'value="' . $options['total_review_count'] . '"';} ?> disabled />
 						</div>
 						<div class="clear input-break"></div>
 						<br />
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="average_score" style="float:right;">
 								<?php _e('Average Score:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
-							<input type="text" name="average_score" disabled class="two-thirds" style="width:100%;float:left;" <?php if($options['average_score'] != null) { echo 'value="' . $options['average_score'] . '"';} ?> disabled />
+						<div class="input-container" style="width:66%;float:right;">
+							<input type="text" name="average_score" disabled class="" style="width:100%;float:left;" <?php if($options['average_score'] != null) { echo 'value="' . $options['average_score'] . '"';} ?> disabled />
 						</div>
 						<div class="clear input-break"></div>
 						</form>
@@ -230,13 +231,13 @@
 					<div class="options-section">
 						<h2><?php _e('Snippet Settings', 'rich-reviews'); ?></h2>
 						<hr>
-						<div class="label-container one-fifth" style="width:30%; float:left;">
+						<div class="label-container" style="width:30%; float:left;">
 							<label for="html-markup" style="float:right;">
 								<?php _e('Shopper Approved Merchant Markup:', 'rich-reviews'); ?>
 								<div style="font-size: 11px; font-weight: 400; margin-top: 8px; font-style: italic;"><?php _e('Use the shortcode', 'rich-reviews'); ?><br/><code style="font-style: normal; font-size: 11px;">[RR_SHOPPER_APPROVED get="merchant-schema"]</code> <?php _e('to output this markup', 'rich-reviews'); ?></div>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
+						<div class="input-container" style="width:66%;float:right;">
 							<code name="Shopper Approved" placeholder="API Key" rows="10" cols="100" style="overflow:scroll;width:100%;float:left;" >
 							<?php if($options['merchant_markup'] != null) { echo htmlspecialchars($options['merchant_markup']);} ?>
 							</code>
@@ -246,14 +247,14 @@
 						<?php
 							if (isset($options['product_catalog_ids']) && !empty($options['product_catalog_ids'])) {
 								?>
-									<div class="label-container one-fifth" style="width:30%; float:left;">
+									<div class="label-container" style="width:30%; float:left;">
 										<label for="html-markup" style="float:right;">
-											<?php _e('Shopper Approved Merchant Markup:', 'rich-reviews'); ?>
+											<?php _e('Shopper Approved Product Markup:', 'rich-reviews'); ?>
 											<div style="font-size: 11px; font-weight: 400; margin-top: 8px; font-style: italic;"><?php _e('Use the shortcode', 'rich-reviews'); ?> <br/><code style="font-style: normal; font-size: 11px;">[RR_SHOPPER_APPROVED get="product-schema" ids="productId"]</code> <?php echo __('to output this markup. Note: Replace productId with the catalog id of the product for which you would like to output the schema for. To output multiple product\'s schema use comma separated ids.', 'rich-reviews') . '<br/>' . __('(ex. ids="productId1,productId2,productId3")', 'rich-reviews'); ?></div>
 										</label>
 									</div>
-									<div class="input-container two-thirds" style="width:66%;float:right;">
-										<code name="Shopper Approved" placeholder="API Key" rows="10" cols="100" style="overflow:scroll;width:100%;float:left;" >
+									<div class="input-container" style="width:66%;float:right;">
+										<code name="Shopper Approved" rows="10" cols="100" style="overflow:scroll;width:100%;float:left;" >
 										<?php if(isset($options['product_markup']) && !empty($options['product_markup'])) { echo htmlspecialchars(array_shift($options['product_markup']));} ?>
 										</code>
 									</div>
@@ -262,17 +263,17 @@
 								<?php
 							}
 						?>
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="last_update" style="float:right;">
 								<?php _e('Last Updated:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
-							<input type="text" name="last_update" disabled class="two-thirds" style="width:100%;float:left;" <?php if($options['last_update'] != null) { echo 'value="' . $options['last_update'] . '"';} ?>/>
+						<div class="input-container" style="width:66%;float:right;">
+							<input type="text" name="last_update" disabled class="" style="width:100%;float:left;" <?php if($options['last_update'] != null) { echo 'value="' . $options['last_update'] . '"';} ?>/>
 						</div>
 						<div class="clear input-break"></div>
 						<br/>
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<input type="submit" form="shopAppAdmin" class="button" id="force-update" value="<?php _e('Manual Update', 'rich-reviews'); ?>"/>
 						</div>
 						<div class="clear"></div>
@@ -280,106 +281,108 @@
 					<div class="options-section">
 						<h2><?php _e('Shopper Approved Shortcode Options', 'rich-reviews'); ?></h2>
 						<hr>
+						<?php if(!isset($options['site_code']) || $options['site_code'] ==  '') {
+							?>
+								<h4><?php _e('To Enable Link Shortcode Options, please copy the "Link to Full Survey" from the Merchant Reviews Survey Options tab of Shopper Approved and enter it below.', 'rich-reviews'); ?></h4>
+								<form name="site-code-grab" method="post">
+									<input type="hidden" name="grabbing-site-code" value="roger" />
+									<input name="full-link-drop" style="width:80%;margin:auto;" />
+									<input type="submit" class="button rr-right" value="<?php _e('Submit Link', 'rich-reviews'); ?>" />
+								</form>
+							<?php
+						}
+						?> <form name="shopper-approved-shortcode-options" method="post">
+								<input type="hidden" name="napolean" value="complex" />
+						<?php
+						if (isset($options['site_code']) && $options['site_code'] !=  '') { ?>
 
-						<form name="shopper-approved-shortcode-options" method="post">
-							<input type="hidden" name="napolean" value="complex" />
-							<div class="link-options">
-								<?php if (isset($options['site_code']) && $options['site_code'] !=  '') {
-									?>
-										<div class="merchant-options">
-											<h3>Merchant Review Link</h3>
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="reviews-link-shortcode" style="float:right;">
-													<?php _e('Output Link to Full Review', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<span class="two-thirds" style="width:100%;float:left;">
-													[RR_SHOPPER_APPROVED get="merchant-link"]
-												</span>
-											</div>
-											<div class="clear input-break"></div>
-											<br/>
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="merchant_link_text" style="float:right;">
-													<?php _e('Link Text', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<input type="text" name="merchant_link_text" class="two-thirds" style="width:100%;float:left;" <?php if($options['merchant_link_text'] != null) { echo 'value="' . $options['merchant_link_text'] . '"';} ?>/>
-											</div>
-											<div class="clear input-break"></div>
-											<br />
 
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="merchant_link_element_class" style="float:right;">
-													<?php _e('Link Element Class', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<input type="text" name="merchant_link_element_class" class="two-thirds" style="width:100%;float:left;" <?php if($options['merchant_link_element_class'] != null) { echo 'value="' . $options['merchant_link_element_class'] . '"';} ?>/>
-											</div>
-											<div class="clear input-break"></div>
+								<div class="link-options">
+									<div class="merchant-options">
+										<h3>Merchant Review Link</h3>
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="reviews-link-shortcode" style="float:right;">
+												<?php _e('Output Link to Full Review', 'rich-reviews'); ?>:
+											</label>
 										</div>
-										<div class="product-options">
-											<h3>Product Review Link</h3>
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="reviews-link-shortcode" style="float:right;">
-													<?php _e('Output Link to Full Review', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<span class="two-thirds" style="width:100%;float:left;">
-													[RR_SHOPPER_APPROVED get="product-link"]
-												</span>
-											</div>
-											<div class="clear input-break"></div>
-											<br/>
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="product_link_text" style="float:right;">
-													<?php _e('Link Text', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<input type="text" name="product_link_text" class="two-thirds" style="width:100%;float:left;" <?php if($options['product_link_text'] != null) { echo 'value="' . $options['product_link_text'] . '"';} ?>/>
-											</div>
-											<div class="clear input-break"></div>
-											<br />
-
-											<div class="label-container one-fifth" style="width:30%;float:left;">
-												<label for="product_link_element_class" style="float:right;">
-													<?php _e('Link Element Class', 'rich-reviews'); ?>:
-												</label>
-											</div>
-											<div class="input-container two-thirds" style="width:66%;float:right;">
-												<input type="text" name="product_link_element_class" class="two-thirds" style="width:100%;float:left;" <?php if($options['product_link_element_class'] != null) { echo 'value="' . $options['product_link_element_class'] . '"';} ?>/>
-											</div>
-											<div class="clear input-break"></div>
+										<div class="input-container" style="width:66%;float:right;">
+											<span class="" style="width:100%;float:left;">
+												[RR_SHOPPER_APPROVED get="merchant-link"]
+											</span>
 										</div>
-									<?php
-								} else {
-									?>
-										<h4><?php _e('To Enable Link Shortcode Options, please copy the "Link to Full Survey" from the Merchant Reviews Survey Options tab of Shopper Approved and enter it below.', 'rich-reviews'); ?></h4>
-										<form name="site-code-grab" method="post">
-											<input type="hidden" name="grabbing-site-code" value="roger" />
-											<input name="full-link-drop" style="width:80%;margin:auto;" />
-											<input type="submit" class="button right" value="<?php _e('Submit Link', 'rich-reviews'); ?>" />
-										</form>
-									<?php
+										<div class="clear input-break"></div>
+										<br/>
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="merchant_link_text" style="float:right;">
+												<?php _e('Link Text', 'rich-reviews'); ?>:
+											</label>
+										</div>
+										<div class="input-container" style="width:66%;float:right;">
+											<input type="text" name="merchant_link_text" class="" style="width:100%;float:left;" <?php if($options['merchant_link_text'] != null) { echo 'value="' . $options['merchant_link_text'] . '"';} ?>/>
+										</div>
+										<div class="clear input-break"></div>
+										<br />
+
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="merchant_link_element_class" style="float:right;">
+												<?php _e('Link Element Class', 'rich-reviews'); ?>:
+											</label>
+										</div>
+										<div class="input-container" style="width:66%;float:right;">
+											<input type="text" name="merchant_link_element_class" class="" style="width:100%;float:left;" <?php if($options['merchant_link_element_class'] != null) { echo 'value="' . $options['merchant_link_element_class'] . '"';} ?>/>
+										</div>
+										<div class="clear input-break"></div>
+									</div>
+									<div class="product-options">
+										<h3>Product Review Link</h3>
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="reviews-link-shortcode" style="float:right;">
+												<?php _e('Output Link to Full Review', 'rich-reviews'); ?>:
+											</label>
+										</div>
+										<div class="input-container" style="width:66%;float:right;">
+											<span class="" style="width:100%;float:left;">
+												[RR_SHOPPER_APPROVED get="product-link"]
+											</span>
+										</div>
+										<div class="clear input-break"></div>
+										<br/>
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="product_link_text" style="float:right;">
+												<?php _e('Link Text', 'rich-reviews'); ?>:
+											</label>
+										</div>
+										<div class="input-container" style="width:66%;float:right;">
+											<input type="text" name="product_link_text" class="" style="width:100%;float:left;" <?php if($options['product_link_text'] != null) { echo 'value="' . $options['product_link_text'] . '"';} ?>/>
+										</div>
+										<div class="clear input-break"></div>
+										<br />
+
+										<div class="label-container" style="width:30%;float:left;">
+											<label for="product_link_element_class" style="float:right;">
+												<?php _e('Link Element Class', 'rich-reviews'); ?>:
+											</label>
+										</div>
+										<div class="input-container" style="width:66%;float:right;">
+											<input type="text" name="product_link_element_class" class="" style="width:100%;float:left;" <?php if($options['product_link_element_class'] != null) { echo 'value="' . $options['product_link_element_class'] . '"';} ?>/>
+										</div>
+										<div class="clear input-break"></div>
+									</div>
+								</div>
+								<?php
 								}
 								?>
 
-							</div>
 							<br />
 							<div class="trigger-options">
 								<h3>Review Trigger</h3>
-								<div class="label-container one-fifth" style="width:30%;float:left;">
+								<div class="label-container" style="width:30%;float:left;">
 									<label for="reviews-trigger-shortcode" style="float:right;">
 										<?php _e('Trigger Review Form', 'rich-reviews'); ?>:
 									</label>
 								</div>
-								<div class="input-container two-thirds" style="width:66%;float:right;">
-									<span class="two-thirds" style="width:100%;float:left;">
+								<div class="input-container" style="width:66%;float:right;">
+									<span class="" style="width:100%;float:left;">
 										[RR_SHOPPER_APPROVED get="trigger"]
 									</span>
 									<br />
@@ -388,14 +391,24 @@
 								</div>
 								<div class="clear input-break"></div>
 								<br/>
-								<div class="label-container one-fifth" style="width:30%;float:left;">
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="review_header_override" style="float:right;text-align:right;">
+										<?php _e('Override Review Header', 'rich-reviews'); ?>:
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<input type="Text" name="review_header_override" class="" style="width: 100%;" value="<?php echo $options['review_header_override']; ?>"/>
+								</div>
+								<br/>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
 									<label for="inline_review_form" style="float:right;text-align:right;">
 										<?php _e('Display Review Inline', 'rich-reviews'); ?>:<br/>
 										<span style="font-size:10px;">(<?php _e('default shows form in modal, note this option overrides the option set on Shopper Approved)', 'rich-reviews'); ?></span>
 									</label>
 								</div>
-								<div class="input-container two-thirds" style="width:66%;float:right;">
-									<input type="checkbox" name="inline_review_form" class="two-thirds" <?php if($options['inline_review_form']) { echo 'checked';} ?>/>
+								<div class="input-container" style="width:66%;float:right;">
+									<input type="checkbox" name="inline_review_form" class="" <?php if($options['inline_review_form']) { echo 'checked';} ?>/>
 								</div>
 								<br />
 								<div class="clear input-break"></div>
@@ -405,28 +418,362 @@
 						</form>
 					</div>
 					<div class="options-section">
+						<h2><?php _e('Widget Options', 'rich-reviews'); ?></h2>
+						<hr>
+						<p class="options-info">
+							<?php echo __('The following options correpsond to the options provided in the Shopper Approved dashboard. These options are provided here for convenience. If using the [RR_SHOPPER_APPROVED get="merchant-widget"], these options will take precedence over their counter part set in your Shopper Approved dashboard. In addition if you would prefer to use the Rich Reviews display settings, specified in the ', 'rich-reviews') .  '<a href="' . admin_url() . '/admin.php?page=fp_admin_options_page' . '">' . __('default options tab', 'rich-reviews') .  '</a>, ' . __('select the Rich Reviews style override option below.'); ?>
+						</p>
+						<div class="widget-options-scetion functional-options">
+							<h3>Widget Properties</h3>
+							<form id="widgetOptions" method="post">
+								<input type="hidden" name="widgetize-me" value="captain" />
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_display_orientation" style="float:right;">
+										<?php _e('Display H/V:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="two-wide-radio-container">
+										<input type="radio" name="sa_display_orientation" class="" <?php if($options['sa_display_orientation'] == 'sa_vertical') {echo 'checked';} ?> value="sa_vertical" /><span class="radio-label"> <?php _e('Display Vertically', 'rich-reviews'); ?></span>
+									</div>
+									<div class="two-wide-radio-container">
+										<input type="radio" name="sa_display_orientation" class="" <?php if($options['sa_display_orientation'] == 'sa_horizontal') {echo 'checked';} ?> value="sa_horizontal" /><span class="radio-label"> <?php  _e('Display Horizontally', 'rich-reviews'); ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_reviews_rotation" style="float:right;">
+										<?php _e('Auto Rotate:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_reviews_rotation" class="" <?php if ($options['sa_reviews_rotation'] == 'sa_rotate') { echo 'checked';} ?> value="sa_rotate" /><span class="radio-label"> <?php  _e('Rotate Reviews', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_reviews_rotation" class="" <?php if ($options['sa_reviews_rotation'] == 'sa_static') { echo 'checked';} ?> value="sa_static" /><span class="radio-label"> <?php  _e('Keep static', 'rich-reviews'); ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_rotation_rate" style="float:right;">
+										<?php _e('Rotation Time:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<input type="number" min="5" max="99" name="sa_rotation_rate" class="" value="<?php echo $options['sa_rotation_rate']; ?>" /> <?php  _e('Seconds', 'rich-reviews'); ?>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_review_count" style="float:right;">
+										<?php _e('Number of Reviews:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<input type="number" min="1" name="sa_review_count" class="" value="<?php echo $options['sa_review_count']; ?>"/>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_enable_links" style="float:right;">
+										<?php _e('Link to Full Review:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_enable_links" class="" <?php if ($options['sa_enable_links'] == 'sa_showlinks') { echo 'checked';} ?> value="sa_showlinks" /><span class="radio-label"> <?php  _e('Show Links', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_enable_links" class="" <?php if ($options['sa_enable_links'] == 'sa_hidelinks') { echo 'checked';} ?> value="sa_hidelinks" /><span class="radio-label"> <?php  _e('Hide Links', 'rich-reviews'); ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_page_shade" style="float:right;">
+										<?php _e('Parent Page Color:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_page_shade" class="" <?php if ($options['sa_page_shade'] == 'sa_parentLight') { echo 'checked';} ?> value="sa_parentLight" /><span class="radio-label"> <?php  _e('Light', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_page_shade" class="" <?php if ($options['sa_page_shade'] == 'sa_parentDark') { echo 'checked';} ?> value="sa_parentDark" /><span class="radio-label"> <?php  _e('Dark', 'rich-reviews'); ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="widget-options-scetion display-options">
+								<h3>Display Options</h3>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_rr_style_override" style="float:right;">
+										<?php _e('Use Rich Reviews Override:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<input type="checkbox" name="sa_rr_style_override" class="" style="float:left;" <?php if ($options['sa_rr_style_override']){ echo 'checked'; }?>/>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_background_color" style="float:right;">
+										<?php _e('Background Color:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container color-container" style="width:66%;float:right;">
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgWhite') {echo 'checked'; } ?> value="sa_bgWhite" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgGrey') {echo 'checked'; } ?> value="sa_bgGrey" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgBlack') {echo 'checked'; } ?> value="sa_bgBlack" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgBlue') {echo 'checked'; } ?> value="sa_bgBlue" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgGold') {echo 'checked'; } ?> value="sa_bgGold" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgGreen') {echo 'checked'; } ?> value="sa_bgGreen" />
+									<input type="radio" name="sa_background_color" class="color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgRed') {echo 'checked'; } ?> value="sa_bgRed" />
+									<input type="radio" name="sa_background_color" class="inherit-color-radio " style="float:left;" <?php if ($options['sa_background_color'] == 'sa_bgInherit') {echo 'checked'; } ?> value="sa_bgInherit" />
+								</div>
+								<style>
+									input[type="radio"].color-radio, input[type="radio"].inherit-color-radio {
+										margin-right: 30px;
+										position: relative;
+									}
+	 								input[type="radio"].color-radio:after {
+									    position: absolute;
+									    content: " ";
+									    left: -50%;
+									    border: 15px solid black;
+									    top: -50%;
+									    border-radius: 100%;
+									}
+									input[type="radio"].inherit-color-radio:after {
+										position: absolute;
+										left: 20px;
+										top:3px;
+										content: "Inherit";
+									}
+									input[type="radio"].inherit-color-radio:checked:after {
+										font-size: 18px;
+										font-weight: bold;
+										margin-top: 0;
+									}
+									input[type="radio"].color-radio:checked:after {
+										border: 20px solid black;
+										margin-left: -5px;
+										margin-top: -5px;
+										content: " ";
+										height:0;
+										width:0;
+									}
+									input[value="sa_bgWhite"].color-radio:after, input[value="sa_bgWhite"].color-radio:checked:after, input[value="sa_borderWhite"].color-radio:after, input[value="sa_borderWhite"].color-radio:checked:after, input[value="sa_colorWhite"].color-radio:after, input[value="sa_colorWhite"].color-radio:checked:after {
+										border-color: #ffffff;
+									}
+									input[value="sa_bgGrey"].color-radio:after, input[value="sa_bgGrey"].color-radio:checked:after, input[value="sa_borderGrey"].color-radio:after, input[value="sa_borderGrey"].color-radio:checked:after {
+										border-color: #59525c;
+									}
+									input[value="sa_bgBlack"].color-radio:after, input[value="sa_bgBlack"].color-radio:checked:after, input[value="sa_borderBlack"].color-radio:after, input[value="sa_borderBlack"].color-radio:checked:after, input[value="sa_colorBlack"].color-radio:after, input[value="sa_colorBlack"].color-radio:checked:after {
+										border-color: #0c0d0d;
+									}
+									input[value="sa_bgBlue"].color-radio:after, input[value="sa_bgBlue"].color-radio:checked:after {
+										border-color: #017a9c;
+									}
+									input[value="sa_bgGold"].color-radio:after, input[value="sa_bgGold"].color-radio:checked:after {
+										border-color: #c27805;
+									}
+									input[value="sa_bgGreen"].color-radio:after, input[value="sa_bgGreen"].color-radio:checked:after {
+										border-color: #28882f;
+									}
+									input[value="sa_bgRed"].color-radio:after, input[value="sa_bgRed"].color-radio:checked:after {
+										border-color: #c10808;
+									}
+									.color-container {
+										padding: 18px 0;
+									}
+									.input-container {
+										margin-bottom: 13px;
+									}
+									.radio-container {
+										width:32%;
+										float: left;
+										margin-right: 2%;
+										padding: 0 0 13px 0;
+									}
+									.radio-container:nth-of-type(3n) {
+										margin-right: 0;
+									}
+									.two-wide-radio-container {
+										width: 49%;
+										float: left;
+										padding: 0 0 13px 0;
+
+									}
+									.two-wide-radio-container:first-of-type() {
+										margin-right: 2%;
+									}
+
+									.radio-container > p {
+										font-size: 10px;
+										font-style: italic;
+									}
+									.radio-container > input[type="radio"]:checked + .radio-label, .two-wide-radio-container > input[type="radio"]:checked + .radio-label {
+										font-size: 14px;
+										font-weight: bold;
+									}
+									input[type=number] {
+									    height: 30px;
+									    line-height: 30px;
+									    font-size: 18px;
+									    padding: 0 8px;
+									    background: none;
+									    box-shadow: none;
+									    border: none;
+									    width: 70px;
+									}
+									input[type=number]::-webkit-inner-spin-button {
+									    -webkit-appearance: none;
+									    cursor:pointer;
+									    display:block;
+									    color: #333;
+									    text-align:center;
+									    position:relative;
+									    background: #eee url('http://i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;
+									    width: 14px;
+									    height: 14px;
+									    padding: 4px;
+									    right: 4px;
+									    border-radius: 28px;
+									    opacity: 1;
+									}
+									input[type=number]:hover::-webkit-inner-spin-button {
+
+									}
+								</style>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_text_color" style="float:right;">
+										<?php _e('Text Color:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container color-container" style="width:66%;float:right;">
+									<input type="radio" name="sa_text_color" class="color-radio " style="float:left;" <?php if ($options['sa_text_color'] == 'sa_colorWhite' ) { echo 'checked'; } ?> value="sa_colorWhite" />
+									<input type="radio" name="sa_text_color" class="color-radio " style="float:left;" <?php if ($options['sa_text_color'] == 'sa_colorBlack' ) { echo 'checked'; } ?> value="sa_colorBlack" />
+									<input type="radio" name="sa_text_color" class="inherit-color-radio " style="float:left;" <?php if ($options['sa_text_color'] == 'sa_colorInherit' ) { echo 'checked'; } ?> value="sa_colorInherit" />
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_border_color" style="float:right;">
+										<?php _e('Border Color:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container color-container" style="width:66%;float:right;">
+									<input type="radio" name="sa_border_color" class="color-radio " style="float:left;" <? if ($options['sa_border_color'] == 'sa_borderWhite' ) { echo 'checked'; } ?> value="sa_borderWhite" />
+									<input type="radio" name="sa_border_color" class="color-radio " style="float:left;" <? if ($options['sa_border_color'] == 'sa_borderGrey' ) { echo 'checked'; } ?> value="sa_borderGrey" />
+									<input type="radio" name="sa_border_color" class="color-radio " style="float:left;" <? if ($options['sa_border_color'] == 'sa_borderBlack' ) { echo 'checked'; } ?> value="sa_borderBlack" />
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_border_style" style="float:right;">
+										<?php _e('Border Style:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_border_style" class="" <?php if ($options['sa_border_style'] == 'sa_rounded') { echo 'checked'; } ?> value="sa_rounded" /><span class="radio-label"> <?php  _e('Round', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_border_style" class="" <?php if ($options['sa_border_style'] == 'sa_topborder') { echo 'checked'; } ?> value="sa_topborder" /><span class="radio-label"> <?php  _e('Top', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_border_style" class="" <?php if ($options['sa_border_style'] == 'sa_noborder') { echo 'checked'; } ?> value="sa_noborder" /><span class="radio-label"> <?php  _e('None', 'rich-reviews'); ?></span>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_date_format" style="float:right;">
+										<?php _e('Review Date:', 'rich-reviews'); ?>
+									</label>
+								</div>
+
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_date_format" class="" <?php if ($options['sa_date_format'] == 'sa_jMY') { echo 'checked'; } ?> value="sa_jMY" /><span class="radio-label"> <?php echo date('j M Y'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_date_format" class="" <?php if ($options['sa_date_format'] == 'sa_mdY') { echo 'checked'; } ?> value="sa_mdY" /><span class="radio-label"> <?php echo date('m/d/Y'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_date_format" class="" <?php if ($options['sa_date_format'] == 'sa_dmY') { echo 'checked'; } ?> value="sa_dmY" /><span class="radio-label"> <?php echo date('d/m/Y'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_date_format" class="" <?php if ($options['sa_date_format'] == 'sa_FjY') { echo 'checked'; } ?> value="sa_FjY" /><span class="radio-label"> <?php echo date('F j, Y'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_date_format" class="" <?php if ($options['sa_date_format'] == 'sa_nodate') { echo 'checked'; } ?> value="sa_nodate" /><span class="radio-label"> <?php echo "No Date"; ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_vertical_display" style="float:right;">
+										<?php _e('Vertical Display Type:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_vertical_display" class="" <?php if ($options['sa_vertical_display'] == 'sa_fixed') { echo 'checked'; } ?> value="sa_fixed" /><span class="radio-label"> <?php  _e('Fixed', 'rich-reviews'); ?></span>
+										<p class="vertical-displa-info">
+											<?php  _e('The widgets will be a standard size', 'rich-reviews'); ?>
+										</p>
+									</div><div class="radio-container">
+										<input type="radio" name="sa_vertical_display" class="" <?php if ($options['sa_vertical_display'] == 'sa_fill') { echo 'checked'; } ?> value="sa_fill" /><span class="radio-label"> <?php  _e('Fill', 'rich-reviews'); ?></span>
+										<p class="vertical-displa-info">
+											<?php  _e('The widgets will fill the vertical space. Note: the parent container must have a fixed size > 250px for each review.', 'rich-reviews'); ?>
+										</p>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_vertical_display" class="" <?php if ($options['sa_vertical_display'] == 'sa_flex') { echo 'checked'; } ?> value="sa_flex" /><span class="radio-label"> <?php  _e('Flex', 'rich-reviews'); ?></span>
+										<p class="vertical-displa-info">
+											<?php  _e('The widgets will be individually sized according to the length of the review.', 'rich-reviews'); ?>
+										</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="label-container" style="width:30%;float:left;">
+									<label for="sa_widget_size" style="float:right;">
+										<?php _e('Size:', 'rich-reviews'); ?>
+									</label>
+								</div>
+								<div class="input-container" style="width:66%;float:right;">
+									<div class="radio-container">
+										<input type="radio" name="sa_widget_size" class="" <?php if ($options['sa_widget_size'] == 'sa_large') { echo 'checked'; } ?> value="sa_large" /><span class="radio-label"> <?php  _e('Large', 'rich-reviews'); ?></span>
+									</div>
+									<div class="radio-container">
+										<input type="radio" name="sa_widget_size" class="" <?php if ($options['sa_widget_size'] == 'sa_narrow') { echo 'checked'; } ?> value="sa_narrow" /><span class="radio-label"> <?php _e('Small', 'rich-reviews'); ?></span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<input type="submit" class="button button-primary" value="update Widget Options" />
+							</form>
+						</div>
+					</div>
+					<div class="options-section">
 						<h2><?php _e('Pull Reviews', 'rich-reviews'); ?></h2>
 						<hr>
-						<div class="label-container one-fifth" style="width:30%;float:left;">
+						<div class="label-container" style="width:30%;float:left;">
 							<label for="reviews_last_pulled" style="float:right;">
 								<?php _e('Last Pulled:', 'rich-reviews'); ?>
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:66%;float:right;">
-							<input type="text" name="reviews_last_pulled" disabled class="two-thirds" style="width:100%;float:left;" <?php if($options['reviews_last_pulled'] != null) { echo 'value="' . $options['reviews_last_pulled'] . '"';} ?> disabled />
+						<div class="input-container" style="width:66%;float:right;">
+							<input type="text" name="reviews_last_pulled" disabled class="" style="width:100%;float:left;" <?php if($options['reviews_last_pulled'] != null) { echo 'value="' . $options['reviews_last_pulled'] . '"';} ?> disabled />
 						</div>
 						<div class="clear"></div>
 						<br />
 						<?php
 						if(isset($options['reviews_pulled_count']) && $options['reviews_last_pulled'] != 'not yet pulled') {
 							?>
-							<div class="label-container one-fifth" style="width:30%;float:left;">
+							<div class="label-container" style="width:30%;float:left;">
 								<label for="unpulled_reviews" style="float:right;">
 									<?php _e('New Unpulled Reviews:', 'rich-reviews'); ?>
 								</label>
 							</div>
-							<div class="input-container two-thirds" style="width:66%;float:right;">
-								<input type="text" name="reviews_last_pulled" disabled class="two-thirds" style="width:100%;float:left;" <?php if($unpulled_reviews != null) { echo 'value="' . $unpulled_reviews . '"';} ?> disabled />
+							<div class="input-container" style="width:66%;float:right;">
+								<input type="text" name="reviews_last_pulled" disabled class="" style="width:100%;float:left;" <?php if($unpulled_reviews != null) { echo 'value="' . $unpulled_reviews . '"';} ?> disabled />
 							</div>
 							<br />
 							<div class="clear"></div>
@@ -437,7 +784,7 @@
 							<input type="hidden" name="Whoop" value="There it is" />
 							<div class="input-container " style="width:33%;float:left;">
 								<div style="width: 100%;float:left;">
-									<input type="submit" class="button left" value="<?php _e('Pull Reviews', 'rich-reviews'); ?>" />
+									<input type="submit" class="button rr-left" value="<?php _e('Pull Reviews', 'rich-reviews'); ?>" />
 								</div>
 							</div>
 						</form>
@@ -449,7 +796,7 @@
 						<p>
 							<?php echo __('Press the button below to download a csv file of all of the reviews currently in your Rich Reviews. This way you can send these reviews to Shopper Approved and have them imported to your Shopper Approved Merchant or Product rating. Further instruction on how to do this can be found', 'rich-reviews') . ' <a href="http://hubs.ly/H029MF00" target=_blank> ' . __('here', 'rich-reviews') . '</a>. ' . __('(note: CSV file uses pipe, " | ", as a delimeter.)'); ?>
 						</p>
-						<a href="<?php echo $this->parent->plugin_url; ?>richreviews-download-script.php?download=csv" class="button left"><?php _e('Download Reviews', 'rich-reviews'); ?></a>
+						<a href="<?php echo $this->parent->plugin_url; ?>richreviews-download-script.php?download=csv" class="button rr-left"><?php _e('Download Reviews', 'rich-reviews'); ?></a>
 						<div class="clear"></div>
 					</div>
 					<div class="clear"></div>
@@ -462,25 +809,25 @@
 								<?php _e('Enter the slug for the post type under which your products are categorized, or select to use your Rich Reviews category structure (only one can be used for initialization). This will help to generate the needed xml file to communicate product listings and the associated review information to Shopper Approved (note: CSV file uses pipe, " | ", as a delimeter). After initial configuration, you can force an update by pressing the button below.'); ?>
 							</p>
 							<div class="initialize-options">
-								<div class="label-container one-fifth" style="width:40%;float:left;padding-top:3px;">
+								<div class="label-container" style="width:40%;float:left;padding-top:3px;">
 									<label for="product_pt_slug" style="float:right;margin-right:5px;">
 										<?php _e('Product post type slug:', 'rich-reviews'); ?>
 									</label>
 								</div>
-								<div class="input-container two-thirds" style="width:60%;float:right;">
-									<input type="text" name="product_pt_slug" class="two-thirds" style="width:100%;float:left;" <?php if(isset($options['product_pt_slug']) && $options['product_pt_slug'] != '') { echo 'value="' . $options['product_pt_slug'] . '"';} ?>/>
+								<div class="input-container" style="width:60%;float:right;">
+									<input type="text" name="product_pt_slug" class="" style="width:100%;float:left;" <?php if(isset($options['product_pt_slug']) && $options['product_pt_slug'] != '') { echo 'value="' . $options['product_pt_slug'] . '"';} ?>/>
 								</div>
 								<div class="clear"></div>
 								<br />
 								<h3 style="text-align:center;"><span class="line"></span>  OR  <span class="line"></span></h3>
 								<br/>
-								<div class="label-container one-fifth" style="width:40%;float:left;">
+								<div class="label-container" style="width:40%;float:left;">
 									<label for="use_rr_categories" style="float:right;margin-right:5px;">
 										<?php _e('Use Rich Reviews Categories:', 'rich-reviews'); ?>
 									</label>
 								</div>
-								<div class="input-container two-thirds" style="width:60%;float:right;">
-									<input type="checkbox" name="use_rr_categories" class="two-thirds" <?php if(isset($options['use_rr_categories']) && $options['use_rr_categories'] == 'checked') { echo 'checked';} ?>/>
+								<div class="input-container" style="width:60%;float:right;">
+									<input type="checkbox" name="use_rr_categories" class="" <?php if(isset($options['use_rr_categories']) && $options['use_rr_categories'] == 'checked') { echo 'checked';} ?>/>
 								</div>
 								<script type="text/javascript">
 									jQuery(function() {
@@ -504,27 +851,27 @@
 							<input type="submit" class="button" value="<?php _e('Update Product Index', 'rich-reviews'); ?>" form="productReviewsIntegration" />
 							<?php if (isset($options['product_feed_url']) && $options['product_feed_url'] != '') {
 								?>
-									<a href="<?php echo $this->parent->plugin_url; ?>lib/rrShopApp/rrShopAppProductFeed.csv" class="button left"><?php _e('Download Product Index', 'rich-reviews'); ?></a>
+									<a href="<?php echo $this->parent->plugin_url; ?>lib/rrShopApp/rrShopAppProductFeed.csv" class="button rr-left"><?php _e('Download Product Index', 'rich-reviews'); ?></a>
 								<?php
 							}
 							?>
 							<div class="clear"></div>
 						</form>
 						<br/>
-						<div class="label-container one-fifth" style="width:25%;float:left;padding-top:5px;">
+						<div class="label-container" style="width:25%;float:left;padding-top:5px;">
 							<label for="product_feed_url" >
 								<?php _e('Product Feed URL', 'rich-reviews'); ?>:
 							</label>
 						</div>
-						<div class="input-container two-thirds" style="width:75%;float:right;">
-							<input type="text" name="product_feed_url" class="one" value="<?php if(isset($options['product_feed_url'])) { echo $options['product_feed_url'];} ?>" disabled/>
+						<div class="input-container" style="width:75%;float:right;">
+							<input type="text" name="product_feed_url" class="rr-one" value="<?php if(isset($options['product_feed_url'])) { echo $options['product_feed_url'];} ?>" disabled/>
 						</div>
 						<div class="clear"></div>
 						<br/>
 						<?php
 							if (isset($options['product_catalog_ids']) && !empty($options['product_catalog_ids'])) {
 								?>
-								<div class="one">
+								<div class="rr-one">
 									<h2><?php echo _e('Product Catalog Ids', 'rich-reviews'); ?></h2>
 									<hr>
 									<?php
@@ -533,7 +880,7 @@
 											$count++;
 										?>
 											<div class="single-product-info">
-												<a href="<?php echo admin_url() . 'admin.php?page=edit_single_product_index&id=' . $catalogged_id; ?>"  class="product-edit-link right"><i class="dashicon-edit"></i> <?php _e('Edit', 'rich-reviews'); ?></a>
+												<a href="<?php echo admin_url() . 'admin.php?page=edit_single_product_index&id=' . $catalogged_id; ?>"  class="product-edit-link rr-right"><i class="dashicon-edit"></i> <?php _e('Edit', 'rich-reviews'); ?></a>
 												<summary>
 												<h3>
 													<?php _e('ID', 'rich-reviews'); ?>: <?php echo $catalogged_id; ?>

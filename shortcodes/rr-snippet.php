@@ -1,6 +1,6 @@
 <?php
 
-	function handle_snippet($data, $options, $path) {
+	function handle_snippet($data, $options, $path, $stars_only = false) {
 
 		global $post;
 		extract($data);

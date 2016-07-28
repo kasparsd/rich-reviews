@@ -23,6 +23,11 @@
 		<?php _e('Autofill name from User Accounts.', 'rich-reviews'); ?>
 	</label>
 	<br />
+	<input type="checkbox" name="form-email-use-useremails" value="checked" <?php echo $options['form-email-use-useremails'] ?> />
+	<label for="form-email-use-usernames">
+		<?php _e('Autofill email from User Accounts.', 'rich-reviews'); ?>
+	</label>
+	<br />
 	<input type="checkbox" name="form-name-use-avatar" value="checked" id="useAvatarToggle" <?php echo $options['form-name-use-avatar'] ?> />
 	<label for="form-name-use-avatar">
 		<?php _e('Use user avatars.', 'rich-reviews'); ?>

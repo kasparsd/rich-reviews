@@ -93,7 +93,7 @@ class RichReviewsAdmin {
 
 	function load_admin_scripts_styles($hook) {
 
-  		if ($hook != 'toplevel_page_rich_reviews_settings_main' && !preg_match('/rich-reviews/', $hook)) {
+  		if ($hook != ('toplevel_page_rich_reviews_settings_main' || 'admin_page_edit_single_product_index') && !preg_match('/rich-reviews/', $hook)) {
   			return;
   		}
         wp_register_script('rich-reviews-dashboard', trailingslashit($this->parent->plugin_url) . 'views/view-helper/js/nm-dashboard-script.js', array('jquery'));

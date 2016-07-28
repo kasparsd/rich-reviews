@@ -40,7 +40,7 @@ class RROptions {
         }
         $this->options_name = $core->options_name;
         $this->defaults = array(
-    			'version' => '1.7.0',
+    			'version' => '1.7.3',
           'star_color' => '#ffaf00',
     			'snippet_stars' => FALSE,
     			'reviews_order' => 'asc',
@@ -59,6 +59,7 @@ class RROptions {
           'form-name-display' => 'checked',
           'form-name-require' => 'checked',
           'form-name-use-usernames' => FALSE,
+          'form-email-use-useremails' => FALSE,
           'form-name-use-avatar' => FALSE,
           'form-name-use-blank-avatar' => FALSE,
           'unregistered-allow-avatar-upload' => FALSE,
@@ -88,7 +89,12 @@ class RROptions {
           'require-login' => FALSE,
           // 'rrShopAppAPIUrl' => NULL,
           // 'rrShopAppMarkup' => '',
-          // 'rrShopAppLastUpdate' => ''
+          // 'rrShopAppLastUpdate' => '',
+          'read-more-text' => 'Read More',
+          'show-less-text' => 'Show Less',
+          'excerpt-length' => 150,
+          'schema_type' =>  'Product',
+          'submit-form-redirect' => FALSE
           );
         if ($this->get_option() == FALSE) {
             $this->set_to_defaults();
@@ -123,6 +129,7 @@ class RROptions {
              if (!isset($_POST['form-name-display'])) { $_POST['form-name-display'] = false; }
              if (!isset($_POST['form-name-require'])) { $_POST['form-name-require'] = false; }
              if (!isset($_POST['form-name-use-usernames'])) { $_POST['form-name-use-usernames'] = false; }
+             if (!isset($_POST['form-email-use-useremails'])) { $_POST['form-email-use-useremails'] = false; }
              if (!isset($_POST['form-name-use-avatar'])) { $_POST['form-name-use-avatar'] = false; }
              if (!isset($_POST['form-name-use-blank-avatar'])) { $_POST['form-name-use-blank-avatar'] = false; }
              if (!isset($_POST['unregistered-allow-avatar-upload'])) { $_POST['unregistered-allow-avatar-upload'] = false; }
@@ -139,6 +146,7 @@ class RROptions {
              if (!isset($_POST['integrate-user-info'])) { $_POST['integrate-user-info'] = false; }
              if (!isset($_POST['require-login'])) { $_POST['require-login'] = false; }
              if (!isset($_POST['return-to-form'])) { $_POST['return-to-form'] = false; }
+             if (!isset($_POST['submit-form-redirect'])) { $_POST['submit-form-redirect'] = false; }
              if (!isset($_POST['send-email-notifications'])) { $_POST['send-email-notifications'] = false; }
              if (!isset($_POST['add-shopper-approved'])) { $_POST['add-shopper-approved'] = false; }
 

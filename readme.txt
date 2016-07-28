@@ -1,10 +1,10 @@
 === Rich Reviews ===
 Contributors: Nuanced Media
-Donate link: http://nuancedmedia.com/
+Donate link: http://hubs.ly/H02f5wM0
 Tags: reviews, review, testimonials, testimonial, hreview, rating, ratings, google, rich snippets, review widget, seo, shortcode, plugin, snippet, snippets, google rating, product review, star rating, wp rating
 Requires at least: 3.4
 Tested up to: 4.4.2
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,13 +49,13 @@ Rich Reviews Plugin Features:
 *	Support for any questions.
 
 = Bonus Feature: =
-Rich Reviews has teamed up with Shopper Approved a Google Affiliate. If you become a Shopper Approved user as well, the combination of this platform being an approved Google partner and having the largest syndication network online, will give your reviews maximum exposure. This means reviews in both organic search as well as PPC. Rich Reviews gives you easy access to manage your Shopper Approved account. Here is an <a href="http://hubs.ly/H02bqnn0" target=_blank>exclusive free trial offer</a> from Nuanced Media which also saves you 20%!
+Rich Reviews has teamed up with Shopper Approved a Google Affiliate. If you become a Shopper Approved user as well, the combination of this platform being an approved Google partner and having the largest syndication network online, will give your reviews maximum exposure. This means reviews in both organic search as well as PPC. Rich Reviews gives you easy access to manage your Shopper Approved account. Here is an <a href="http://hubs.ly/H02f5cH0" target=_blank>exclusive free trial offer</a> from Nuanced Media which also saves you 20%!
 
 More Information:
 Learn more information about Rich Reviews <a target=_blank href="http://plugins.nuancedmedia.com/wordpress-reviews-plugin/">here</a>.
 
 Connect with us:
-If you’re feeling good about this plugin (or just want to say hello), let us know! Connect with us on <a target=_blank href="https://www.facebook.com/NuancedMedia">Facebook</a>, <a target=_blank href="https://twitter.com/nuancedmedia">Twitter</a>, <a target=_blank href="https://www.linkedin.com/company/nuanced-media">LinkedIn</a>, or visit our <a target=_blank href="http://nuancedmedia.com/">site</a>.
+If you’re feeling good about this plugin (or just want to say hello), let us know! Connect with us on <a target=_blank href="https://www.facebook.com/NuancedMedia">Facebook</a>, <a target=_blank href="https://twitter.com/nuancedmedia">Twitter</a>, <a target=_blank href="https://www.linkedin.com/company/nuanced-media">LinkedIn</a>, or visit our <a target=_blank href="http://hubs.ly/H02f5wM0">site</a>.
 
 == Installation ==
 
@@ -75,6 +75,19 @@ If you’re feeling good about this plugin (or just want to say hello), let us k
 7. One user shows the versatility of Rich Reviews by placing our shortcodes into various tabs on one of his pages.
 
 == Changelog ==
+
+= 1.7.3 =
+* DB update for ipv6 strings
+* Integration for Shopper Approved Widget
+* CSS override for Shopper Approved Header Text on review form
+* Javascript accessible elements to translate
+* Brought more i18n to overlooked elements
+* namespaced css classes
+* stars only snippet attribute (stars_only="true")
+* Redirect form submission option
+* Schema type option "Product" or "Service"
+* Options for setting text values for "Read More" and "Less"
+* Option for Excerpt Length on Review display
 
 = 1.7.2 =
 * HOTFIX: Custom Style Output

@@ -26,4 +26,16 @@
 			<?php echo __('This will display the aggregate (average) score, along with the Rich Snippet markup, for all approved reviews regardless of category. All categorized and uncategorized reviews will be factored into this aggregate rating.', 'rich-reviews'); ?>
 		</div>
 	</div>
+	<div class="rr_shortcode_option_container">
+		<div class="rr_shortcode_option_name">[RICH_REVIEWS_SNIPPET id="136"]</div>
+		<div class="rr_shortcode_option_text">
+			<?php echo __('You can now pass an id parameter with the id of a post. This will display the aggregate rating of all reviews submited on the page who\'s id you have passed. This allows you display aggregate ratings by post ID, in other locations than on the page which you collected the reviews. All other snippet shortcode parameters can be used in combination with this id parameter.', 'rich-reviews'); ?>
+		</div>
+	</div>
+	<div class="rr_shortcode_option_container">
+		<div class="rr_shortcode_option_name">[RICH_REVIEWS_SNIPPET stars_only="true"]</div>
+		<div class="rr_shortcode_option_text">
+			<?php echo __('You can now pass a stars_only parameter with a value of "true" in order to display a snippet without the associated text. This will only display the stars. This parameter is only effective, however, if the option to use star snippets is selected in the Rich Reviews options dashboard. All other snippet shortcode parameters can be used in combination with this parameter.', 'rich-reviews'); ?>
+		</div>
+	</div>
 </div>

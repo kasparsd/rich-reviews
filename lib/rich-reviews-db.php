@@ -28,6 +28,8 @@ class RichReviewsDB extends NMDB {
 		global $wpdb;
 
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+		//ip allow for 39 characters to account for IPv6
 		$sql = "CREATE TABLE $this->sqltable (
 				 id int(11) NOT NULL AUTO_INCREMENT,
 				 date_time datetime NOT NULL,
@@ -37,7 +39,7 @@ class RichReviewsDB extends NMDB {
 				 review_rating tinyint(2) DEFAULT '0',
 				 review_text text,
 				 review_status tinyint(1) DEFAULT '0',
-				 reviewer_ip varchar(15) DEFAULT NULL,
+				 reviewer_ip varchar(39) DEFAULT NULL,
 				 post_id int(11) DEFAULT '0',
 				 review_category varchar(100) DEFAULT 'none',
 				 reviewer_image varchar(100) DEFAULT NULL,
@@ -81,8 +83,9 @@ class RichReviewsDB extends NMDB {
 		// Set up the Order BY
 		if ($this->parent->rr_options['reviews_order'] === 'random') {
 			$this->order_by('random');
-		}
-		else {
+		} else if ($this->parent->rr_options['reviews_order'] == 'highest_rating') {
+			$this->order_by('review_rating', 'desc');
+		} else {
 			$this->order_by('date_time', $this->parent->rr_options['reviews_order']);
 		}
 
