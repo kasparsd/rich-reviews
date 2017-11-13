@@ -17,7 +17,6 @@ class RichReviewsAdmin {
 		add_action( 'admin_enqueue_scripts', array(&$this, 'load_admin_scripts_styles'), 100);
 		add_filter('plugin_action_links_rich-reviews/rich-reviews.php', array(&$this, 'add_plugin_settings_link'));
 		add_action( 'wp_ajax_rr_dismissed_help_notice', array(&$this,'ajax_rr_dismissed_help_notice' ));
-		add_action( 'wp_ajax_nopriv_rr_dismissed_help_notice', array(&$this,'ajax_rr_dismissed_help_notice' ));
 	}
 
 	function init_admin_menu() {

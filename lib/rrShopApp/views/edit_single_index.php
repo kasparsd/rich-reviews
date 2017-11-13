@@ -33,7 +33,7 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 					}
 				?>
 				<div class="index-edit-container">
-					<form name="single-product-index" id="edit-index-<?php echo $_GET['id']; ?>" method="post">
+					<form name="single-product-index" id="edit-index-<?php echo esc_attr($_GET['id']); ?>" method="post">
 						<input type="hidden" name="toBeOrNotToBe" value="theQuestion" />
 						<fieldset for="id">
 							<div class="index-field-label">
@@ -42,7 +42,7 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 								</label>
 							</div>
 							<div class="index-field-input">
-								<input type="text" name="id" value='<?php echo $_GET['id']; ?>' disabled/>
+								<input type="text" name="id" value='<?php echo esc_attr($_GET['id']); ?>' disabled/>
 							</div>
 						</fieldset>
 						<fieldset for="name">
@@ -112,7 +112,7 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
 				</div>
 				<div class="confirm-deletion" tabindex="0">
 					<h3><?php printf(__('Are you sure that you wish to delete the product listing for product with id "%s"?', 'rich-reviews'), $_GET['id']); ?></h3>
-					<form method="post" name="delete-listing-<?php echo $_GET['id'];?>" id="deleteListingForm">
+					<form method="post" name="delete-listing-<?php echo esc_attr($_GET['id']); ?>" id="deleteListingForm">
 						<input type="hidden" name="deleting-listing" value="confirmed" />
 						<button class="button confirm-deletion-button"><?php _e('Confirm Delete', 'rich-reviews'); ?></button>
 						<button class="button delete-listing-button" id="cancel-deletion"><?php _e('Cancel Delete'); ?></button>

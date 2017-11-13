@@ -27,7 +27,6 @@ class RRShopApp {
 		add_shortcode('clear_shop', array($this, 'dump_shop_app_reviews')); //Remove this, or build it into an admin action.
         add_shortcode('RR_SHOPPER_APPROVED', array(&$this, 'shortcode_shopper_approved_control'));
         add_action( 'wp_ajax_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
-        add_action( 'wp_ajax_nopriv_rr_dismissed_extension_notice', array(&$this,'ajax_rr_dismissed_extension_notice' ));
         $this->init();
 	}
 
