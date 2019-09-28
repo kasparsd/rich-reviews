@@ -210,24 +210,24 @@ class RROptions {
     * @param  string $opt_name
     * @param  mixed $opt_val
     */
-    public function update_option($opt_name, $opt_val = '') {
+    public function update_option( $opt_name, $opt_val = '' ) {
        // ----- allow a function override where we just use a key/val array
-       if (is_array($opt_name) && $opt_val == '') {
-           foreach ($opt_name as $real_opt_name => $real_opt_value) {
-               $this->update_option($real_opt_name, $real_opt_value);
+       if ( is_array( $opt_name ) && $opt_val == '' ) {
+           foreach ( $opt_name as $real_opt_name => $real_opt_value) {
+               $this->update_option( $real_opt_name, $real_opt_value );
            }
-       }
-       else {
+       } else {
            $current_options = $this->get_option(); // get all the stored options
 
            // ----- make sure we at least start with blank options
-           if ($current_options == FALSE) {
+           if ( ! is_array( $current_options ) ) {
                $current_options = array();
            }
 
+           $current_options[ $opt_name ] = sanitize_text_field( $opt_val );
+
            // ----- now save using the wordpress function
-           $new_option = array($opt_name => $opt_val);
-           update_option($this->options_name, array_merge($current_options, $new_option));
+           update_option( $this->options_name, $current_options );
        }
     }
 
