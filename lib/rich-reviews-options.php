@@ -217,17 +217,21 @@ class RROptions {
                $this->update_option( $real_opt_name, $real_opt_value );
            }
        } else {
-           $current_options = $this->get_option(); // get all the stored options
+            $current_options = $this->get_option(); // get all the stored options
 
-           // ----- make sure we at least start with blank options
-           if ( ! is_array( $current_options ) ) {
-               $current_options = array();
-           }
+            // ----- make sure we at least start with blank options
+            if ( ! is_array( $current_options ) ) {
+                $current_options = array();
+            }
 
-           $current_options[ $opt_name ] = sanitize_text_field( $opt_val );
+            if ( is_null( $opt_val ) || is_bool( $opt_val ) ) {
+                $current_options[ $opt_name ] = $opt_val;
+            } else {
+                $current_options[ $opt_name ] = sanitize_text_field( $opt_val );
+            }
 
-           // ----- now save using the wordpress function
-           update_option( $this->options_name, $current_options );
+            // ----- now save using the wordpress function
+            update_option( $this->options_name, $current_options );
        }
     }
 
