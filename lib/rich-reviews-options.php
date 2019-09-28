@@ -115,7 +115,31 @@ class RROptions {
         }
     }
 
-    public function update_options($init = null) {
+    /**
+     * Get the sanitized settings posted in the admin.
+     *
+     * @return array
+     */
+    protected function get_posted_options() {
+        $posted = array();
+            
+        foreach ( $this->defaults as $option_key => $option_default_value ) {
+            $option_posted_value = filter_input( INPUT_POST, $option_key, FILTER_SANITIZE_STRING );
+
+            if ( null !== $option_posted_value ) {
+                $posted[ $option_key ] = sanitize_text_field( $option_posted_value );
+            } else {
+                $posted[ $option_key ] = null;
+            }
+        }
+
+        return $posted;
+    }
+
+    public function update_options( $init = null ) {
+        $posted = $this->get_posted_options();
+        $current_settings = array_merge( $this->defaults, $this->get_option() );
+
         if($init == true ) {
             foreach($this->defaults as $key => $val) {
                 if(!$this->get_option($key)) {
@@ -123,88 +147,26 @@ class RROptions {
                 }
             }
         }
-        if ($this->updated === 'rr-update-options') {
-             if (!isset($_POST['snippet_stars'])) { $_POST['snippet_stars'] = false; }
-             if (!isset($_POST['show_date'])) { $_POST['show_date'] = false; }
-             if (!isset($_POST['require_approval'])) { $_POST['require_approval'] = false; }
-             if (!isset($_POST['show_form_post_title'])) { $_POST['show_form_post_title'] = false; }
-             if (!isset($_POST['display_full_width'])) { $_POST['display_full_width'] = false; }
-             if (!isset($_POST['credit_permission'])) { $_POST['credit_permission'] = false; }
-			       if (!isset($_POST['rich_include_url'])) { $_POST['rich_include_url'] = false; }
-             if (!isset($_POST['form-name-label'])) { $_POST['form-name-label'] = false; }
-             if (!isset($_POST['form-name-display'])) { $_POST['form-name-display'] = false; }
-             if (!isset($_POST['form-name-require'])) { $_POST['form-name-require'] = false; }
-             if (!isset($_POST['form-name-use-usernames'])) { $_POST['form-name-use-usernames'] = false; }
-             if (!isset($_POST['form-email-use-useremails'])) { $_POST['form-email-use-useremails'] = false; }
-             if (!isset($_POST['form-name-use-avatar'])) { $_POST['form-name-use-avatar'] = false; }
-             if (!isset($_POST['form-name-use-blank-avatar'])) { $_POST['form-name-use-blank-avatar'] = false; }
-             if (!isset($_POST['unregistered-allow-avatar-upload'])) { $_POST['unregistered-allow-avatar-upload'] = false; }
-             if (!isset($_POST['form-email-display'])) { $_POST['form-email-display'] = false; }
-             if (!isset($_POST['form-email-require'])) { $_POST['form-email-require'] = false; }
-             if (!isset($_POST['form-title-display'])) { $_POST['form-title-display'] = false; }
-             if (!isset($_POST['form-title-require'])) { $_POST['form-title-require'] = false; }
-             if (!isset($_POST['form-content-display'])) { $_POST['form-content-display'] = false; }
-             if (!isset($_POST['form-content-require'])) { $_POST['form-content-require'] = false; }
-             // if (!isset($_POST['form-reviewed-image-display'])) { $_POST['form-reviewed-image-display'] = false; }
-             // if (!isset($_POST['form-reviewed-image-require'])) { $_POST['form-reviewed-image-require'] = false; }
-             // if (!isset($_POST['form-reviewer-image-display'])) { $_POST['form-reviewer-image-display'] = false; }
-             if (!isset($_POST['form-reviewer-image-require'])) { $_POST['form-reviewer-image-require'] = false; }
-             if (!isset($_POST['integrate-user-info'])) { $_POST['integrate-user-info'] = false; }
-             if (!isset($_POST['require-login'])) { $_POST['require-login'] = false; }
-             if (!isset($_POST['return-to-form'])) { $_POST['return-to-form'] = false; }
-             if (!isset($_POST['submit-form-redirect'])) { $_POST['submit-form-redirect'] = false; }
-             if (!isset($_POST['send-email-notifications'])) { $_POST['send-email-notifications'] = false; }
-             if (!isset($_POST['add-shopper-approved'])) { $_POST['add-shopper-approved'] = false; }
 
-            if(!$_POST['integrate-user-info']) {
-                $_POST['form-name-use-usernames'] = false;
-                $_POST['require-login'] = false;
-                $_POST['form-name-use-avatar'] = false;
-                $_POST['unregistered-allow-avatar-upload'] = false;
-            } else if($_POST['require-login'] == 'checked') {
-                $_POST['unregistered-allow-avatar-upload'] = false;
+        if ( $this->updated === 'rr-update-options' ) {
+            if( ! $posted['integrate-user-info'] ) {
+                $posted['form-name-use-usernames'] = false;
+                $posted['require-login'] = false;
+                $posted['form-name-use-avatar'] = false;
+                $posted['unregistered-allow-avatar-upload'] = false;
+            } elseif ( $posted['require-login'] == 'checked' ) {
+                $posted['unregistered-allow-avatar-upload'] = false;
             }
 
-            if($_POST['form-name-use-avatar'] == false ) {
-                $_POST['form-name-use-blank-avatar'] = false;
+            if ( $posted['form-name-use-avatar'] == false ) {
+                $posted['form-name-use-blank-avatar'] = false;
             }
 
-            $current_settings = $this->get_option();
-            $clean_current_settings = array();
-            foreach ($current_settings as $k=>$val) {
-                if ($k != NULL) {
-                    $clean_current_settings[$k] = $val;
-                }
-            }
-
-            $this->defaults = array_merge($this->defaults, $clean_current_settings);
-            $update = array_merge($this->defaults, $_POST);
-            $data = array();
-            foreach ($update as $key=>$value) {
-                if ($key != 'update' && $key != NULL) {
-                    $data[$key] = $value;
-                }
-            }
-
-            $this->update_option($data);
+            $this->update_option( array_merge( $current_settings, $posted ) );
         } elseif ( $this->updated === 'rr-update-support' || $this->updated === 'rr-update-support-prompt' ) {
-            $current_settings = $this->get_option();
-            $this->defaults = array_merge($this->defaults, $current_settings);
-            $update = array_merge($this->defaults, $_POST);
-            $data = array();
-            foreach ($update as $key=>$value) {
-                if ($key != 'update' && $key != NULL) {
-                    $data[$key] = $value;
-
-                }
-            }
-            $this->update_option($data);
+            $this->update_option( array_merge( $current_settings, $posted ) );
         }
     }
-
-
-
-
 
     // From metabox v1.0.6
 
@@ -323,7 +285,7 @@ class RROptions {
              echo '<div class="updated">Thank you for supporting the development team! We really appreciate how awesome you are.</div>';
             $this->updated = FALSE;
         }
-	}
+    }
 
   public function force_update() {
       $current_settings = $this->get_option();
