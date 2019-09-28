@@ -76,7 +76,10 @@ class RichReviews {
 		$this->logo_url = $this->plugin_url . 'images/RR-icon-full.jpg';
 		$this->icon_small_url = $this->plugin_url . 'images/RR-icon-16.png';
 		$this->options_name = 'rr_options';
-		$this->options= new RROptions($this);
+
+		$update_option_key = filter_input( INPUT_POST, 'update', FILTER_SANITIZE_STRING );
+		$this->options= new RROptions( $this, $update_option_key );
+		
 		$this->db = new RichReviewsDB($this);
 		$this->admin = new RichReviewsAdmin($this);
 

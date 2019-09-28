@@ -30,14 +30,22 @@ class RROptions {
     var $new_pt_slug;
 
     /**
+     * List of supported option keys.
+     * 
+     * @var array
+     */
+    const OPTION_KEYS = [
+        'rr-update-options',
+        'rr-update-support',
+        'rr-update-support-prompt',
+    ];
+
+    /**
      *
      * @param RichReviews $core
      */
-    public function __construct($core) {
+    public function __construct( $core, $update_options_key = null ) {
         $this->core = $core;
-        if (isset($_POST['update'])) {
-            $this->updated = $_POST['update'];
-        }
         $this->options_name = $core->options_name;
         $this->defaults = array(
     			'version' => '1.7.3',
@@ -96,6 +104,11 @@ class RROptions {
           'schema_type' =>  'Product',
           'submit-form-redirect' => FALSE
           );
+        
+        if ( in_array( $update_options_key, self::OPTION_KEYS, true ) ) {
+            $this->updated = $update_options_key;
+        }
+
         if ($this->get_option() == FALSE) {
             $this->set_to_defaults();
         }
@@ -117,7 +130,7 @@ class RROptions {
                 }
             }
         }
-        if (isset($_POST['update']) && $_POST['update'] === 'rr-update-options') {
+        if ($this->updated === 'rr-update-options') {
              if (!isset($_POST['snippet_stars'])) { $_POST['snippet_stars'] = false; }
              if (!isset($_POST['show_date'])) { $_POST['show_date'] = false; }
              if (!isset($_POST['require_approval'])) { $_POST['require_approval'] = false; }
@@ -181,10 +194,7 @@ class RROptions {
             }
 
             $this->update_option($data);
-            $_POST['update'] = NULL;
-            $this->updated = 'wpm-update-options';
-        }
-        else if (isset($_POST['update']) && ($_POST['update'] === 'rr-update-support' || $_POST['update'] === 'rr-update-support-prompt')) {
+        } elseif ( $this->updated === 'rr-update-support' || $this->updated === 'rr-update-support-prompt' ) {
             $current_settings = $this->get_option();
             $this->defaults = array_merge($this->defaults, $current_settings);
             $update = array_merge($this->defaults, $_POST);
@@ -196,9 +206,6 @@ class RROptions {
                 }
             }
             $this->update_option($data);
-            $_POST['update'] = NULL;
-            $this->updated = 'rr-update-support';
-            //$this-set_to_defaults();
         }
     }
 
@@ -336,7 +343,6 @@ class RROptions {
           }
       }
       $this->update_option($data);
-      $_POST['update'] = NULL;
       $this->updated = 'rr-update-support';
   }
 }
